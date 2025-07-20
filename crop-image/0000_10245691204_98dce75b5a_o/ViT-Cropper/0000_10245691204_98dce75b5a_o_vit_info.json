@@ -1,0 +1,103 @@
+{
+  "image_name": "0000_10245691204_98dce75b5a_o",
+  "original_path": "/root/input/0/0000_10245691204_98dce75b5a_o.jpg",
+  "output_directory": "/root/output/0/0000_10245691204_98dce75b5a_o/ViT-Cropper/temp/0000_10245691204_98dce75b5a_o",
+  "original_size": {
+    "width": 640,
+    "height": 640
+  },
+  "processing_method": "VIT_Attention",
+  "parameters": {
+    "crop_size_ratio": 0.8,
+    "num_crops": 5,
+    "use_corners": false
+  },
+  "num_crops_generated": 5,
+  "crops": [
+    {
+      "crop_id": 1,
+      "filename": "0000_10245691204_98dce75b5a_o_crop_1.jpg",
+      "coordinates": {
+        "x1": 128,
+        "y1": 128,
+        "x2": 640,
+        "y2": 640
+      },
+      "width": 512,
+      "height": 512,
+      "center_x": 384,
+      "center_y": 384
+    },
+    {
+      "crop_id": 2,
+      "filename": "0000_10245691204_98dce75b5a_o_crop_2.jpg",
+      "coordinates": {
+        "x1": 0,
+        "y1": 0,
+        "x2": 512,
+        "y2": 512
+      },
+      "width": 512,
+      "height": 512,
+      "center_x": 256,
+      "center_y": 256
+    },
+    {
+      "crop_id": 3,
+      "filename": "0000_10245691204_98dce75b5a_o_crop_3.jpg",
+      "coordinates": {
+        "x1": 128,
+        "y1": 128,
+        "x2": 640,
+        "y2": 640
+      },
+      "width": 512,
+      "height": 512,
+      "center_x": 384,
+      "center_y": 384
+    },
+    {
+      "crop_id": 4,
+      "filename": "0000_10245691204_98dce75b5a_o_crop_4.jpg",
+      "coordinates": {
+        "x1": 0,
+        "y1": 61,
+        "x2": 512,
+        "y2": 573
+      },
+      "width": 512,
+      "height": 512,
+      "center_x": 256,
+      "center_y": 317
+    },
+    {
+      "crop_id": 5,
+      "filename": "0000_10245691204_98dce75b5a_o_crop_5.jpg",
+      "coordinates": {
+        "x1": 128,
+        "y1": 0,
+        "x2": 640,
+        "y2": 512
+      },
+      "width": 512,
+      "height": 512,
+      "center_x": 384,
+      "center_y": 256
+    }
+  ],
+  "files_generated": {
+    "original_copy": "0000_10245691204_98dce75b5a_o_original.jpg",
+    "visualization": "0000_10245691204_98dce75b5a_o_visualization.jpg",
+    "crops": [
+      "0000_10245691204_98dce75b5a_o_crop_1.jpg",
+      "0000_10245691204_98dce75b5a_o_crop_2.jpg",
+      "0000_10245691204_98dce75b5a_o_crop_3.jpg",
+      "0000_10245691204_98dce75b5a_o_crop_4.jpg",
+      "0000_10245691204_98dce75b5a_o_crop_5.jpg"
+    ],
+    "crop_info": "0000_10245691204_98dce75b5a_o_crop_info.json",
+    "attention_heatmap": "0000_10245691204_98dce75b5a_o_attention.jpg",
+    "detailed_analysis": "0000_10245691204_98dce75b5a_o_detailed_analysis.jpg"
+  },
+  "processed_at": "2025-07-20T12:06:37.091033"
+}

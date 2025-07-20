@@ -1,0 +1,103 @@
+{
+  "image_name": "0000_17131114739_7ec168e7ff_o",
+  "original_path": "/root/input/0/0000_17131114739_7ec168e7ff_o.jpg",
+  "output_directory": "/root/output/0/0000_17131114739_7ec168e7ff_o/ViT-Cropper/temp/0000_17131114739_7ec168e7ff_o",
+  "original_size": {
+    "width": 2056,
+    "height": 3088
+  },
+  "processing_method": "VIT_Attention",
+  "parameters": {
+    "crop_size_ratio": 0.8,
+    "num_crops": 5,
+    "use_corners": false
+  },
+  "num_crops_generated": 5,
+  "crops": [
+    {
+      "crop_id": 1,
+      "filename": "0000_17131114739_7ec168e7ff_o_crop_1.jpg",
+      "coordinates": {
+        "x1": 0,
+        "y1": 536,
+        "x2": 1644,
+        "y2": 2180
+      },
+      "width": 1644,
+      "height": 1644,
+      "center_x": 822,
+      "center_y": 1358
+    },
+    {
+      "crop_id": 2,
+      "filename": "0000_17131114739_7ec168e7ff_o_crop_2.jpg",
+      "coordinates": {
+        "x1": 0,
+        "y1": 1120,
+        "x2": 1644,
+        "y2": 2764
+      },
+      "width": 1644,
+      "height": 1644,
+      "center_x": 822,
+      "center_y": 1942
+    },
+    {
+      "crop_id": 3,
+      "filename": "0000_17131114739_7ec168e7ff_o_crop_3.jpg",
+      "coordinates": {
+        "x1": 0,
+        "y1": 0,
+        "x2": 1644,
+        "y2": 1644
+      },
+      "width": 1644,
+      "height": 1644,
+      "center_x": 822,
+      "center_y": 822
+    },
+    {
+      "crop_id": 4,
+      "filename": "0000_17131114739_7ec168e7ff_o_crop_4.jpg",
+      "coordinates": {
+        "x1": 143,
+        "y1": 1045,
+        "x2": 1787,
+        "y2": 2689
+      },
+      "width": 1644,
+      "height": 1644,
+      "center_x": 965,
+      "center_y": 1867
+    },
+    {
+      "crop_id": 5,
+      "filename": "0000_17131114739_7ec168e7ff_o_crop_5.jpg",
+      "coordinates": {
+        "x1": 0,
+        "y1": 0,
+        "x2": 1644,
+        "y2": 1644
+      },
+      "width": 1644,
+      "height": 1644,
+      "center_x": 822,
+      "center_y": 822
+    }
+  ],
+  "files_generated": {
+    "original_copy": "0000_17131114739_7ec168e7ff_o_original.jpg",
+    "visualization": "0000_17131114739_7ec168e7ff_o_visualization.jpg",
+    "crops": [
+      "0000_17131114739_7ec168e7ff_o_crop_1.jpg",
+      "0000_17131114739_7ec168e7ff_o_crop_2.jpg",
+      "0000_17131114739_7ec168e7ff_o_crop_3.jpg",
+      "0000_17131114739_7ec168e7ff_o_crop_4.jpg",
+      "0000_17131114739_7ec168e7ff_o_crop_5.jpg"
+    ],
+    "crop_info": "0000_17131114739_7ec168e7ff_o_crop_info.json",
+    "attention_heatmap": "0000_17131114739_7ec168e7ff_o_attention.jpg",
+    "detailed_analysis": "0000_17131114739_7ec168e7ff_o_detailed_analysis.jpg"
+  },
+  "processed_at": "2025-07-20T09:50:17.716754"
+}

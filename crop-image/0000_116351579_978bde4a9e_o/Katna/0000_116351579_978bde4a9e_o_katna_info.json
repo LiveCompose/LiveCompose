@@ -1,0 +1,66 @@
+{
+  "original_image": "input/0/0000_116351579_978bde4a9e_o.jpg",
+  "original_size": {
+    "width": 2592,
+    "height": 1944
+  },
+  "crops": [
+    {
+      "crop_id": 0,
+      "crop_filename": "0000_116351579_978bde4a9e_o_crop_0.jpg",
+      "bounding_box": {
+        "x": 1280,
+        "y": 1280,
+        "width": 400,
+        "height": 400
+      },
+      "crop_size": {
+        "width": 400,
+        "height": 400
+      },
+      "score": -2.233544905898634,
+      "target_size": {
+        "width": 400,
+        "height": 400
+      }
+    },
+    {
+      "crop_id": 1,
+      "crop_filename": "0000_116351579_978bde4a9e_o_crop_1.jpg",
+      "bounding_box": {
+        "x": 1344,
+        "y": 1280,
+        "width": 400,
+        "height": 400
+      },
+      "crop_size": {
+        "width": 400,
+        "height": 400
+      },
+      "score": -2.2515551735771555,
+      "target_size": {
+        "width": 400,
+        "height": 400
+      }
+    },
+    {
+      "crop_id": 2,
+      "crop_filename": "0000_116351579_978bde4a9e_o_crop_2.jpg",
+      "bounding_box": {
+        "x": 448,
+        "y": 704,
+        "width": 400,
+        "height": 400
+      },
+      "crop_size": {
+        "width": 400,
+        "height": 400
+      },
+      "score": -2.2590909290187207,
+      "target_size": {
+        "width": 400,
+        "height": 400
+      }
+    }
+  ]
+}
