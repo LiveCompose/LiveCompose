@@ -1,0 +1,12 @@
+# Core
+diffusers>=0.28.0
+transformers>=4.41.0
+accelerate>=0.29.2    # speeds up HF pipelines
+pyyaml>=6.0.2
+numpy>=1.26.4
+pillow>=10.3.0
+opencv-python>=4.10.0.0
+
+# GUI (Tkinter is in stdlib; no pip install needed)
+# PyTorch:  install separately to match your CUDA version
+#   e.g.  pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
