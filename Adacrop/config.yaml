@@ -1,0 +1,56 @@
+env:
+  img_size: 224
+  max_steps: 200
+  action_delta: 0.08
+
+train:
+  training_gpus: 3 #1
+  algorithm: "PPO"         
+  total_timesteps: 20000000
+  gamma: 0.99
+  lam: 0.95
+  clip_param: 0.2
+  lr: 3e-4
+  n_steps: 512
+  batch_size: 2048 # 1536
+  minibatch_size: 256 #128
+  ppo_epochs: 6 #10
+  value_loss_coef: 0.5
+  entropy_coef: 0.03 #0.05
+  max_steps: 8000000
+  supervised_pretrain: true    # 是否启用监督预训练
+  pretrain_epochs: 40 #20          # 监督预训练轮数
+  pretrain_lr: 1e-4            # 预训练学习率
+  pretrain_batch_size: 512      # 预训练 batch size
+  log_interval: 3
+  save_interval: 20
+  # no_op_penalty: 0.005          # 防止不动
+  # reverse_penalty: 0.05        # 防止来回重复动
+  save_dir: "./Adacrop/logs"
+  max_grad_norm: 0.8 # 0.5
+  num_workers: 16
+  
+nima:
+  use_dual_gpu: false           
+  training_gpus: [3] # [1]     
+  batch_size: 48 # 32          
+  max_wait_time: 0.01
+  weights_path: "./NIMA/weights/nima_inception_pytorch.pth"
+  real_score_interval: 5     
+  cache_size: 10000
+  queue_size: 10
+
+reward:
+  no_op_penalty: 0.001 #0.003
+  visit_penalty: 0.002 #0.008
+  repeat_penalty: 0.01 #0.06
+  max_repeat: 25 #15
+
+data:
+  train_json: "./Adacrop/data/splits/train_mixed_v2.json"
+  val_json:   "./Adacrop/data/splits/val_mixed_v2.json"
+  num_envs: 128 #96
+
+export:
+  onnx_opset: 13
+  coreml_precision: "float16"
