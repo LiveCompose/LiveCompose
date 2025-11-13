@@ -4,7 +4,7 @@ env:
   action_delta: 0.08
 
 train:
-  training_gpus: 3 #1
+  training_gpus: 2 #1
   algorithm: "PPO"         
   total_timesteps: 20000000
   gamma: 0.99
@@ -32,7 +32,7 @@ train:
   
 nima:
   use_dual_gpu: false           
-  training_gpus: [3] # [1]     
+  training_gpus: [2] # [1]     
   batch_size: 48 # 32          
   max_wait_time: 0.01
   weights_path: "./NIMA/weights/nima_inception_pytorch.pth"
@@ -47,8 +47,8 @@ reward:
   max_repeat: 25 #15
 
 data:
-  train_json: "./Adacrop/data/splits/train_mixed_v2.json"
-  val_json:   "./Adacrop/data/splits/val_mixed_v2.json"
+  train_json: "./Adacrop/data/splits/train_mixed.json"
+  val_json:   "./Adacrop/data/splits/val.json"
   num_envs: 128 #96
 
 export:

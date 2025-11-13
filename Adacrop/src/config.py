@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR)
 CONFIG_PATH = BASE_DIR / "config.yaml"
 print(f"！Loading config from: {CONFIG_PATH}")
 

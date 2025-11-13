@@ -45,7 +45,7 @@ def supervised_pretrain(cfg, n_actions):
     train_loader, _ = make_pretrain_loaders(cfg)
 
     # 用推断到的 n_actions 初始化网络
-    net = ActorCritic(n_actions=n_actions).cuda()
+    net = ActorCritic(n_actions=n_actions).to(device)
     lr = float(cfg.train['pretrain_lr'])
     optimizer = torch.optim.Adam(net.parameters(), lr=lr)
 
@@ -53,7 +53,8 @@ def supervised_pretrain(cfg, n_actions):
         net.train()
         total_loss = 0.0
         for imgs, targets in train_loader:
-            imgs, targets = imgs.cuda(), targets.cuda()
+            imgs = imgs.to(device, non_blocking=True)
+            targets = targets.to(device, non_blocking=True)
             preds = net.backbone_forward(imgs)   # [B,4]
             loss  = F.mse_loss(preds, targets)
             optimizer.zero_grad()
@@ -64,7 +65,7 @@ def supervised_pretrain(cfg, n_actions):
               f"Loss: {total_loss/len(train_loader):.4f}")
 
     # 把预训练的 backbone & bbox_head 权重迁移到完整模型
-    rl_model = ActorCritic(n_actions=n_actions).cuda()
+    rl_model = ActorCritic(n_actions=n_actions).to(device)
     rl_model.backbone.load_state_dict(net.backbone.state_dict())
     rl_model.bbox_head.load_state_dict(net.bbox_head.state_dict())
     return rl_model
@@ -87,10 +88,23 @@ def infer_n_actions(env):
 
     raise RuntimeError(f"无法推断动作数：env 类型为 {type(env)}")
 
+def _get_training_device(cfg):
+    g = cfg.train.get("training_gpus", 0)
+    if isinstance(g, (list, tuple)):
+        g = g[0] if len(g) > 0 else 0
+    try:
+        idx = int(g)
+        return torch.device(f"cuda:{idx}" if torch.cuda.is_available() else "cpu")
+    except Exception:
+        return torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        
 def main():
     # 1. 加载配置
-    cfg = Config("config.yaml")
-
+    #cfg = Config("config.yaml")
+    cfg = Config()
+    device = _get_training_device(cfg)
+    torch.cuda.set_device(device)
+    
     # 2. 构造环境并推断动作数
     envs = make_envs_from_json(cfg)
     n_actions = infer_n_actions(envs[0])
@@ -99,7 +113,7 @@ def main():
     if cfg.train.get('supervised_pretrain', False):
         model = supervised_pretrain(cfg, n_actions)
     else:
-        model = ActorCritic(n_actions=n_actions).cuda()
+        model = ActorCritic(n_actions=n_actions).to(device)
 
     # 4. 强化训练（PPO）
     print(">>> 开始 PPO 训练，envs 数量：", len(envs), " n_actions：", n_actions)
