@@ -41,7 +41,7 @@ def make_pretrain_loaders(cfg):
     )
     return train_loader, val_loader
 
-def supervised_pretrain(cfg, n_actions):
+def supervised_pretrain(cfg, n_actions, device):
     train_loader, _ = make_pretrain_loaders(cfg)
 
     # 用推断到的 n_actions 初始化网络
@@ -111,7 +111,7 @@ def main():
 
     # 3. 监督预训练 or 直接初始化
     if cfg.train.get('supervised_pretrain', False):
-        model = supervised_pretrain(cfg, n_actions)
+        model = supervised_pretrain(cfg, n_actions, device)
     else:
         model = ActorCritic(n_actions=n_actions).to(device)
 

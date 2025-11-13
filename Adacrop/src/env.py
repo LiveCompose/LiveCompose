@@ -177,6 +177,7 @@ class CropEnv:
 
         act = self.actions[action_idx]
         old_box = self.box.copy()
+        old_score = self.prev_score
 
         if act == "stop":
             final_score = self._get_score(self.box)
@@ -239,10 +240,20 @@ class CropEnv:
             new_score = self.prev_score
         else:
             self.repeat_count = 0  # 重置重复计数
-            new_score = self._get_score(new_box)
-        
+            #new_score = self._get_score(new_box)
+            # 调试
+            new_score = self._safe_nima_score(
+                self.orig.crop((self.box[0], self.box[1], self.box[0]+self.box[2], self.box[1]+self.box[3]))
+                    .resize((self.img_size, self.img_size))
+            )
             score_diff = new_score - self.prev_score
             base_reward = np.tanh(score_diff * 2.0)
+        
+        if self.step_count % 10 == 0:
+            print(f"Debug Step {self.step_count}: "
+                f"score={new_score:.3f}, "
+                f"score_diff={new_score-self.prev_score:.3f}, "
+                f"repeat_count={self.repeat_count}")
 
         # 简化惩罚机制
         penalty = 0.0
@@ -271,13 +282,7 @@ class CropEnv:
 
         if new_score > self.best_score:
             self.best_score = new_score
-        
-        
-        if self.step_count % 10 == 0:
-            print(f"Debug Step {self.step_count}: "
-                f"score={new_score:.3f}, "
-                f"score_diff={new_score-self.prev_score:.3f}, "
-                f"repeat_count={self.repeat_count}")
+    
         
         return self._state(), reward, done, {}
     
