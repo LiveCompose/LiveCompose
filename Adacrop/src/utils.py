@@ -22,7 +22,7 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torchvision.models as models
 import torchvision.transforms as T
-from src.config import Config
+from config import Config
 
 
 '''
@@ -188,8 +188,8 @@ class A2CTrainer(TrainerMixin):
             rewards_list, dones_list = [], []
 
             for _ in range(self.cfg.train["n_steps"]):
-                imgs = torch.stack([s[0] for s in states]).to(device)
-                st   = torch.stack([s[1] for s in states]).to(device)
+                imgs = torch.stack([s[0] for s in states]).to(self.device)
+                st   = torch.stack([s[1] for s in states]).to(self.device)
 
                 with torch.no_grad():
                     probs, values = self.model(imgs, st)
@@ -216,7 +216,7 @@ class A2CTrainer(TrainerMixin):
             # 2. GAE 与 Returns
             # 把最后一步 value 加到 vals_list 尾
             with torch.no_grad():
-                _, next_val = self.model(imgs_list[-1].to(device), st_list[-1].to(device))
+                _, next_val = self.model(imgs_list[-1].to(self.device), st_list[-1].to(self.device))
             vals_all = vals_list + [next_val.squeeze().cpu()]
             rewards = torch.stack(rewards_list).numpy()  # [T, N]
             dones   = torch.stack(dones_list).numpy()    # [T, N]
@@ -230,12 +230,12 @@ class A2CTrainer(TrainerMixin):
             )
 
             # 3. 扁平化到 GPU Tensor
-            imgs_batch = torch.cat(imgs_list).to(device)           # (T*N, C, H, W)
-            st_batch   = torch.cat(st_list).to(device)             # (T*N, dim)
-            acts_batch = torch.cat(acts_list).to(device)           # (T*N,)
-            old_logps  = torch.cat(logps_list).to(device)          # (T*N,)
-            advs_t     = torch.tensor(advs.flatten(), dtype=torch.float32).to(device)
-            ret_t      = torch.tensor(returns.flatten(), dtype=torch.float32).to(device)
+            imgs_batch = torch.cat(imgs_list).to(self.device)           # (T*N, C, H, W)
+            st_batch   = torch.cat(st_list).to(self.device)             # (T*N, dim)
+            acts_batch = torch.cat(acts_list).to(self.device)           # (T*N,)
+            old_logps  = torch.cat(logps_list).to(self.device)          # (T*N,)
+            advs_t     = torch.tensor(advs.flatten(), dtype=torch.float32).to(self.device)
+            ret_t      = torch.tensor(returns.flatten(), dtype=torch.float32).to(self.device)
 
             # 4. 单步更新
             probs, vals = self.model(imgs_batch, st_batch)
@@ -433,10 +433,9 @@ class PPOTrainer(A2CTrainer):
         super().__init__(model, envs, cfg)
         self.clip_param = cfg.train.get("clip_param", 0.2)
         self.ppo_epochs = cfg.train.get("ppo_epochs", 4)
-        self.batch_size = cfg.train.get("batch_size", 2048)      # ✅ 大batch充分利用A800
-        self.minibatch_size = cfg.train.get("minibatch_size", 256)  # ✅ 合理minibatch
+        self.batch_size = cfg.train.get("batch_size", 2048)     
+        self.minibatch_size = cfg.train.get("minibatch_size", 256)  
         
-        # ✅ 移除GradScaler，简化内存管理
         raw_lr = cfg.train["lr"]
         lr = float(raw_lr)
         self.optimizer = Adam(self.model.parameters(), lr=lr)
@@ -445,7 +444,17 @@ class PPOTrainer(A2CTrainer):
         self.save_interval = cfg.train.get("save_interval", 50)
         self.best_reward = -float("inf")
         
-        # ✅ A800专用内存管理参数
+        # 熵退火参数
+        self.ent_coef_init  = float(cfg.train.get("entropy_coef", 0.10))
+        self.ent_coef_final = float(cfg.train.get("entropy_coef_final", 0.01))
+        self.ent_coef = self.ent_coef_init
+        self.max_steps_total = int(cfg.train.get("max_steps", cfg.train.get("total_timesteps", 1)))
+
+        # 早期屏蔽 stop（只在采样用）
+        self.stop_idx = self.envs[0].actions.index("stop")
+        self.stop_mask_steps = int(cfg.train.get("stop_mask_steps", 8))              # 每个 episode 前K步屏蔽
+        self.stop_mask_warmup = int(cfg.train.get("stop_mask_warmup_steps", 200000)) # 全局前多少步启用屏蔽
+
         self.memory_threshold = 75.0  # 70GB阈值
         self.prefetch_factor = 8      # 预取倍数
         self.pin_memory = True        # 启用固定内存
@@ -507,23 +516,22 @@ class PPOTrainer(A2CTrainer):
             allocated, reserved = self._monitor_memory(f"Rollout {rollout_count} 开始")
             
             try:
-                # 高效收集rollout数据
-                rollout_data = self._collect_rollout_a800(states, device)
+                # 收集rollout数据
+                rollout_data = self._collect_rollout_a800(states, device, global_step)
                 states = rollout_data['next_states']
                 global_step += rollout_data['steps']
                 
-                self._monitor_memory("收集完成")
                 
                 # 计算GAE
                 advs, returns = self._compute_gae_a800(rollout_data)
                 mean_reward = float(np.mean(returns))
-                
-                self._monitor_memory("GAE完成")
-                
-                self._ppo_update_a800(rollout_data, advs, returns, device)
-                
-                self._monitor_memory("更新完成")
 
+                # 熵退火（线性）
+                frac = min(1.0, global_step / max(1, self.max_steps_total))
+                self.ent_coef = (1 - frac) * self.ent_coef_init + frac * self.ent_coef_final
+
+                self._ppo_update_a800(rollout_data, advs, returns, device)
+      
                 del rollout_data, advs, returns
                 torch.cuda.empty_cache()
                 
@@ -548,19 +556,16 @@ class PPOTrainer(A2CTrainer):
             if rollout_count % self.save_interval == 0:
                 checkpoint_name = f"rollout_{rollout_count}"
                 self.save_model(tag=checkpoint_name)
-                print(f"📁 模型已保存 (rollout {rollout_count})")
+                print(f"* 模型已保存 (rollout {rollout_count})")
 
             if mean_reward > self.best_reward:
                 self.best_reward = mean_reward
                 self.save_model(tag="best")
-                print(f"🏆 最佳模型 (reward {mean_reward:.3f})")
+                print(f"** 最佳模型 (reward {mean_reward:.3f})")
 
-    def _collect_rollout_a800(self, states, device):
-        """A800优化的rollout收集"""
-
+    def _collect_rollout_a800(self, states, device, global_step: int):
         n_steps = self.cfg.train.get("n_steps", 512)
         
-        # ✅ 预分配大张量，充分利用A800显存
         batch_imgs = torch.zeros(n_steps, self.n_envs, 3, 224, 224, device=device, dtype=torch.float32)
         batch_states = torch.zeros(n_steps, self.n_envs, 4, device=device, dtype=torch.float32)
         batch_actions = torch.zeros(n_steps, self.n_envs, device=device, dtype=torch.long)
@@ -577,22 +582,23 @@ class PPOTrainer(A2CTrainer):
 
                 with torch.no_grad():
                     probs, values = self.model(imgs, st)
-                    
-                    # ✅ 数值稳定性
-                    if torch.isnan(probs).any():
-                        probs = torch.ones_like(probs) / probs.shape[1]
+                    # 早期对部分env屏蔽 stop
+                    if global_step < self.stop_mask_warmup:
+                        mask = torch.tensor(
+                            [1 if env.step_count < self.stop_mask_steps else 0 for env in self.envs],
+                            device=device, dtype=torch.bool
+                        )
+                        probs[mask, self.stop_idx] = 0.0
                     
                     probs = torch.clamp(probs, min=1e-8)
                     probs = probs / probs.sum(dim=1, keepdim=True)
-
                     dist = torch.distributions.Categorical(probs=probs)
                     actions = dist.sample()
                     logps = dist.log_prob(actions)
 
-                # ✅ 批量环境步进
+                # 批量环境步进
                 next_states, rewards, dones = self._batch_env_step_a800(actions.cpu().numpy())
 
-                # ✅ 直接存储到预分配张量
                 batch_imgs[step] = imgs
                 batch_states[step] = st
                 batch_actions[step] = actions
@@ -601,10 +607,9 @@ class PPOTrainer(A2CTrainer):
                 batch_rewards[step] = torch.tensor(rewards, device=device, dtype=torch.float32)
                 batch_dones[step] = torch.tensor(dones, device=device, dtype=torch.float32)
 
-                # ✅ 更新状态
                 states = next_states
                 
-                # ✅ 清理临时张量
+                # 清理临时张量
                 del imgs, st, probs, values, dist, actions, logps
                 
             except Exception as e:
@@ -687,11 +692,14 @@ class PPOTrainer(A2CTrainer):
         states_flat = rollout_data['states'].view(-1, 4)
         actions_flat = rollout_data['actions'].view(-1)
         logps_flat = rollout_data['logps'].view(-1)
+
         advs_flat = torch.tensor(advs.flatten(), device=device, dtype=torch.float32)
+        advs_flat = (advs_flat - advs_flat.mean()) / (advs_flat.std(unbiased=False) + 1e-8)
+
         returns_flat = torch.tensor(returns.flatten(), device=device, dtype=torch.float32)
 
         for epoch in range(self.ppo_epochs):
-            # ✅ GPU上生成随机索引
+            #  GPU上生成随机索引
             indices = torch.randperm(dataset_size, device=device)
             
             total_batches = (dataset_size + self.minibatch_size - 1) // self.minibatch_size
@@ -701,7 +709,6 @@ class PPOTrainer(A2CTrainer):
                 mb_indices = indices[start:end]
 
                 try:
-                    # ✅ 直接在GPU上索引，避免CPU-GPU传输
                     mb_imgs = imgs_flat[mb_indices]
                     mb_states = states_flat[mb_indices]
                     mb_actions = actions_flat[mb_indices]
@@ -709,13 +716,12 @@ class PPOTrainer(A2CTrainer):
                     mb_advs = advs_flat[mb_indices]
                     mb_returns = returns_flat[mb_indices]
 
-                    # ✅ 前向传播
+                    # 前向传播
                     probs, vals = self.model(mb_imgs, mb_states)
                     dist = torch.distributions.Categorical(probs)
                     new_logps = dist.log_prob(mb_actions)
-                    
-                    # ✅ PPO损失计算
                     ratio = torch.exp(new_logps - mb_old_logps)
+
                     surr1 = ratio * mb_advs
                     surr2 = torch.clamp(ratio, 1.0 - self.clip_param, 1.0 + self.clip_param) * mb_advs
                     policy_loss = -torch.min(surr1, surr2).mean()
@@ -724,13 +730,13 @@ class PPOTrainer(A2CTrainer):
                     
                     loss = policy_loss + self.vf_coef * value_loss - self.ent_coef * entropy
 
-                    # ✅ 梯度更新
+                    #  梯度更新
                     self.optimizer.zero_grad()
                     loss.backward()
                     nn.utils.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
                     self.optimizer.step()
 
-                    # ✅ 定期清理，但不过于频繁
+                    #  定期清理
                     if batch_idx % 10 == 0:
                         torch.cuda.empty_cache()
 
@@ -741,12 +747,12 @@ class PPOTrainer(A2CTrainer):
 
     def _compute_gae_a800(self, rollout_data):
         """A800优化的GAE计算"""
-        # ✅ 在GPU上计算，然后移动到CPU
+        #  在GPU上计算，然后移动到CPU
         rewards_gpu = rollout_data['rewards']
         dones_gpu = rollout_data['dones']
         values_gpu = rollout_data['values']
         
-        # ✅ 添加最后一个value
+        #  添加最后一个value
         with torch.no_grad():
             last_states = rollout_data['next_states']
             last_imgs = torch.stack([s[0] for s in last_states]).to(self.device)
@@ -754,15 +760,13 @@ class PPOTrainer(A2CTrainer):
             _, last_values = self.model(last_imgs, last_st)
             last_values = last_values.squeeze()
         
-        # ✅ 拼接values
         all_values = torch.cat([values_gpu, last_values.unsqueeze(0)], dim=0)
         
-        # ✅ 移动到CPU进行GAE计算
+        #  移动到CPU进行GAE计算
         rewards_np = rewards_gpu.cpu().numpy()
         dones_np = dones_gpu.cpu().numpy()
         values_np = all_values.cpu().numpy()
         
-        # ✅ 清理GPU张量
         del last_imgs, last_st, last_values, all_values
         torch.cuda.empty_cache()
         

@@ -16,7 +16,9 @@ train:
   minibatch_size: 256 #128
   ppo_epochs: 6 #10
   value_loss_coef: 0.5
-  entropy_coef: 0.03 #0.05
+  entropy_coef: 0.1 #0.05
+  entropy_coef_final: 0.01
+  stop_mask_steps: 8
   max_steps: 8000000
   supervised_pretrain: true    # 是否启用监督预训练
   pretrain_epochs: 40 #20          # 监督预训练轮数

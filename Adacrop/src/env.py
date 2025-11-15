@@ -182,23 +182,34 @@ class CropEnv:
             dx = dy = 1.0
 
         act = self.actions[action_idx]
+        if not hasattr(self, "last_action"):
+            self.last_action = None
+            self.same_action_run = 0
+        if act == self.last_action:
+            self.same_action_run += 1
+        else:
+            self.same_action_run = 0
+        self.last_action = act
         old_box = self.box.copy()
         old_score = self.prev_score
 
         if act == "stop":
             final_score = self._get_score(self.box)
+            improv = final_score - self.best_score
             
             # stop奖励：与最佳分数比较
             #reward = final_score - self.best_score
             reward = (final_score - self.prev_score) * 2.0
 
             if self.step_count < 5:
-                reward -= 0.5
-            
+                reward -= 1 # 0.5
+                
+            if improv < 0.02:
+                reward -= 0.3
             # 鼓励适时stop
-            if self.step_count >= 15:
-                #reward += 0.1  # 适时stop的小奖励
-                reward += 0.2
+            #if self.step_count >= 15:
+            #    #reward += 0.1  # 适时stop的小奖励
+            #    reward += 0.2
             
             done = True
             return self._state(), reward, done, {}
@@ -226,6 +237,13 @@ class CropEnv:
         elif act == "shorter":
             h *= (1 - self.delta)
 
+        hit_boundary = False
+        bx0, by0 = x, y
+        if x < 0: x = 0; hit_boundary = True
+        if y < 0: y = 0; hit_boundary = True
+        if x + w > self.orig.width: x = self.orig.width - w; hit_boundary = True
+        if y + h > self.orig.height: y = self.orig.height - h; hit_boundary = True
+
         # 应用边界约束
         min_size = max(10, min(self.orig.width, self.orig.height) * 0.05)
         w = max(min_size, min(self.orig.width - x, max(w, self.delta * self.orig.width)))
@@ -238,15 +256,14 @@ class CropEnv:
             new_box = old_box.copy()
 
         self.box = new_box
+        changed = not np.allclose(old_box, new_box)
 
         if self.inference:
             # 不计算评分与奖励, 只维护状态
-            self.prev_score = self.prev_score  # 保持
             self.step_count += 1
             done = (self.step_count >= self.max_steps) or (self.actions[action_idx] == "stop")
             return self._state(), 0.0, done, {}
 
-        changed = not np.allclose(old_box, new_box)
         if not changed:
             self.repeat_count += 1
             base_reward = -self.no_op_penalty
@@ -268,16 +285,20 @@ class CropEnv:
                 f"score_diff={new_score-self.prev_score:.3f}, "
                 f"repeat_count={self.repeat_count}")
 
-        # 简化惩罚机制
+        # 惩罚机制
         penalty = 0.0
-        
+        if hit_boundary:
+            penalty += 0.02
+        if self.same_action_run >= 6:
+            penalty += 0.03
+        if self.same_action_run >= 10:
+            penalty += 0.06
         # 重复访问惩罚
         box_key = self._get_crop_hash(new_box)
         if box_key in self.history:
             penalty += self.visit_penalty  
         else:
             self.history.add(box_key)
-            reward += 0.01   
         
         # 连续重复动作惩罚（大幅降低）
         if self.repeat_count >= self.max_repeat:
@@ -285,16 +306,13 @@ class CropEnv:
             self.repeat_count = 0
         
         reward = base_reward - penalty
-        
-        # 奖励范围限制
         reward = np.clip(reward, -1.0, 2.0)  # 限制奖励范围
         
         self.prev_score = new_score
         self.step_count += 1
-        done = (self.step_count >= self.max_steps)
-
         if new_score > self.best_score:
             self.best_score = new_score
+        done = (self.step_count >= self.max_steps)
     
         
         return self._state(), reward, done, {}

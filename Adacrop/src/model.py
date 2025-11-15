@@ -44,6 +44,9 @@ class ActorCritic(nn.Module):
             nn.Linear(512, 4)
         )
 
+        if isinstance(self.actor[-1], nn.Linear):
+            nn.init.zeros_(self.actor[-1].bias)
+
     def extract_feats(self, img_tensor):
         """
         img_tensor: [B,3,H,W]
