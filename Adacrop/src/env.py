@@ -10,7 +10,7 @@ class CropEnv:
     _pending_requests = {}
     _batch_scorer = None
 
-    def __init__(self, img: Image.Image, aesthetic_model, cfg):
+    def __init__(self, img: Image.Image, aesthetic_model, cfg, inference=False):
         self.orig = img
         self.model = aesthetic_model
         self.img_size = cfg.env["img_size"]  # 图像大小
@@ -19,6 +19,7 @@ class CropEnv:
         self.actions = ["left","right","up","down",
                         "zoom_in","zoom_out", "wider","narrower",
                         "taller", "shorter", "stop"]
+        self.inference = inference
 
         if hasattr(cfg, 'nima') and 'training_gpus' in cfg.nima:
             nima_gpus = cfg.nima['training_gpus']
@@ -107,7 +108,10 @@ class CropEnv:
             .resize((self.img_size, self.img_size))
         )
 
-        init_score = self._safe_nima_score(start_crop)
+        if self.inference:
+            init_score = 5.0
+        else:
+            init_score = self._safe_nima_score(start_crop)
         
         self.prev_score = init_score
         self.best_score = init_score
@@ -144,6 +148,8 @@ class CropEnv:
         return True
 
     def _get_score(self, box):
+        if self.inference:
+            return self.prev_score
         x, y, w, h = box
         crop_key = self._get_crop_hash(box)
         
@@ -233,6 +239,13 @@ class CropEnv:
 
         self.box = new_box
 
+        if self.inference:
+            # 不计算评分与奖励, 只维护状态
+            self.prev_score = self.prev_score  # 保持
+            self.step_count += 1
+            done = (self.step_count >= self.max_steps) or (self.actions[action_idx] == "stop")
+            return self._state(), 0.0, done, {}
+
         changed = not np.allclose(old_box, new_box)
         if not changed:
             self.repeat_count += 1
@@ -240,12 +253,12 @@ class CropEnv:
             new_score = self.prev_score
         else:
             self.repeat_count = 0  # 重置重复计数
-            #new_score = self._get_score(new_box)
+            new_score = self._get_score(new_box)
             # 调试
-            new_score = self._safe_nima_score(
-                self.orig.crop((self.box[0], self.box[1], self.box[0]+self.box[2], self.box[1]+self.box[3]))
-                    .resize((self.img_size, self.img_size))
-            )
+            #new_score = self._safe_nima_score(
+            #    self.orig.crop((self.box[0], self.box[1], self.box[0]+self.box[2], self.box[1]+self.box[3]))
+            #        .resize((self.img_size, self.img_size))
+            #)
             score_diff = new_score - self.prev_score
             base_reward = np.tanh(score_diff * 2.0)
         

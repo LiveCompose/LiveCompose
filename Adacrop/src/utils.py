@@ -22,7 +22,7 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torchvision.models as models
 import torchvision.transforms as T
-from config import Config
+from src.config import Config
 
 
 '''

@@ -3,7 +3,7 @@ import onnx
 from src.model import ActorCritic
 
 def export_onnx(ckpt_path, onnx_path, opset=13):
-    model = ActorCritic(n_actions=10)
+    model = ActorCritic(n_actions=11)
     model.load_state_dict(torch.load(ckpt_path))
     model.eval()
     dummy_img = torch.randn(1,3,224,224)
