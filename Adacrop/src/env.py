@@ -64,7 +64,7 @@ class CropEnv:
         try:
             if source_gpu is None:
                 source_gpu = self.assigned_gpu
-            score = self.model(img, source_gpu=source_gpu)
+            score = self.model(img )
             
             if np.isnan(score) or np.isinf(score):
                 print(f"! NIMA返回异常值: {score}，使用默认分数5.0")
@@ -76,7 +76,13 @@ class CropEnv:
         except Exception as e:
             print(f"! NIMA评分失败: {e}，使用默认分数5.0")
             return 5.0
-        
+            
+    def load_image(self, img: Image.Image):
+        """切换到新图像并重置环境"""
+        self.orig = img.convert("RGB")
+        self.precomputed_crops.clear()
+        return self.reset()
+
     def reset(self):
         orig_ratio = self.orig.width / self.orig.height
         scale = np.random.uniform(0.3, 0.8) # 随机缩放比例
@@ -271,20 +277,44 @@ class CropEnv:
         else:
             self.repeat_count = 0  # 重置重复计数
             new_score = self._get_score(new_box)
-            # 调试
-            #new_score = self._safe_nima_score(
-            #    self.orig.crop((self.box[0], self.box[1], self.box[0]+self.box[2], self.box[1]+self.box[3]))
-            #        .resize((self.img_size, self.img_size))
-            #)
             score_diff = new_score - self.prev_score
-            base_reward = np.tanh(score_diff * 2.0)
+
+            #base_reward = np.tanh(score_diff * 2.0)
+            base_reward = score_diff
+
+            move_bonus = 0.0
+            if act in {"left","right","up","down"}:
+                # 位移距离归一化
+                dist = (abs(new_box[0]-old_box[0]) + abs(new_box[1]-old_box[1])) / (self.orig.width + self.orig.height)
+                if dist > 0:
+                    move_bonus += 0.05 + 0.25 * dist
+                # 新区域奖励（哈希未出现）
+                key = self._get_crop_hash(new_box)
+                if key not in self.history:
+                    move_bonus += 0.05
+            base_reward += move_bonus
+
+            # 震荡检测惩罚
+            if not hasattr(self, "recent_actions"):
+                self.recent_actions = []
+            self.recent_actions.append(act)
+            if len(self.recent_actions) > 12:
+                self.recent_actions.pop(0)
+            oscillation_pairs = {
+                ("wider","narrower"),("narrower","wider"),
+                ("taller","shorter"),("shorter","taller"),
+                ("zoom_in","zoom_out"),("zoom_out","zoom_in")
+            }
+            osc = sum(1 for a,b in zip(self.recent_actions, self.recent_actions[1:]) if (a,b) in oscillation_pairs)
+            if osc >= 5:
+                base_reward -= 0.08
         
         if self.step_count % 10 == 0:
             print(f"Debug Step {self.step_count}: "
                 f"score={new_score:.3f}, "
                 f"score_diff={new_score-self.prev_score:.3f}, "
                 f"repeat_count={self.repeat_count}")
-
+        
         # 惩罚机制
         penalty = 0.0
         if hit_boundary:
@@ -306,7 +336,7 @@ class CropEnv:
             self.repeat_count = 0
         
         reward = base_reward - penalty
-        reward = np.clip(reward, -1.0, 2.0)  # 限制奖励范围
+        reward = np.clip(reward, -2.0, 3.0)  # 限制奖励范围
         
         self.prev_score = new_score
         self.step_count += 1

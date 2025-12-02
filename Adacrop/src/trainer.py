@@ -1,6 +1,7 @@
 import os
 import json
 from PIL import Image
+import random
 
 import torch
 import torch.nn.functional as F
@@ -14,6 +15,7 @@ from transform_dataset import SmallCropDataset
 
 def make_envs_from_json(cfg):
     recs = json.load(open(cfg.data['train_json'], 'r'))
+    random.shuffle(recs)
     aesth = load_aesthetic_model()
     envs = []
     for rec in recs[: cfg.data['num_envs']]:
@@ -114,6 +116,7 @@ def main():
         model = supervised_pretrain(cfg, n_actions, device)
     else:
         model = ActorCritic(n_actions=n_actions).to(device)
+    model.init_action_bias(envs[0].actions) # 初始化动作偏置，鼓励平移
 
     # 4. 强化训练（PPO）
     print(">>> 开始 PPO 训练，envs 数量：", len(envs), " n_actions：", n_actions)

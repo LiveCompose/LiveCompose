@@ -46,6 +46,19 @@ class ActorCritic(nn.Module):
 
         if isinstance(self.actor[-1], nn.Linear):
             nn.init.zeros_(self.actor[-1].bias)
+            
+    def init_action_bias(self, actions: list[str]):
+        # 鼓励平移，轻抑制尺寸/缩放，stop 置 0
+        trans = {"left","right","up","down"}
+        size_ops = {"wider","narrower","taller","shorter","zoom_in","zoom_out"}
+        with torch.no_grad():
+            for i, a in enumerate(actions):
+                if a in trans:
+                    self.actor[-1].bias[i] = 0.5
+                elif a in size_ops:
+                    self.actor[-1].bias[i] = -0.2
+                elif a == "stop":
+                    self.actor[-1].bias[i] = 0.0
 
     def extract_feats(self, img_tensor):
         """
@@ -78,15 +91,15 @@ class ActorCritic(nn.Module):
         img_feats = self.extract_feats(img_tensor) # 将图像的高维像素数据转换成一个低维的特征向量
         # 将图像特征 img_feats 和状态信息 state 在维度1上进行拼接
         x = torch.cat([img_feats, state], dim=1)
-
+        # 尝试只把保留一次归一化
         action_logits = self.actor(x) #导入Actor网络
-        action_logits = action_logits - action_logits.max(dim=1, keepdim=True)[0]               # [B, n_actions]
+        #action_logits = action_logits - action_logits.max(dim=1, keepdim=True)[0]               # [B, n_actions]
         action_probs = F.softmax(action_logits, dim=1)  
-        action_probs = action_probs / action_probs.sum(dim=1, keepdim=True)
+        #action_probs = action_probs / action_probs.sum(dim=1, keepdim=True)
 
-        epsilon = 1e-8
-        action_probs = action_probs + epsilon
-        action_probs = action_probs / action_probs.sum(dim=1, keepdim=True)
+        #epsilon = 1e-8
+        #action_probs = action_probs + epsilon
+        #action_probs = action_probs / action_probs.sum(dim=1, keepdim=True)
         
         value = self.critic(x)                       # [B, 1]
         

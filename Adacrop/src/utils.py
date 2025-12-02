@@ -22,7 +22,7 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torchvision.models as models
 import torchvision.transforms as T
-from config import Config
+from src.config import Config
 
 
 '''
@@ -443,6 +443,14 @@ class PPOTrainer(A2CTrainer):
         self.log_interval = cfg.train.get("log_interval", 10)
         self.save_interval = cfg.train.get("save_interval", 50)
         self.best_reward = -float("inf")
+        with open(self.cfg.data['train_json'], 'r') as f:
+           recs = json.load(f)
+        self._img_paths = [r['img'] for r in recs if 'img' in r]
+        self._img_paths = list(dict.fromkeys(self._img_paths))
+        np.random.shuffle(self._img_paths)
+        self._img_idx = 0
+        self._img_lock = threading.Lock()   
+
         
         # 熵退火参数
         self.ent_coef_init  = float(cfg.train.get("entropy_coef", 0.10))
@@ -461,6 +469,20 @@ class PPOTrainer(A2CTrainer):
 
         print(f"🚀 A800优化PPO: batch_size={self.batch_size}, minibatch_size={self.minibatch_size}")
         print(f"📊 环境数: {self.n_envs}, 预计峰值显存: ~{self.estimate_memory_usage():.1f}GB")
+
+    def _next_image(self) -> Image.Image:
+        """线程安全地取下一张训练图"""
+        with self._img_lock:
+            if self._img_idx >= len(self._img_paths):
+                np.random.shuffle(self._img_paths)
+                self._img_idx = 0
+            path = self._img_paths[self._img_idx]
+            self._img_idx += 1
+        try:
+            return Image.open(path).convert('RGB')
+        except Exception as e:
+            print(f"! 加载图像失败 {path}: {e}，改为占位图")
+            return Image.new('RGB', (224, 224), color=(127,127,127))
 
     def estimate_memory_usage(self):
         """估算内存使用量"""
@@ -512,6 +534,11 @@ class PPOTrainer(A2CTrainer):
         while global_step < self.cfg.train["max_steps"]:
             rollout_count += 1
             print(f"→ Rollout {rollout_count}, step={global_step}")
+            # 每个rollout开始时强制所有env换图
+            for i, env in enumerate(self.envs):
+                next_img = self._next_image()
+                states[i] = env.load_image(next_img)
+            states = [(s[0].to(device, non_blocking=True), s[1].to(device, non_blocking=True)) for s in states]
             
             allocated, reserved = self._monitor_memory(f"Rollout {rollout_count} 开始")
             
@@ -576,7 +603,6 @@ class PPOTrainer(A2CTrainer):
 
         for step in range(n_steps):
             try:
-                # ✅ 批量组装输入
                 imgs = torch.stack([s[0] for s in states])
                 st = torch.stack([s[1] for s in states])
 
@@ -643,6 +669,9 @@ class PPOTrainer(A2CTrainer):
                 res = self.envs[i].step(act)
                 # env.step 返回 ((img_tensor, state_tensor), reward, done, info)
                 (img_cpu, st_cpu), r, done, _ = res
+                if done:
+                    next_img = self._next_image()
+                    img_cpu, st_cpu = self.envs[i].load_image(next_img)
 
                 # 如果 env 返回 PIL.Image，转为 tensor；如果返回 tensor，直接使用
                 if not isinstance(img_cpu, torch.Tensor):
@@ -782,6 +811,48 @@ def mean_score(preds):
     score = float((preds * labels).sum())
     return score
 
+class OnnxTorchNIMAScorer:
+    """使用 ONNX→PyTorch 转换后的 NIMA 模型进行打分（仅 PyTorch 依赖）"""
+    def __init__(self, onnx_path: str, device: str = "cuda:0"):
+        from onnx2torch import convert
+        self.device = torch.device(device)
+        self.model = convert(onnx_path).to(self.device).eval()
+        self.input_size = 299  # 与导出时一致
+
+    @staticmethod
+    def _preprocess_pil(img: Image.Image, size: int) -> torch.Tensor:
+        # Keras Inception 系列预处理：scale 到 [-1,1]
+        arr = np.array(img.convert("RGB").resize((size, size)), dtype=np.float32) / 255.0
+        t = torch.from_numpy(arr).permute(2, 0, 1)          # CHW
+        t = (t - 0.5) * 2.0                                 # [-1,1]
+        return t
+
+    def __call__(self, img: Image.Image) -> float:
+        with torch.no_grad():
+            x = self._preprocess_pil(img, self.input_size).unsqueeze(0).to(self.device)
+            out = self.model(x)              # 期望形状 [B,10]（已含 softmax）
+            if out.shape[-1] != 10:
+                # 若未含 softmax，则手动 softmax
+                out = torch.softmax(out, dim=1)
+            labels = torch.arange(1, 11, dtype=torch.float32, device=self.device)
+            score = (out * labels).sum(dim=1)
+            return float(score.clamp(1.0, 10.0).item())
+
+    score = __call__
+
+def load_aesthetic_model():
+    cfg = Config()
+    w = str(cfg.nima.get('weights_path', '../NIMA/weights/nima_inception_resnet.onnx'))
+    # 优先：ONNX → PyTorch（单框架）
+    if w.lower().endswith(".onnx"):
+        device_id = int(cfg.nima.get('device_id', 0))
+        return OnnxTorchNIMAScorer(w, device=f"cuda:{device_id}")
+    # 其次：.pth → 走本地 PyTorch 版
+    if w.lower().endswith(".pth"):
+        return A800SharedNIMAScorer(cfg)
+    # 兜底：.h5 → TF 版（如未转换成功）
+    return NIMAScorer(weights_path=w, target_size=(299, 299), use_gpu=True, device_id=int(cfg.nima.get('device_id', 0)))    
+
 
 class A800SharedNIMAScorer:
     
@@ -810,12 +881,12 @@ class A800SharedNIMAScorer:
             self.batch_size = 32
         
         print(f" 权重路径: {self.weights_path}")
-        self.model = self._load_model()
+        self.model, self.input_size = self._load_model()
         self.model.eval()
         
         #  预处理器
         self.preprocessor = T.Compose([
-            T.Resize((224, 224)),
+            T.Resize((self.input_size, self.input_size)),
             T.ToTensor(),
             T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
@@ -830,49 +901,61 @@ class A800SharedNIMAScorer:
         """加载NIMA模型"""
         if 'inception' in self.weights_path:
             from torchvision.models import inception_v3
-            model = inception_v3(pretrained=False)
-            if hasattr(model, 'AuxLogits'):
-                model.AuxLogits = None
+            model = inception_v3(pretrained=False, aux_logits=False)
             model.fc = nn.Sequential(
                 nn.Dropout(0.75),
                 nn.Linear(model.fc.in_features, 10)
             )
+            input_size = 299
         else:
             model = models.resnet50(pretrained=True)
             model.fc = nn.Sequential(
                 nn.Dropout(0.75),
                 nn.Linear(2048, 10)
             )
+            input_size = 224
         
         model = model.to(self.device)
         
         if os.path.exists(self.weights_path):
-            checkpoint = torch.load(self.weights_path, map_location='cpu')
-            model.load_state_dict(checkpoint, strict=False)
-            print(f" 成功加载NIMA权重")
-        
-        return model
+            ckpt = torch.load(self.weights_path, map_location='cpu')
+            if isinstance(ckpt, dict) and 'state_dict' in ckpt:
+                ckpt = ckpt['state_dict']
+            try:
+                model.load_state_dict(ckpt, strict=True)
+                print(" 成功加载NIMA权重(strict=True)")
+            except Exception as e:
+                print(f"！ 严格加载失败，尝试非严格: {e}")
+                model.load_state_dict(ckpt, strict=False)
+        else:
+            print(f"！ 未找到权重: {self.weights_path}，使用随机初始化")
+        return model, input_size
 
     def __call__(self, img, source_gpu=0):
         """同步评分接口"""
         try:
             #  预处理
             if isinstance(img, torch.Tensor):
-                if img.device != self.device:
-                    tensor = img.to(self.device, non_blocking=True)
+                if img.dim() == 3:
+                    tensor = img.unsqueeze(0)
                 else:
                     tensor = img
+                if tensor.shape[-1] != self.input_size or tensor.shape[-2] != self.input_size:
+                    tensor = torch.nn.functional.interpolate(
+                        tensor, size=(self.input_size, self.input_size), mode='bilinear', align_corners=False
+                    )
+                tensor = tensor.to(self.device, non_blocking=True)
             else:
-                tensor = self.preprocessor(img).to(self.device, non_blocking=True)
+                tensor = self.preprocessor(img).unsqueeze(0).to(self.device, non_blocking=True)
             
             #  批处理推理
             with torch.no_grad():
-                logits = self.model(tensor.unsqueeze(0))
+                logits = self.model(tensor)
                 probs = torch.softmax(logits, dim=1)
                 labels = torch.arange(1, 11, dtype=torch.float32, device=self.device)
                 score = (probs * labels).sum()
                 
-            return float(score.cpu())
+            return float(score.clamp(1.0, 10.0).cpu())
             
         except Exception as e:
             print(f"！ NIMA评分失败: {e}")
@@ -891,10 +974,46 @@ class A800SharedNIMAScorer:
             'memory_reserved': torch.cuda.memory_reserved(self.nima_gpu) / 1024**3,
             'cross_gpu_transfers': 0
         }
-    
-    score = __call__
 
-def load_aesthetic_model():
+class NIMAScorer:
+    """基于 Inception-ResNet (.h5) 的TF/Keras版NIMA打分器"""
+    def __init__(self, weights_path: str, target_size=(299, 299), use_gpu=True, device_id=0):
+        import tensorflow as tf
+        from tensorflow.keras.models import Model
+        from tensorflow.keras.layers import Dropout, Dense
+        from tensorflow.keras.applications.inception_resnet_v2 import InceptionResNetV2, preprocess_input
+
+        self.tf = tf
+        self.preprocess_input = preprocess_input
+        self.target_size = target_size
+        self.device = f"/GPU:{device_id}" if (use_gpu and tf.config.list_physical_devices('GPU')) else "/CPU:0"
+
+        # 显存按需
+        gpus = tf.config.list_physical_devices('GPU')
+        for g in gpus:
+            try: tf.config.experimental.set_memory_growth(g, True)
+            except Exception: pass
+
+        with tf.device(self.device):
+            base = InceptionResNetV2(input_shape=(None, None, 3), include_top=False, pooling="avg", weights=None)
+            x = Dropout(0.75)(base.output)
+            x = Dense(10, activation="softmax")(x)
+            self.model = Model(base.input, x)
+            self.model.load_weights(weights_path)
+        print(f"NIMA(TF) loaded: {weights_path} @ {self.device}")
+
+    def __call__(self, img: Image.Image) -> float:
+        img = img.convert("RGB").resize(self.target_size)
+        arr = np.expand_dims(np.array(img, dtype=np.float32), axis=0)
+        arr = self.preprocess_input(arr)
+        with self.tf.device(self.device):
+            preds = self.model.predict(arr, batch_size=1, verbose=0)[0]
+        return mean_score(preds)
+
+'''    
+    score = __call__
+ 
+def load_aesthetic_model(): # 转为有.pth的版本
     print(" 检测GPU架构和权重格式...")
     
     try:
@@ -919,7 +1038,7 @@ def load_aesthetic_model():
         print(f"！ 配置加载失败: {e}")
         print("* 使用默认PCIe PyTorch版本")
         return A800SharedNIMAScorer(cfg=None)
-
+'''
 def log_gpu(step, note=""):
     print(f"\n>>> Step {step}  【{note}】 显存状态:")
     for i in range(torch.cuda.device_count()):
