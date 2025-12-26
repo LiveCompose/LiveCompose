@@ -1,7 +1,7 @@
 [
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/74412.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/74412.jpg",
+    "box": [
       [
         12,
         1,
@@ -23,8 +23,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/71381.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/71381.jpg",
+    "box": [
       [
         16,
         1,
@@ -46,8 +46,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/330095.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/330095.jpg",
+    "box": [
       [
         87,
         1,
@@ -69,8 +69,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/27598.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/27598.jpg",
+    "box": [
       [
         85,
         1,
@@ -92,8 +92,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/51291.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/51291.jpg",
+    "box": [
       [
         1,
         21,
@@ -115,8 +115,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/470406.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/470406.jpg",
+    "box": [
       [
         1,
         1,
@@ -138,8 +138,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/1307.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/1307.jpg",
+    "box": [
       [
         1,
         1,
@@ -161,8 +161,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/15770.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/15770.jpg",
+    "box": [
       [
         1,
         1,
@@ -184,8 +184,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/490.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/490.jpg",
+    "box": [
       [
         9,
         1,
@@ -207,8 +207,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/49195.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/49195.jpg",
+    "box": [
       [
         16,
         1,
@@ -230,8 +230,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20531.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20531.jpg",
+    "box": [
       [
         1,
         1,
@@ -253,8 +253,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/25240.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/25240.jpg",
+    "box": [
       [
         66,
         46,
@@ -276,8 +276,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20457.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20457.jpg",
+    "box": [
       [
         80,
         1,
@@ -299,8 +299,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/2458.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/2458.jpg",
+    "box": [
       [
         18,
         1,
@@ -322,8 +322,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/320900.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/320900.jpg",
+    "box": [
       [
         1,
         1,
@@ -345,8 +345,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/356735.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/356735.jpg",
+    "box": [
       [
         22,
         1,
@@ -368,8 +368,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/55835.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/55835.jpg",
+    "box": [
       [
         1,
         1,
@@ -391,8 +391,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3728.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3728.jpg",
+    "box": [
       [
         16,
         1,
@@ -414,8 +414,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/24334.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/24334.jpg",
+    "box": [
       [
         36,
         107,
@@ -437,8 +437,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/6408.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/6408.jpg",
+    "box": [
       [
         1,
         33,
@@ -460,8 +460,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/13682.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/13682.jpg",
+    "box": [
       [
         1,
         1,
@@ -483,8 +483,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/6808.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/6808.jpg",
+    "box": [
       [
         1,
         1,
@@ -506,8 +506,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/49800.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/49800.jpg",
+    "box": [
       [
         96,
         1,
@@ -529,8 +529,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/355397_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/355397_h.jpg",
+    "box": [
       [
         2,
         10,
@@ -552,8 +552,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/42564.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/42564.jpg",
+    "box": [
       [
         1,
         1,
@@ -575,8 +575,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/64566.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/64566.jpg",
+    "box": [
       [
         21,
         1,
@@ -598,8 +598,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/38956.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/38956.jpg",
+    "box": [
       [
         23,
         1,
@@ -621,8 +621,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/27557.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/27557.jpg",
+    "box": [
       [
         133,
         34,
@@ -644,8 +644,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33868.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33868.jpg",
+    "box": [
       [
         54,
         58,
@@ -667,8 +667,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/16268.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/16268.jpg",
+    "box": [
       [
         213,
         198,
@@ -690,8 +690,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12501.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12501.jpg",
+    "box": [
       [
         1,
         15,
@@ -713,8 +713,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/27690.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/27690.jpg",
+    "box": [
       [
         41,
         1,
@@ -736,8 +736,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/51279.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/51279.jpg",
+    "box": [
       [
         55,
         50,
@@ -759,8 +759,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/24017.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/24017.jpg",
+    "box": [
       [
         1,
         174,
@@ -782,8 +782,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/38167.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/38167.jpg",
+    "box": [
       [
         75,
         1,
@@ -805,8 +805,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/51644.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/51644.jpg",
+    "box": [
       [
         1,
         1,
@@ -828,8 +828,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/6373.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/6373.jpg",
+    "box": [
       [
         66,
         1,
@@ -851,8 +851,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/19905.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/19905.jpg",
+    "box": [
       [
         79,
         22,
@@ -874,8 +874,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/77608.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/77608.jpg",
+    "box": [
       [
         30,
         1,
@@ -897,8 +897,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/48867.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/48867.jpg",
+    "box": [
       [
         1,
         1,
@@ -920,8 +920,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/24242.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/24242.jpg",
+    "box": [
       [
         1,
         1,
@@ -943,8 +943,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/43210.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/43210.jpg",
+    "box": [
       [
         1,
         126,
@@ -966,8 +966,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/25899.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/25899.jpg",
+    "box": [
       [
         29,
         1,
@@ -989,8 +989,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/67315.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/67315.jpg",
+    "box": [
       [
         1,
         249,
@@ -1012,8 +1012,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/15834.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/15834.jpg",
+    "box": [
       [
         18,
         36,
@@ -1035,8 +1035,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/189052_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/189052_h.jpg",
+    "box": [
       [
         1,
         1,
@@ -1058,8 +1058,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/485735_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/485735_h.jpg",
+    "box": [
       [
         1,
         1,
@@ -1081,8 +1081,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/598.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/598.jpg",
+    "box": [
       [
         1,
         1,
@@ -1104,8 +1104,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/65885.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/65885.jpg",
+    "box": [
       [
         48,
         3,
@@ -1127,8 +1127,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12038.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12038.jpg",
+    "box": [
       [
         70,
         1,
@@ -1150,8 +1150,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/51976_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/51976_h.jpg",
+    "box": [
       [
         13,
         1,
@@ -1173,8 +1173,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33867.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33867.jpg",
+    "box": [
       [
         9,
         1,
@@ -1196,8 +1196,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33923.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33923.jpg",
+    "box": [
       [
         1,
         97,
@@ -1219,8 +1219,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/22739.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/22739.jpg",
+    "box": [
       [
         1,
         20,
@@ -1242,8 +1242,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/41531.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/41531.jpg",
+    "box": [
       [
         35,
         83,
@@ -1265,8 +1265,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/30662.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/30662.jpg",
+    "box": [
       [
         70,
         1,
@@ -1288,8 +1288,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12237.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12237.jpg",
+    "box": [
       [
         1,
         1,
@@ -1311,8 +1311,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/6557.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/6557.jpg",
+    "box": [
       [
         103,
         1,
@@ -1334,8 +1334,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/48836.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/48836.jpg",
+    "box": [
       [
         1,
         1,
@@ -1357,8 +1357,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/38827.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/38827.jpg",
+    "box": [
       [
         1,
         1,
@@ -1380,8 +1380,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/8215.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/8215.jpg",
+    "box": [
       [
         124,
         22,
@@ -1403,8 +1403,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/67000.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/67000.jpg",
+    "box": [
       [
         1,
         155,
@@ -1426,8 +1426,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20483.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20483.jpg",
+    "box": [
       [
         452,
         1,
@@ -1449,8 +1449,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/49193.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/49193.jpg",
+    "box": [
       [
         57,
         1,
@@ -1472,8 +1472,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/165381_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/165381_h.jpg",
+    "box": [
       [
         55,
         1,
@@ -1495,8 +1495,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/51966_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/51966_h.jpg",
+    "box": [
       [
         40,
         1,
@@ -1518,8 +1518,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/25768.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/25768.jpg",
+    "box": [
       [
         1,
         20,
@@ -1541,8 +1541,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/22445.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/22445.jpg",
+    "box": [
       [
         1,
         1,
@@ -1564,8 +1564,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/18706_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/18706_h.jpg",
+    "box": [
       [
         19,
         14,
@@ -1587,8 +1587,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20489.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20489.jpg",
+    "box": [
       [
         24,
         63,
@@ -1610,8 +1610,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/21048.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/21048.jpg",
+    "box": [
       [
         44,
         1,
@@ -1633,8 +1633,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/23875.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/23875.jpg",
+    "box": [
       [
         1,
         1,
@@ -1656,8 +1656,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33604.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33604.jpg",
+    "box": [
       [
         35,
         1,
@@ -1679,8 +1679,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3561.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3561.jpg",
+    "box": [
       [
         37,
         1,
@@ -1702,8 +1702,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/11981.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/11981.jpg",
+    "box": [
       [
         1,
         143,
@@ -1725,8 +1725,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/24361.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/24361.jpg",
+    "box": [
       [
         108,
         70,
@@ -1748,8 +1748,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/75693.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/75693.jpg",
+    "box": [
       [
         217,
         1,
@@ -1771,8 +1771,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/39009.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/39009.jpg",
+    "box": [
       [
         1,
         1,
@@ -1794,8 +1794,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/23870.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/23870.jpg",
+    "box": [
       [
         113,
         56,
@@ -1817,8 +1817,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/11919.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/11919.jpg",
+    "box": [
       [
         1,
         180,
@@ -1840,8 +1840,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/70335.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/70335.jpg",
+    "box": [
       [
         1,
         64,
@@ -1863,8 +1863,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3810.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3810.jpg",
+    "box": [
       [
         23,
         12,
@@ -1886,8 +1886,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/17102.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/17102.jpg",
+    "box": [
       [
         11,
         1,
@@ -1909,8 +1909,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/381.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/381.jpg",
+    "box": [
       [
         1,
         17,
@@ -1932,8 +1932,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/473698.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/473698.jpg",
+    "box": [
       [
         33,
         1,
@@ -1955,8 +1955,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3647.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3647.jpg",
+    "box": [
       [
         1,
         65,
@@ -1978,8 +1978,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/17431.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/17431.jpg",
+    "box": [
       [
         109,
         117,
@@ -2001,8 +2001,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12361.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12361.jpg",
+    "box": [
       [
         14,
         20,
@@ -2024,8 +2024,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12319.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12319.jpg",
+    "box": [
       [
         40,
         1,
@@ -2047,8 +2047,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/45312.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/45312.jpg",
+    "box": [
       [
         186,
         170,
@@ -2070,8 +2070,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/13547.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/13547.jpg",
+    "box": [
       [
         17,
         1,
@@ -2093,8 +2093,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/23894.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/23894.jpg",
+    "box": [
       [
         114,
         1,
@@ -2116,8 +2116,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/19892.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/19892.jpg",
+    "box": [
       [
         1,
         1,
@@ -2139,8 +2139,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/619656.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/619656.jpg",
+    "box": [
       [
         1,
         1,
@@ -2162,8 +2162,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/470725.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/470725.jpg",
+    "box": [
       [
         36,
         1,
@@ -2185,8 +2185,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3632.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3632.jpg",
+    "box": [
       [
         1,
         1,
@@ -2208,8 +2208,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/52738.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/52738.jpg",
+    "box": [
       [
         1,
         17,
@@ -2231,8 +2231,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/6392.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/6392.jpg",
+    "box": [
       [
         1,
         42,
@@ -2254,8 +2254,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/16653.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/16653.jpg",
+    "box": [
       [
         1,
         114,
@@ -2277,8 +2277,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/62283.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/62283.jpg",
+    "box": [
       [
         1,
         44,
@@ -2300,8 +2300,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/1119.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/1119.jpg",
+    "box": [
       [
         516,
         193,
@@ -2323,8 +2323,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3012.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3012.jpg",
+    "box": [
       [
         1,
         1,
@@ -2346,8 +2346,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/25562.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/25562.jpg",
+    "box": [
       [
         1,
         60,
@@ -2369,8 +2369,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33919.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33919.jpg",
+    "box": [
       [
         20,
         23,
@@ -2392,8 +2392,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/39161.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/39161.jpg",
+    "box": [
       [
         1,
         1,
@@ -2415,8 +2415,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/45618.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/45618.jpg",
+    "box": [
       [
         170,
         1,
@@ -2438,8 +2438,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/22473.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/22473.jpg",
+    "box": [
       [
         38,
         123,
@@ -2461,8 +2461,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/18546.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/18546.jpg",
+    "box": [
       [
         42,
         1,
@@ -2484,8 +2484,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/30370.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/30370.jpg",
+    "box": [
       [
         33,
         52,
@@ -2507,8 +2507,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/79991.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/79991.jpg",
+    "box": [
       [
         66,
         1,
@@ -2530,8 +2530,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/179079.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/179079.jpg",
+    "box": [
       [
         23,
         42,
@@ -2553,8 +2553,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/75256.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/75256.jpg",
+    "box": [
       [
         1,
         1,
@@ -2576,8 +2576,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/37394.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/37394.jpg",
+    "box": [
       [
         52,
         146,
@@ -2599,8 +2599,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/355839.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/355839.jpg",
+    "box": [
       [
         1,
         19,
@@ -2622,8 +2622,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/670889_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/670889_h.jpg",
+    "box": [
       [
         114,
         28,
@@ -2645,8 +2645,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/23854.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/23854.jpg",
+    "box": [
       [
         79,
         1,
@@ -2668,8 +2668,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20957.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20957.jpg",
+    "box": [
       [
         138,
         130,
@@ -2691,8 +2691,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/27655.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/27655.jpg",
+    "box": [
       [
         177,
         1,
@@ -2714,8 +2714,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/60863.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/60863.jpg",
+    "box": [
       [
         15,
         1,
@@ -2737,8 +2737,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/435810.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/435810.jpg",
+    "box": [
       [
         1,
         62,
@@ -2760,8 +2760,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20351.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20351.jpg",
+    "box": [
       [
         1,
         320,
@@ -2783,8 +2783,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/16272.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/16272.jpg",
+    "box": [
       [
         153,
         167,
@@ -2806,8 +2806,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12493.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12493.jpg",
+    "box": [
       [
         22,
         9,
@@ -2829,8 +2829,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/1242_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/1242_h.jpg",
+    "box": [
       [
         24,
         1,
@@ -2852,8 +2852,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/49843.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/49843.jpg",
+    "box": [
       [
         1,
         1,
@@ -2875,8 +2875,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33912.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33912.jpg",
+    "box": [
       [
         1,
         1,
@@ -2898,8 +2898,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/70436.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/70436.jpg",
+    "box": [
       [
         1,
         45,
@@ -2921,8 +2921,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/38247.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/38247.jpg",
+    "box": [
       [
         65,
         1,
@@ -2944,8 +2944,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/32605_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/32605_h.jpg",
+    "box": [
       [
         22,
         1,
@@ -2967,8 +2967,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/17462.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/17462.jpg",
+    "box": [
       [
         1,
         1,
@@ -2990,8 +2990,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/330297.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/330297.jpg",
+    "box": [
       [
         34,
         4,
@@ -3013,8 +3013,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20313.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20313.jpg",
+    "box": [
       [
         33,
         1,
@@ -3036,8 +3036,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/394432.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/394432.jpg",
+    "box": [
       [
         55,
         1,
@@ -3059,8 +3059,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/470695.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/470695.jpg",
+    "box": [
       [
         1,
         1,
@@ -3082,8 +3082,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/19863.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/19863.jpg",
+    "box": [
       [
         1,
         105,
@@ -3105,8 +3105,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3608.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3608.jpg",
+    "box": [
       [
         84,
         147,
@@ -3128,8 +3128,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/499296.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/499296.jpg",
+    "box": [
       [
         45,
         1,
@@ -3151,8 +3151,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/499074.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/499074.jpg",
+    "box": [
       [
         17,
         23,
@@ -3174,8 +3174,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/3226.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/3226.jpg",
+    "box": [
       [
         123,
         151,
@@ -3197,8 +3197,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/2491.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/2491.jpg",
+    "box": [
       [
         1,
         373,
@@ -3220,8 +3220,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/60917.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/60917.jpg",
+    "box": [
       [
         1,
         56,
@@ -3243,8 +3243,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/48519.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/48519.jpg",
+    "box": [
       [
         1,
         39,
@@ -3266,8 +3266,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/5182.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/5182.jpg",
+    "box": [
       [
         1,
         191,
@@ -3289,8 +3289,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/24330.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/24330.jpg",
+    "box": [
       [
         19,
         120,
@@ -3312,8 +3312,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/4068.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/4068.jpg",
+    "box": [
       [
         41,
         32,
@@ -3335,8 +3335,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/34087.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/34087.jpg",
+    "box": [
       [
         8,
         7,
@@ -3358,8 +3358,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/53158.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/53158.jpg",
+    "box": [
       [
         35,
         1,
@@ -3381,8 +3381,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/355040.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/355040.jpg",
+    "box": [
       [
         1,
         109,
@@ -3404,8 +3404,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/67590.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/67590.jpg",
+    "box": [
       [
         1,
         65,
@@ -3427,8 +3427,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33905.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33905.jpg",
+    "box": [
       [
         1,
         1,
@@ -3450,8 +3450,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/21057.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/21057.jpg",
+    "box": [
       [
         1,
         52,
@@ -3473,8 +3473,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12564.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12564.jpg",
+    "box": [
       [
         1,
         125,
@@ -3496,8 +3496,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/57929.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/57929.jpg",
+    "box": [
       [
         40,
         45,
@@ -3519,8 +3519,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/437877.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/437877.jpg",
+    "box": [
       [
         1,
         1,
@@ -3542,8 +3542,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/167821.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/167821.jpg",
+    "box": [
       [
         1,
         1,
@@ -3565,8 +3565,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/21124.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/21124.jpg",
+    "box": [
       [
         1,
         13,
@@ -3588,8 +3588,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/49587.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/49587.jpg",
+    "box": [
       [
         1,
         1,
@@ -3611,8 +3611,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/682016.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/682016.jpg",
+    "box": [
       [
         16,
         34,
@@ -3634,8 +3634,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/1827.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/1827.jpg",
+    "box": [
       [
         50,
         1,
@@ -3657,8 +3657,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/16667.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/16667.jpg",
+    "box": [
       [
         1,
         72,
@@ -3680,8 +3680,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/392.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/392.jpg",
+    "box": [
       [
         53,
         138,
@@ -3703,8 +3703,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/67352.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/67352.jpg",
+    "box": [
       [
         1,
         132,
@@ -3726,8 +3726,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/17173.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/17173.jpg",
+    "box": [
       [
         68,
         32,
@@ -3749,8 +3749,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/29669.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/29669.jpg",
+    "box": [
       [
         1,
         23,
@@ -3772,8 +3772,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/25669.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/25669.jpg",
+    "box": [
       [
         127,
         176,
@@ -3795,8 +3795,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/66969.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/66969.jpg",
+    "box": [
       [
         17,
         1,
@@ -3818,8 +3818,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/74449.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/74449.jpg",
+    "box": [
       [
         113,
         1,
@@ -3841,8 +3841,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12010.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12010.jpg",
+    "box": [
       [
         30,
         1,
@@ -3864,8 +3864,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/164317.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/164317.jpg",
+    "box": [
       [
         12,
         1,
@@ -3887,8 +3887,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/5309.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/5309.jpg",
+    "box": [
       [
         1,
         46,
@@ -3910,8 +3910,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/12020.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/12020.jpg",
+    "box": [
       [
         1,
         40,
@@ -3933,8 +3933,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/45286.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/45286.jpg",
+    "box": [
       [
         36,
         1,
@@ -3956,8 +3956,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/420404.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/420404.jpg",
+    "box": [
       [
         1,
         1,
@@ -3979,8 +3979,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/75323.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/75323.jpg",
+    "box": [
       [
         1,
         1,
@@ -4002,8 +4002,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/2120_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/2120_h.jpg",
+    "box": [
       [
         30,
         1,
@@ -4025,8 +4025,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20477.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20477.jpg",
+    "box": [
       [
         1,
         1,
@@ -4048,8 +4048,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/682944_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/682944_h.jpg",
+    "box": [
       [
         1,
         1,
@@ -4071,8 +4071,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/5230.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/5230.jpg",
+    "box": [
       [
         36,
         136,
@@ -4094,8 +4094,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/51628.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/51628.jpg",
+    "box": [
       [
         64,
         1,
@@ -4117,8 +4117,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/6486.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/6486.jpg",
+    "box": [
       [
         27,
         189,
@@ -4140,8 +4140,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/24495.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/24495.jpg",
+    "box": [
       [
         65,
         111,
@@ -4163,8 +4163,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/394479_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/394479_h.jpg",
+    "box": [
       [
         1,
         12,
@@ -4186,8 +4186,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/20492.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/20492.jpg",
+    "box": [
       [
         278,
         1,
@@ -4209,8 +4209,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/5355.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/5355.jpg",
+    "box": [
       [
         1,
         21,
@@ -4232,8 +4232,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/17134.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/17134.jpg",
+    "box": [
       [
         41,
         147,
@@ -4255,8 +4255,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/632738.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/632738.jpg",
+    "box": [
       [
         56,
         1,
@@ -4278,8 +4278,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/418193.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/418193.jpg",
+    "box": [
       [
         1,
         1,
@@ -4301,8 +4301,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/5438_h.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/5438_h.jpg",
+    "box": [
       [
         1,
         1,
@@ -4324,8 +4324,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/33686.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/33686.jpg",
+    "box": [
       [
         173,
         121,
@@ -4347,8 +4347,8 @@
     ]
   },
   {
-    "img": "/home/Zyan/codes/DH_LiveCompose/Adacrop/data/cuhk_images/17405.jpg",
-    "boxes": [
+    "img": "Adacrop/data/cuhk_images/17405.jpg",
+    "box": [
       [
         164,
         1,

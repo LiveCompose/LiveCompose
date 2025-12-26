@@ -4,7 +4,7 @@ env:
   action_delta: 0.08
 
 train:
-  training_gpus: 2 #1
+  training_gpus: 4 #1
   algorithm: "PPO"         
   total_timesteps: 20000000
   gamma: 0.99
@@ -34,11 +34,11 @@ train:
   
 nima:
   use_dual_gpu: false           
-  training_gpus: [2] # [1]     
+  training_gpus: [4] # [1]     
   batch_size: 48 # 32          
   max_wait_time: 0.01
-  weights_path: "./NIMA/weights/nima_inception_pytorch.pth"
-  real_score_interval: 5     
+  weights_path: "./NIMA/weights/inception_resnet_weights.h5" #"./NIMA/weights/nima_inception_pytorch.pth"
+  real_score_interval: 1 #5     
   cache_size: 10000
   queue_size: 10
 
