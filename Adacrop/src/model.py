@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import models
+from typing import List
 
 class ActorCritic(nn.Module):
     def __init__(self, n_actions):
@@ -47,16 +48,17 @@ class ActorCritic(nn.Module):
         if isinstance(self.actor[-1], nn.Linear):
             nn.init.zeros_(self.actor[-1].bias)
             
-    def init_action_bias(self, actions: list[str]):
+    def init_action_bias(self, actions: List[str]):
         # 鼓励平移，轻抑制尺寸/缩放，stop 置 0
         trans = {"left","right","up","down"}
-        size_ops = {"wider","narrower","taller","shorter","zoom_in","zoom_out"}
+        #size_ops = {"wider","narrower","taller","shorter","zoom_in","zoom_out"}
+        size_ops = {"zoom_in", "zoom_out"}
         with torch.no_grad():
             for i, a in enumerate(actions):
                 if a in trans:
                     self.actor[-1].bias[i] = 0.5
                 elif a in size_ops:
-                    self.actor[-1].bias[i] = -0.2
+                    self.actor[-1].bias[i] = 0.1
                 elif a == "stop":
                     self.actor[-1].bias[i] = 0.0
 

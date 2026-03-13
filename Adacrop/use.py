@@ -6,10 +6,12 @@ from src.config import Config
 from src.env import CropEnv
 from src.model import ActorCritic
 
-IMAGE_PATH = r"./data/cuhk_images/51291.jpg"           
-CKPT_PATH  = r"./logs/actor_critic_91841_rollout_120.pt"  
-OUT_DIR    = r"./output_img"
-MAX_STEPS  = 50
+IMAGE_PATH = r"./Adacrop/data/bad2.jpg" 
+# IMAGE_PATH = r"./Adacrop/data/GAIC_dataset/images/test/238563.jpg"          
+CKPT_PATH  = r"./Adacrop/logs/run_20260312_191504_gaic_norm_gpu0_env128/ppo_best_train_reward.pth" 
+
+OUT_DIR    = r"./Adacrop/output_img"
+MAX_STEPS  = 70
 MIN_STEPS_NO_STOP = 15 
 
 def main():
@@ -20,7 +22,7 @@ def main():
     # inference=True -> 不会调用 NIMA
     env = CropEnv(img, aesthetic_model=None, cfg=cfg, inference=True)
 
-    device = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
     model = ActorCritic(n_actions=len(env.actions)).to(device)
     ckpt = torch.load(CKPT_PATH, map_location=device)
     state_dict = ckpt.get("model_state_dict", ckpt)
@@ -79,7 +81,12 @@ def main():
     vis = img.copy()
     draw = ImageDraw.Draw(vis)
     for i, (bx, by, bw, bh) in enumerate(traj):
-        color = (255, 0, 0) if i == len(traj) - 1 else (255, 255, 0)
+        if i == 0:
+            color = (0, 0, 255)      # 起始框：蓝色
+        elif i == len(traj) - 1:
+            color = (255, 0, 0)      # 最终框：红色
+        else:
+            color = (255, 255, 0)    # 中间轨迹：黄色
         draw.rectangle([bx, by, bx + bw, by + bh], outline=color, width=2)
     traj_path = Path(OUT_DIR) / (Path(IMAGE_PATH).stem + "_traj" + Path(IMAGE_PATH).suffix)
     vis.save(traj_path, quality=95)

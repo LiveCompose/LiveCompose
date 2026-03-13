@@ -2,6 +2,7 @@ import os
 import time
 import json
 import numpy as np
+import math
 import socket
 import pickle
 import io
@@ -10,7 +11,6 @@ from collections import deque, namedtuple
 from PIL import Image  
 import threading
 import queue
-import time
 from concurrent.futures import ThreadPoolExecutor, Future
 from typing import List, Dict, Any
 import torch
@@ -22,30 +22,20 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torchvision.models as models
 import torchvision.transforms as T
-from src.config import Config
 
-
-'''
-import tensorflow as tf
-gpus = tf.config.list_physical_devices('GPU')
-if gpus:
+try:
+    from Adacrop.src.config import Config
+except ModuleNotFoundError:
     try:
-        for gpu in gpus:
-            tf.config.experimental.set_memory_growth(gpu, True)
-            tf.config.experimental.set_virtual_device_configuration(
-                gpu,
-                [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=8192)]  # 只用4GB
-            )
-    except RuntimeError as e:
-        print(e)
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dropout, Dense
-from tensorflow.keras.applications.inception_resnet_v2 import (
-    InceptionResNetV2, preprocess_input
-)
-import concurrent.futures
-import threading
-'''
+        from src.config import Config
+    except ModuleNotFoundError:
+        from config import Config
+try:
+    from scorers import load_aesthetic_model
+    from env import CropEnv
+except ModuleNotFoundError:
+    from Adacrop.src.scorers import load_aesthetic_model
+    from Adacrop.src.env import CropEnv
 
 # 轨迹存储 & GAE 计算
 Rollout = namedtuple(
@@ -73,26 +63,53 @@ def compute_gae(rewards, values, dones, gamma, lam):
 
 class TrainerMixin:
     def __init__(self, model, cfg, log_dir="./Adacrop/logs"):
+        if os.path.basename(log_dir).startswith("run_"):
+            self.run_dir = log_dir
+        else:
+            run_name = time.strftime("run_%Y%m%d_%H%M%S")
+            self.run_dir = os.path.join(log_dir, run_name)
+        os.makedirs(self.run_dir, exist_ok=True)
         
-        # ✅ 强制使用单GPU，最大化利用A800
         training_gpu = cfg.train.get("training_gpus", 0)
-        print(f"🚀 单A800优化模式: GPU {training_gpu}")
-        print(f"📊 可用显存: ~80GB")
+        print(f" 单A800优化模式: GPU {training_gpu}")
         
-        device = torch.device(f"cuda:{training_gpu}")
+        if torch.cuda.is_available():
+            device = torch.device(f"cuda:{training_gpu}")
+        else:
+            device = torch.device("cpu")
         model.to(device)
         self.device = device
         self.training_gpu = training_gpu
         
-        # ✅ 不使用DataParallel，避免内存碎片
         self.model = model
         self.cfg = cfg
-        os.makedirs(log_dir, exist_ok=True)
-        self.log_dir = log_dir
+        self.log_dir = self.run_dir
         self.start_time = time.time()
 
-        # ✅ 预热GPU，优化内存分配
-        self._warmup_gpu()
+        self._save_run_config()
+        if self.device.type == "cuda":
+            self._warmup_gpu()
+
+    def log_metrics(self, step, **kwargs):
+        log_path = os.path.join(self.run_dir, "train_log.jsonl")
+
+        if self.device.type == "cuda":
+            gpu_memory = torch.cuda.memory_allocated(self.training_gpu) / 1024**3
+            gpu_reserved = torch.cuda.memory_reserved(self.training_gpu) / 1024**3
+        else:
+            gpu_memory = 0.0
+            gpu_reserved = 0.0
+
+        record = {
+            "step": step,
+            "gpu_memory_gb": round(gpu_memory, 2),
+            "gpu_reserved_gb": round(gpu_reserved, 2),
+            "training_time": round(time.time() - self.start_time, 2),
+            **kwargs
+        }
+
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
         
     def _warmup_gpu(self):
         """预热GPU，优化内存分配模式"""
@@ -114,52 +131,49 @@ class TrainerMixin:
                 with torch.no_grad():
                     probs, values = self.model(test_img, test_state)
                 
-                print(f"✅ GPU预热完成: {probs.shape}, {values.shape}")
+                print(f"✔ GPU预热完成: {probs.shape}, {values.shape}")
                 
                 # 清理预热张量
                 del warmup_tensors, test_img, test_state, probs, values
                 torch.cuda.empty_cache()
                 
         except Exception as e:
-            print(f"⚠️ GPU预热失败: {e}")
+            print(f"! GPU预热失败: {e}")
+    
+    def _save_run_config(self):
+        import yaml
 
-    def save_model(self, suffix="pt", tag=None):
-        fn = f"actor_critic_{int(time.time()-self.start_time)}.{suffix}"
-        if tag:
-            name, ext = fn.rsplit(".", 1)
-            fn = f"{name}_{tag}.{ext}"
-        path = os.path.join(self.log_dir, fn)
-        
-        # ✅ 保存时包含更多信息
+        cfg_path = os.path.join(self.run_dir, "config.yaml")
+        meta_path = os.path.join(self.run_dir, "meta.json")
+
+        try:
+            with open(cfg_path, "w", encoding="utf-8") as f:
+                yaml.safe_dump(self.cfg._cfg, f, allow_unicode=True, sort_keys=False)
+        except Exception as e:
+            print(f"! 保存 config.yaml 失败: {e}")
+
+        meta = {
+            "created_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "training_gpu": self.training_gpu,
+            "device": str(self.device),
+        }
+        with open(meta_path, "w", encoding="utf-8") as f:
+            json.dump(meta, f, ensure_ascii=False, indent=2)
+
+    def save_model(self, filename="checkpoint.pth", tag=None, extra=None):
+        path = os.path.join(self.run_dir, filename)
         checkpoint = {
-            'model_state_dict': self.model.state_dict(),
-            'optimizer_state_dict': getattr(self, 'optimizer', None) and self.optimizer.state_dict(),
-            'config': self.cfg.__dict__ if hasattr(self.cfg, '__dict__') else str(self.cfg),
-            'timestamp': time.time(),
-            'training_time': time.time() - self.start_time
+            "model_state_dict": self.model.state_dict(),
+            "optimizer_state_dict": getattr(self, "optimizer", None) and self.optimizer.state_dict(),
+            "timestamp": time.time(),
+            "training_time": time.time() - self.start_time,
+            "tag": tag,
         }
-        
-        torch.save(checkpoint, path)
-        print(f"📁 模型已保存: {path}")
+        if extra:
+            checkpoint.update(extra)
 
-    def log_metrics(self, step, **kwargs):
-        """增强的日志记录"""
-        log_path = os.path.join(self.log_dir, "log.txt")
-        
-        # ✅ 添加GPU内存使用信息
-        gpu_memory = torch.cuda.memory_allocated(self.training_gpu) / 1024**3
-        gpu_reserved = torch.cuda.memory_reserved(self.training_gpu) / 1024**3
-        
-        record = {
-            "step": step, 
-            "gpu_memory_gb": round(gpu_memory, 2),
-            "gpu_reserved_gb": round(gpu_reserved, 2),
-            "training_time": round(time.time() - self.start_time, 2),
-            **kwargs
-        }
-        
-        with open(log_path, "a") as f:
-            f.write(json.dumps(record) + "\n")
+        torch.save(checkpoint, path)
+        print(f"✔ 模型已保存: {path}")
 
 class A2CTrainer(TrainerMixin):
     def __init__(self, model, envs, cfg):
@@ -429,21 +443,29 @@ class PPOTrainer(A2CTrainer): # DDP版本
 
 '''                
 class PPOTrainer(A2CTrainer):
-    def __init__(self, model, envs, cfg):
-        super().__init__(model, envs, cfg)
+    def __init__(self, model, envs, cfg, log_dir="./Adacrop/logs"):
+        TrainerMixin.__init__(self, model, cfg, log_dir=log_dir)
+        self.envs = envs
+        self.n_envs = len(envs)
+        self.gamma = cfg.train.get("gamma", 0.99)
+        self.vf_coef = cfg.train.get("value_loss_coef", 0.5)
+        self.max_grad_norm = cfg.train.get("max_grad_norm", 0.5)
+
         self.clip_param = cfg.train.get("clip_param", 0.2)
         self.ppo_epochs = cfg.train.get("ppo_epochs", 4)
-        self.batch_size = cfg.train.get("batch_size", 2048)     
+        self.batch_size = cfg.train.get("batch_size", 2048)
         self.minibatch_size = cfg.train.get("minibatch_size", 256)  
         
         raw_lr = cfg.train["lr"]
         lr = float(raw_lr)
         self.optimizer = Adam(self.model.parameters(), lr=lr)
-        self.n_envs = len(envs)
+
         self.log_interval = cfg.train.get("log_interval", 10)
         self.save_interval = cfg.train.get("save_interval", 50)
         self.best_reward = -float("inf")
-        with open(self.cfg.data['train_json'], 'r') as f:
+        self.best_val_final_score = -float("inf")
+
+        with open(self.cfg.data['train_json'], 'r', encoding='utf-8') as f:
            recs = json.load(f)
         self._img_paths = [r['img'] for r in recs if 'img' in r]
         self._img_paths = list(dict.fromkeys(self._img_paths))
@@ -451,7 +473,10 @@ class PPOTrainer(A2CTrainer):
         self._img_idx = 0
         self._img_lock = threading.Lock()   
 
-        
+        self.val_json = self.cfg.data.get("val_json", None)
+        self.val_eval_episodes = int(self.cfg.train.get("val_eval_episodes", 64))
+        self.val_interval = int(self.cfg.train.get("val_interval", 20))
+
         # 熵退火参数
         self.ent_coef_init  = float(cfg.train.get("entropy_coef", 0.10))
         self.ent_coef_final = float(cfg.train.get("entropy_coef_final", 0.01))
@@ -467,8 +492,8 @@ class PPOTrainer(A2CTrainer):
         self.prefetch_factor = 8      # 预取倍数
         self.pin_memory = True        # 启用固定内存
 
-        print(f"🚀 A800优化PPO: batch_size={self.batch_size}, minibatch_size={self.minibatch_size}")
-        print(f"📊 环境数: {self.n_envs}, 预计峰值显存: ~{self.estimate_memory_usage():.1f}GB")
+        print(f" PPO: batch_size={self.batch_size}, minibatch_size={self.minibatch_size}")
+        print(f" 环境数: {self.n_envs}")
 
     def _next_image(self) -> Image.Image:
         """线程安全地取下一张训练图"""
@@ -508,19 +533,74 @@ class PPOTrainer(A2CTrainer):
 
     def _monitor_memory(self, stage=""):
         """监控内存使用"""
-        allocated = torch.cuda.memory_allocated(0) / 1024**3
-        reserved = torch.cuda.memory_reserved(0) / 1024**3
+        gpu_id = self.device.index
+        allocated = torch.cuda.memory_allocated(gpu_id) / 1024**3
+        reserved = torch.cuda.memory_reserved(gpu_id) / 1024**3
         
         if allocated > self.memory_threshold:
-            print(f"⚠️ {stage} 显存使用过高: {allocated:.2f}GB")
+            print(f"! {stage} 显存使用过高: {allocated:.2f}GB")
             torch.cuda.empty_cache()
             import gc
             gc.collect()
             
         return allocated, reserved
 
+    def evaluate_policy(self, max_episodes=None):
+        if not self.val_json or not os.path.exists(self.val_json):
+            return None
+
+        with open(self.val_json, "r", encoding="utf-8") as f:
+            recs = json.load(f)
+
+        if not recs:
+            return None
+
+        recs = recs[: max_episodes or self.val_eval_episodes]
+        scorer = load_aesthetic_model()
+
+        final_scores = []
+        score_gains = []
+        steps_list = []
+
+        self.model.eval()
+        with torch.no_grad():
+            for rec in recs:
+                try:
+                    img = Image.open(rec["img"]).convert("RGB")
+                    env = CropEnv(img, scorer, self.cfg, inference=False)
+
+                    state = env.reset()
+                    init_score = env.prev_score
+                    done = False
+
+                    while not done:
+                        img_t = state[0].unsqueeze(0).to(self.device)
+                        st_t = state[1].unsqueeze(0).to(self.device)
+
+                        probs, _ = self.model(img_t, st_t)
+                        action = torch.argmax(probs, dim=1).item()
+                        state, _, done, _ = env.step(action)
+
+                    final_scores.append(float(env.prev_score))
+                    score_gains.append(float(env.prev_score - init_score))
+                    steps_list.append(int(env.step_count))
+                except Exception as e:
+                    print(f"! validate failed for {rec.get('img', 'unknown')}: {e}")
+
+        self.model.train()
+
+        if not final_scores:
+            return None
+
+        return {
+            "avg_final_score": float(np.mean(final_scores)),
+            "avg_score_gain": float(np.mean(score_gains)),
+            "avg_steps": float(np.mean(steps_list)),
+            "num_eval": len(final_scores),
+        }
+
     def train(self):
-        print("🚀 进入A800优化PPO训练")
+        print(" 进入A800优化PPO训练")
         device = self.device
         global_step = 0 
         rollout_count = 0
@@ -563,7 +643,7 @@ class PPOTrainer(A2CTrainer):
                 torch.cuda.empty_cache()
                 
             except Exception as e:
-                print(f"❌ Rollout {rollout_count} 失败: {e}")
+                print(f"! Rollout {rollout_count} 失败: {e}")
                 # 紧急内存清理
                 torch.cuda.empty_cache()
                 import gc
@@ -576,19 +656,66 @@ class PPOTrainer(A2CTrainer):
                     step=global_step,
                     rollout=rollout_count,
                     mean_reward=mean_reward,
+                    best_reward=self.best_reward,
                     num_envs=self.n_envs
                 )
                 print(f"[A800-PPO] rollout {rollout_count} | step {global_step} | reward {mean_reward:.3f} | mem {allocated:.1f}GB")
 
             if rollout_count % self.save_interval == 0:
-                checkpoint_name = f"rollout_{rollout_count}"
-                self.save_model(tag=checkpoint_name)
-                print(f"* 模型已保存 (rollout {rollout_count})")
+                self.save_model(
+                    filename="ppo_latest.pth",
+                    tag="latest",
+                    extra={
+                        "global_step": global_step,
+                        "rollout": rollout_count,
+                        "mean_reward": mean_reward,
+                        "best_reward": self.best_reward,
+                    }
+                )
 
             if mean_reward > self.best_reward:
                 self.best_reward = mean_reward
-                self.save_model(tag="best")
-                print(f"** 最佳模型 (reward {mean_reward:.3f})")
+                self.save_model(
+                    filename="ppo_best_train_reward.pth",
+                    tag="best_train_reward",
+                    extra={
+                        "global_step": global_step,
+                        "rollout": rollout_count,
+                        "mean_reward": mean_reward,
+                        "best_reward": self.best_reward,
+                    }
+                )
+                print(f"** 最佳训练reward模型: {mean_reward:.3f}")
+            
+            if rollout_count % self.val_interval == 0:
+                val_metrics = self.evaluate_policy()
+                if val_metrics is not None:
+                    self.log_metrics(
+                        step=global_step,
+                        rollout=rollout_count,
+                        val_avg_final_score=val_metrics["avg_final_score"],
+                        val_avg_score_gain=val_metrics["avg_score_gain"],
+                        val_avg_steps=val_metrics["avg_steps"],
+                        val_num_eval=val_metrics["num_eval"],
+                    )
+                    print(
+                        f"[VAL] rollout {rollout_count} | "
+                        f"final_score={val_metrics['avg_final_score']:.3f} | "
+                        f"gain={val_metrics['avg_score_gain']:.3f}"
+                    )
+
+                    if val_metrics["avg_final_score"] > self.best_val_final_score:
+                        self.best_val_final_score = val_metrics["avg_final_score"]
+                        self.save_model(
+                            filename="ppo_best_val_final_score.pth",
+                            tag="best_val_final_score",
+                            extra={
+                                "global_step": global_step,
+                                "rollout": rollout_count,
+                                **val_metrics,
+                            }
+                        )
+                        print(f"** 最佳验证final_score模型: {self.best_val_final_score:.3f}")
 
     def _collect_rollout_a800(self, states, device, global_step: int):
         n_steps = self.cfg.train.get("n_steps", 512)
@@ -654,58 +781,91 @@ class PPOTrainer(A2CTrainer):
             'steps': n_steps * self.n_envs
         }
 
-    def _batch_env_step_a800(self, actions):
-        """批量环境步进，优化数据传输"""
-        from concurrent.futures import ThreadPoolExecutor, as_completed
+    # def _batch_env_step_a800(self, actions):
+    #     """批量环境步进，优化数据传输"""
+    #     from concurrent.futures import ThreadPoolExecutor, as_completed
 
-        n_envs = len(self.envs)
-        next_states = [None] * n_envs
-        rewards = [0.0] * n_envs
-        dones = [False] * n_envs
+    #     n_envs = len(self.envs)
+    #     next_states = [None] * n_envs
+    #     rewards = [0.0] * n_envs
+    #     dones = [False] * n_envs
         
-        def worker(i, act):
-            """调用 env.step 并返回规范化结果 (i, img_tensor, state_tensor, reward, done)"""
+    #     def worker(i, act):
+    #         """调用 env.step 并返回规范化结果 (i, img_tensor, state_tensor, reward, done)"""
+    #         try:
+    #             res = self.envs[i].step(act)
+    #             # env.step 返回 ((img_tensor, state_tensor), reward, done, info)
+    #             (img_cpu, st_cpu), r, done, _ = res
+    #             if done:
+    #                 next_img = self._next_image()
+    #                 img_cpu, st_cpu = self.envs[i].load_image(next_img)
+
+    #             # 如果 env 返回 PIL.Image，转为 tensor；如果返回 tensor，直接使用
+    #             if not isinstance(img_cpu, torch.Tensor):
+    #                 # 只在极少数情况发生，尽量把转换并行到线程中
+    #                 img_tensor = T.ToTensor()(img_cpu)
+    #             else:
+    #                 img_tensor = img_cpu
+
+    #             if not isinstance(st_cpu, torch.Tensor):
+    #                 st_tensor = torch.as_tensor(st_cpu, dtype=torch.float32)
+    #             else:
+    #                 st_tensor = st_cpu
+
+    #             # 直接移动到训练设备（非阻塞）
+    #             img_gpu = img_tensor.to(self.device, non_blocking=True)
+    #             st_gpu = st_tensor.to(self.device, non_blocking=True)
+
+    #             return (i, (img_gpu, st_gpu), float(r), bool(done))
+
+    #         except Exception as e:
+    #             # 出错时返回占位（保持训练可以继续）
+    #             print(f"环境 {i} 并行 step 失败: {e}")
+    #             default_img = torch.zeros(3, 224, 224, device=self.device)
+    #             default_state = torch.zeros(4, device=self.device)
+    #             return (i, (default_img, default_state), 0.0, False)
+
+    #     max_workers = min(32, n_envs)
+    #     with ThreadPoolExecutor(max_workers=max_workers) as ex:
+    #         futures = [ex.submit(worker, i, actions[i]) for i in range(n_envs)]
+    #         for fut in as_completed(futures):
+    #             i, state_pair, r, done = fut.result()
+    #             next_states[i] = state_pair
+    #             rewards[i] = r
+    #             dones[i] = done
+
+    #     return next_states, rewards, dones
+
+    def _batch_env_step_a800(self, actions):
+        next_states = [None] * len(self.envs)
+        rewards = [0.0] * len(self.envs)
+        dones = [False] * len(self.envs)
+
+        for i, act in enumerate(actions):
             try:
-                res = self.envs[i].step(act)
-                # env.step 返回 ((img_tensor, state_tensor), reward, done, info)
-                (img_cpu, st_cpu), r, done, _ = res
+                (img_cpu, st_cpu), r, done, _ = self.envs[i].step(act)
                 if done:
                     next_img = self._next_image()
                     img_cpu, st_cpu = self.envs[i].load_image(next_img)
 
-                # 如果 env 返回 PIL.Image，转为 tensor；如果返回 tensor，直接使用
-                if not isinstance(img_cpu, torch.Tensor):
-                    # 只在极少数情况发生，尽量把转换并行到线程中
-                    img_tensor = T.ToTensor()(img_cpu)
-                else:
-                    img_tensor = img_cpu
+                img_tensor = img_cpu if isinstance(img_cpu, torch.Tensor) else T.ToTensor()(img_cpu)
+                st_tensor = st_cpu if isinstance(st_cpu, torch.Tensor) else torch.as_tensor(st_cpu, dtype=torch.float32)
 
-                if not isinstance(st_cpu, torch.Tensor):
-                    st_tensor = torch.as_tensor(st_cpu, dtype=torch.float32)
-                else:
-                    st_tensor = st_cpu
-
-                # 直接移动到训练设备（非阻塞）
-                img_gpu = img_tensor.to(self.device, non_blocking=True)
-                st_gpu = st_tensor.to(self.device, non_blocking=True)
-
-                return (i, (img_gpu, st_gpu), float(r), bool(done))
+                next_states[i] = (
+                    img_tensor.to(self.device, non_blocking=True),
+                    st_tensor.to(self.device, non_blocking=True),
+                )
+                rewards[i] = float(r)
+                dones[i] = bool(done)
 
             except Exception as e:
-                # 出错时返回占位（保持训练可以继续）
-                print(f"环境 {i} 并行 step 失败: {e}")
-                default_img = torch.zeros(3, 224, 224, device=self.device)
-                default_state = torch.zeros(4, device=self.device)
-                return (i, (default_img, default_state), 0.0, False)
-
-        max_workers = min(32, n_envs)
-        with ThreadPoolExecutor(max_workers=max_workers) as ex:
-            futures = [ex.submit(worker, i, actions[i]) for i in range(n_envs)]
-            for fut in as_completed(futures):
-                i, state_pair, r, done = fut.result()
-                next_states[i] = state_pair
-                rewards[i] = r
-                dones[i] = done
+                print(f"环境 {i} step 失败: {e}")
+                next_states[i] = (
+                    torch.zeros(3, 224, 224, device=self.device),
+                    torch.zeros(4, device=self.device),
+                )
+                rewards[i] = 0.0
+                dones[i] = False
 
         return next_states, rewards, dones
 
@@ -803,61 +963,9 @@ class PPOTrainer(A2CTrainer):
         return advs, returns
 
 
-def mean_score(preds):
-    """
-    计算 preds 的均值，支持多种格式。
-    """
-    labels = np.arange(1, preds.shape[-1] + 1, dtype=np.float32)
-    score = float((preds * labels).sum())
-    return score
-
-class OnnxTorchNIMAScorer:
-    """使用 ONNX→PyTorch 转换后的 NIMA 模型进行打分（仅 PyTorch 依赖）"""
-    def __init__(self, onnx_path: str, device: str = "cuda:0"):
-        from onnx2torch import convert
-        self.device = torch.device(device)
-        self.model = convert(onnx_path).to(self.device).eval()
-        self.input_size = 299  # 与导出时一致
-
-    @staticmethod
-    def _preprocess_pil(img: Image.Image, size: int) -> torch.Tensor:
-        # Keras Inception 系列预处理：scale 到 [-1,1]
-        arr = np.array(img.convert("RGB").resize((size, size)), dtype=np.float32) / 255.0
-        t = torch.from_numpy(arr).permute(2, 0, 1)          # CHW
-        t = (t - 0.5) * 2.0                                 # [-1,1]
-        return t
-
-    def __call__(self, img: Image.Image) -> float:
-        with torch.no_grad():
-            x = self._preprocess_pil(img, self.input_size).unsqueeze(0).to(self.device)
-            out = self.model(x)              # 期望形状 [B,10]（已含 softmax）
-            if out.shape[-1] != 10:
-                # 若未含 softmax，则手动 softmax
-                out = torch.softmax(out, dim=1)
-            labels = torch.arange(1, 11, dtype=torch.float32, device=self.device)
-            score = (out * labels).sum(dim=1)
-            return float(score.clamp(1.0, 10.0).item())
-
-    score = __call__
-
-def load_aesthetic_model():
-    cfg = Config()
-    w = str(cfg.nima.get('weights_path', '../NIMA/weights/nima_inception_resnet.onnx'))
-    # 优先：ONNX → PyTorch（单框架）
-    if w.lower().endswith(".onnx"):
-        device_id = int(cfg.nima.get('device_id', 0))
-        return OnnxTorchNIMAScorer(w, device=f"cuda:{device_id}")
-    # 其次：.pth → 走本地 PyTorch 版
-    if w.lower().endswith(".pth"):
-        return A800SharedNIMAScorer(cfg)
-    # 兜底：.h5 → TF 版（如未转换成功）
-    return NIMAScorer(weights_path=w, target_size=(299, 299), use_gpu=True, device_id=int(cfg.nima.get('device_id', 0)))    
-
-
 class A800SharedNIMAScorer:
-    
     def __init__(self, cfg=None):
-        print("🚀 初始化A800共享NIMA...")
+        print("  初始化A800共享NIMA...")
 
         if cfg is not None and hasattr(cfg, 'nima') and 'training_gpus' in cfg.nima:
             gpu_list = cfg.nima['training_gpus']

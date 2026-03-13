@@ -10,3 +10,11 @@ logs/
 .idea/
 *.h5
 *.onnx
+checkpoints/
+GAIC_origin/
+GAIC_dataset/
+z_deployment/
+cuhk_images/
+*.run
+*.so
+*.o

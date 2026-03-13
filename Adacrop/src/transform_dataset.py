@@ -96,7 +96,8 @@ class SmallCropDataset(Dataset):
         img = Image.open(rec["img"]).convert("RGB")
         W, H = img.size
         # 随机选一个框
-        x1, y1, x2, y2 = random.choice(rec["box"])
+        boxes = rec.get("box", rec.get("boxes", []))
+        x1, y1, x2, y2 = random.choice(boxes)
         # 转成 (cx, cy, w, h)，并归一化到 [0,1]
         cx = (x1 + x2) / 2 / W
         cy = (y1 + y2) / 2 / H

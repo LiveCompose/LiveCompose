@@ -1,0 +1,12502 @@
+[
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/210333.jpg",
+    "box": [
+      [
+        28,
+        43,
+        537,
+        981
+      ],
+      [
+        28,
+        128,
+        480,
+        981
+      ],
+      [
+        28,
+        43,
+        480,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/211117.jpg",
+    "box": [
+      [
+        29,
+        128,
+        656,
+        725
+      ],
+      [
+        29,
+        43,
+        656,
+        811
+      ],
+      [
+        86,
+        43,
+        599,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/211144.jpg",
+    "box": [
+      [
+        28,
+        128,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/211811.jpg",
+    "box": [
+      [
+        142,
+        128,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/212000.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        811
+      ],
+      [
+        85,
+        43,
+        598,
+        811
+      ],
+      [
+        85,
+        43,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/212005.jpg",
+    "box": [
+      [
+        28,
+        299,
+        538,
+        981
+      ],
+      [
+        85,
+        299,
+        651,
+        981
+      ],
+      [
+        28,
+        299,
+        594,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/212601.jpg",
+    "box": [
+      [
+        72,
+        213,
+        504,
+        981
+      ],
+      [
+        120,
+        213,
+        504,
+        981
+      ],
+      [
+        24,
+        213,
+        504,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/213269.jpg",
+    "box": [
+      [
+        139,
+        43,
+        585,
+        811
+      ],
+      [
+        84,
+        43,
+        585,
+        811
+      ],
+      [
+        84,
+        128,
+        585,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/213811.jpg",
+    "box": [
+      [
+        32,
+        128,
+        538,
+        981
+      ],
+      [
+        32,
+        43,
+        601,
+        981
+      ],
+      [
+        32,
+        43,
+        538,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/213822.jpg",
+    "box": [
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        160,
+        43,
+        672,
+        981
+      ],
+      [
+        224,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/213823.jpg",
+    "box": [
+      [
+        85,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        811
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/214255.jpg",
+    "box": [
+      [
+        23,
+        43,
+        486,
+        981
+      ],
+      [
+        23,
+        43,
+        439,
+        725
+      ],
+      [
+        23,
+        43,
+        486,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/215046.jpg",
+    "box": [
+      [
+        29,
+        43,
+        656,
+        725
+      ],
+      [
+        29,
+        43,
+        656,
+        811
+      ],
+      [
+        29,
+        43,
+        599,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/215516.jpg",
+    "box": [
+      [
+        24,
+        299,
+        552,
+        896
+      ],
+      [
+        72,
+        213,
+        552,
+        981
+      ],
+      [
+        72,
+        299,
+        552,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/215736.jpg",
+    "box": [
+      [
+        85,
+        128,
+        598,
+        811
+      ],
+      [
+        28,
+        128,
+        598,
+        811
+      ],
+      [
+        28,
+        128,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/216186.jpg",
+    "box": [
+      [
+        199,
+        213,
+        655,
+        981
+      ],
+      [
+        142,
+        213,
+        655,
+        981
+      ],
+      [
+        199,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/216570.jpg",
+    "box": [
+      [
+        22,
+        128,
+        514,
+        896
+      ],
+      [
+        22,
+        43,
+        514,
+        981
+      ],
+      [
+        22,
+        213,
+        514,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/217381.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/217386.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        896
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/218358.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/218744.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        896
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/218904.jpg",
+    "box": [
+      [
+        96,
+        43,
+        672,
+        981
+      ],
+      [
+        96,
+        128,
+        672,
+        896
+      ],
+      [
+        32,
+        128,
+        672,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/219424.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        541,
+        811
+      ],
+      [
+        28,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/219637.jpg",
+    "box": [
+      [
+        28,
+        128,
+        483,
+        981
+      ],
+      [
+        28,
+        128,
+        654,
+        981
+      ],
+      [
+        28,
+        213,
+        540,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/219695.jpg",
+    "box": [
+      [
+        85,
+        299,
+        655,
+        981
+      ],
+      [
+        142,
+        299,
+        655,
+        981
+      ],
+      [
+        28,
+        299,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/219853.jpg",
+    "box": [
+      [
+        32,
+        128,
+        609,
+        981
+      ],
+      [
+        32,
+        43,
+        609,
+        981
+      ],
+      [
+        32,
+        43,
+        673,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 5.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220018.jpg",
+    "box": [
+      [
+        27,
+        43,
+        557,
+        981
+      ],
+      [
+        27,
+        43,
+        610,
+        981
+      ],
+      [
+        27,
+        43,
+        504,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220035.jpg",
+    "box": [
+      [
+        32,
+        43,
+        614,
+        981
+      ],
+      [
+        97,
+        43,
+        614,
+        981
+      ],
+      [
+        32,
+        43,
+        679,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220207.jpg",
+    "box": [
+      [
+        28,
+        128,
+        655,
+        981
+      ],
+      [
+        85,
+        128,
+        598,
+        981
+      ],
+      [
+        85,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.67
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220347.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220458.jpg",
+    "box": [
+      [
+        28,
+        43,
+        483,
+        811
+      ],
+      [
+        28,
+        43,
+        483,
+        896
+      ],
+      [
+        28,
+        43,
+        483,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220827.jpg",
+    "box": [
+      [
+        128,
+        29,
+        896,
+        674
+      ],
+      [
+        128,
+        29,
+        896,
+        615
+      ],
+      [
+        213,
+        29,
+        811,
+        674
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220839.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220917.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220921.jpg",
+    "box": [
+      [
+        101,
+        43,
+        707,
+        981
+      ],
+      [
+        168,
+        43,
+        707,
+        981
+      ],
+      [
+        34,
+        43,
+        774,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220938.jpg",
+    "box": [
+      [
+        24,
+        43,
+        504,
+        725
+      ],
+      [
+        24,
+        43,
+        456,
+        725
+      ],
+      [
+        24,
+        43,
+        456,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220971.jpg",
+    "box": [
+      [
+        26,
+        43,
+        548,
+        981
+      ],
+      [
+        26,
+        43,
+        600,
+        981
+      ],
+      [
+        26,
+        128,
+        600,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/220989.jpg",
+    "box": [
+      [
+        96,
+        43,
+        544,
+        981
+      ],
+      [
+        32,
+        43,
+        608,
+        981
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221116.jpg",
+    "box": [
+      [
+        35,
+        43,
+        815,
+        725
+      ],
+      [
+        35,
+        43,
+        815,
+        811
+      ],
+      [
+        106,
+        43,
+        815,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221273.jpg",
+    "box": [
+      [
+        43,
+        224,
+        811,
+        736
+      ],
+      [
+        43,
+        96,
+        811,
+        736
+      ],
+      [
+        43,
+        160,
+        811,
+        736
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221313.jpg",
+    "box": [
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        96,
+        43,
+        736,
+        896
+      ],
+      [
+        96,
+        43,
+        736,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221520.jpg",
+    "box": [
+      [
+        128,
+        105,
+        981,
+        804
+      ],
+      [
+        128,
+        175,
+        981,
+        804
+      ],
+      [
+        128,
+        35,
+        981,
+        804
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221565.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        811
+      ],
+      [
+        85,
+        43,
+        655,
+        811
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 5.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221589.jpg",
+    "box": [
+      [
+        43,
+        199,
+        896,
+        655
+      ],
+      [
+        43,
+        142,
+        981,
+        655
+      ],
+      [
+        128,
+        199,
+        896,
+        655
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221743.jpg",
+    "box": [
+      [
+        85,
+        128,
+        597,
+        981
+      ],
+      [
+        85,
+        128,
+        654,
+        981
+      ],
+      [
+        85,
+        213,
+        654,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221857.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        896
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/221997.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/222317.jpg",
+    "box": [
+      [
+        93,
+        43,
+        648,
+        981
+      ],
+      [
+        31,
+        43,
+        648,
+        981
+      ],
+      [
+        31,
+        43,
+        709,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/222619.jpg",
+    "box": [
+      [
+        43,
+        39,
+        981,
+        888
+      ],
+      [
+        43,
+        39,
+        896,
+        888
+      ],
+      [
+        43,
+        116,
+        981,
+        888
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/222707.jpg",
+    "box": [
+      [
+        24,
+        128,
+        447,
+        981
+      ],
+      [
+        24,
+        213,
+        400,
+        981
+      ],
+      [
+        24,
+        213,
+        447,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/222804.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/222867.jpg",
+    "box": [
+      [
+        32,
+        43,
+        608,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/222889.jpg",
+    "box": [
+      [
+        85,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/223122.jpg",
+    "box": [
+      [
+        43,
+        96,
+        981,
+        736
+      ],
+      [
+        43,
+        160,
+        981,
+        736
+      ],
+      [
+        128,
+        160,
+        896,
+        736
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/223248.jpg",
+    "box": [
+      [
+        142,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/223721.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        725
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/224003.jpg",
+    "box": [
+      [
+        128,
+        198,
+        811,
+        911
+      ],
+      [
+        43,
+        277,
+        981,
+        911
+      ],
+      [
+        43,
+        198,
+        896,
+        911
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/224646.jpg",
+    "box": [
+      [
+        23,
+        128,
+        529,
+        981
+      ],
+      [
+        23,
+        213,
+        529,
+        896
+      ],
+      [
+        69,
+        128,
+        483,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/224985.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ],
+      [
+        28,
+        213,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/225087.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ],
+      [
+        96,
+        43,
+        672,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/225483.jpg",
+    "box": [
+      [
+        85,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/225566.jpg",
+    "box": [
+      [
+        142,
+        43,
+        597,
+        981
+      ],
+      [
+        142,
+        43,
+        654,
+        981
+      ],
+      [
+        85,
+        43,
+        654,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/230045.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        725
+      ],
+      [
+        28,
+        43,
+        655,
+        725
+      ],
+      [
+        28,
+        43,
+        598,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/230079.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/230174.jpg",
+    "box": [
+      [
+        29,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        43,
+        656,
+        896
+      ],
+      [
+        29,
+        128,
+        656,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/230379.jpg",
+    "box": [
+      [
+        84,
+        43,
+        531,
+        811
+      ],
+      [
+        28,
+        43,
+        531,
+        725
+      ],
+      [
+        28,
+        43,
+        531,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 5.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/230560.jpg",
+    "box": [
+      [
+        28,
+        43,
+        651,
+        981
+      ],
+      [
+        85,
+        43,
+        651,
+        981
+      ],
+      [
+        85,
+        128,
+        651,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/230763.jpg",
+    "box": [
+      [
+        160,
+        43,
+        672,
+        981
+      ],
+      [
+        96,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/230861.jpg",
+    "box": [
+      [
+        28,
+        43,
+        595,
+        896
+      ],
+      [
+        28,
+        43,
+        538,
+        981
+      ],
+      [
+        28,
+        43,
+        595,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/231228.jpg",
+    "box": [
+      [
+        32,
+        43,
+        545,
+        896
+      ],
+      [
+        32,
+        43,
+        609,
+        981
+      ],
+      [
+        32,
+        43,
+        673,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/231438.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/231629.jpg",
+    "box": [
+      [
+        159,
+        43,
+        730,
+        981
+      ],
+      [
+        95,
+        43,
+        730,
+        981
+      ],
+      [
+        222,
+        43,
+        730,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/231815.jpg",
+    "box": [
+      [
+        99,
+        43,
+        690,
+        981
+      ],
+      [
+        33,
+        43,
+        755,
+        981
+      ],
+      [
+        33,
+        43,
+        755,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/231837.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/232700.jpg",
+    "box": [
+      [
+        28,
+        213,
+        484,
+        981
+      ],
+      [
+        28,
+        213,
+        598,
+        896
+      ],
+      [
+        28,
+        128,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/232821.jpg",
+    "box": [
+      [
+        119,
+        43,
+        546,
+        725
+      ],
+      [
+        71,
+        43,
+        546,
+        725
+      ],
+      [
+        24,
+        43,
+        546,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/232826.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/233512.jpg",
+    "box": [
+      [
+        43,
+        27,
+        896,
+        630
+      ],
+      [
+        43,
+        82,
+        896,
+        520
+      ],
+      [
+        43,
+        27,
+        896,
+        575
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/233513.jpg",
+    "box": [
+      [
+        239,
+        43,
+        786,
+        811
+      ],
+      [
+        103,
+        43,
+        786,
+        811
+      ],
+      [
+        171,
+        43,
+        786,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 5.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/233781.jpg",
+    "box": [
+      [
+        160,
+        43,
+        736,
+        981
+      ],
+      [
+        224,
+        43,
+        736,
+        896
+      ],
+      [
+        224,
+        43,
+        736,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/233813.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/233900.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/234197.jpg",
+    "box": [
+      [
+        85,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/234404.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/234706.jpg",
+    "box": [
+      [
+        151,
+        43,
+        697,
+        725
+      ],
+      [
+        91,
+        43,
+        697,
+        725
+      ],
+      [
+        151,
+        43,
+        697,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/234873.jpg",
+    "box": [
+      [
+        86,
+        43,
+        599,
+        981
+      ],
+      [
+        143,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        43,
+        599,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/235016.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/235036.jpg",
+    "box": [
+      [
+        130,
+        213,
+        599,
+        981
+      ],
+      [
+        78,
+        213,
+        599,
+        981
+      ],
+      [
+        130,
+        299,
+        599,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/235467.jpg",
+    "box": [
+      [
+        43,
+        28,
+        981,
+        655
+      ],
+      [
+        43,
+        85,
+        981,
+        598
+      ],
+      [
+        43,
+        28,
+        725,
+        655
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/235785.jpg",
+    "box": [
+      [
+        213,
+        27,
+        981,
+        466
+      ],
+      [
+        299,
+        27,
+        981,
+        521
+      ],
+      [
+        128,
+        27,
+        981,
+        576
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.64
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/235822.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        725
+      ],
+      [
+        85,
+        43,
+        598,
+        725
+      ],
+      [
+        142,
+        43,
+        655,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236028.jpg",
+    "box": [
+      [
+        29,
+        43,
+        674,
+        725
+      ],
+      [
+        29,
+        43,
+        615,
+        725
+      ],
+      [
+        29,
+        43,
+        674,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236160.jpg",
+    "box": [
+      [
+        160,
+        43,
+        736,
+        981
+      ],
+      [
+        224,
+        43,
+        736,
+        981
+      ],
+      [
+        224,
+        128,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236234.jpg",
+    "box": [
+      [
+        24,
+        128,
+        505,
+        981
+      ],
+      [
+        24,
+        213,
+        457,
+        896
+      ],
+      [
+        24,
+        213,
+        505,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236310.jpg",
+    "box": [
+      [
+        85,
+        213,
+        651,
+        896
+      ],
+      [
+        141,
+        213,
+        594,
+        981
+      ],
+      [
+        141,
+        213,
+        651,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236320.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        811
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236421.jpg",
+    "box": [
+      [
+        198,
+        128,
+        651,
+        981
+      ],
+      [
+        85,
+        43,
+        651,
+        896
+      ],
+      [
+        85,
+        43,
+        651,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236546.jpg",
+    "box": [
+      [
+        43,
+        86,
+        981,
+        656
+      ],
+      [
+        213,
+        86,
+        981,
+        656
+      ],
+      [
+        213,
+        143,
+        981,
+        599
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236622.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236626.jpg",
+    "box": [
+      [
+        85,
+        128,
+        655,
+        811
+      ],
+      [
+        28,
+        128,
+        655,
+        811
+      ],
+      [
+        28,
+        213,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236854.jpg",
+    "box": [
+      [
+        27,
+        43,
+        613,
+        896
+      ],
+      [
+        27,
+        128,
+        613,
+        896
+      ],
+      [
+        80,
+        128,
+        613,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/236941.jpg",
+    "box": [
+      [
+        43,
+        28,
+        896,
+        594
+      ],
+      [
+        43,
+        28,
+        811,
+        594
+      ],
+      [
+        43,
+        28,
+        981,
+        651
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/237169.jpg",
+    "box": [
+      [
+        96,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        128,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/237206.jpg",
+    "box": [
+      [
+        43,
+        85,
+        981,
+        655
+      ],
+      [
+        43,
+        142,
+        981,
+        655
+      ],
+      [
+        43,
+        28,
+        981,
+        655
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/237593.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        811
+      ],
+      [
+        28,
+        43,
+        484,
+        896
+      ],
+      [
+        28,
+        43,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/237834.jpg",
+    "box": [
+      [
+        85,
+        128,
+        655,
+        981
+      ],
+      [
+        142,
+        213,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/237845.jpg",
+    "box": [
+      [
+        96,
+        213,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        725
+      ],
+      [
+        32,
+        213,
+        672,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/237922.jpg",
+    "box": [
+      [
+        142,
+        128,
+        655,
+        981
+      ],
+      [
+        85,
+        128,
+        655,
+        981
+      ],
+      [
+        199,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238113.jpg",
+    "box": [
+      [
+        31,
+        128,
+        702,
+        981
+      ],
+      [
+        31,
+        128,
+        641,
+        981
+      ],
+      [
+        31,
+        213,
+        702,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238121.jpg",
+    "box": [
+      [
+        103,
+        43,
+        786,
+        981
+      ],
+      [
+        34,
+        43,
+        786,
+        981
+      ],
+      [
+        34,
+        128,
+        786,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238207.jpg",
+    "box": [
+      [
+        72,
+        43,
+        552,
+        811
+      ],
+      [
+        120,
+        43,
+        552,
+        896
+      ],
+      [
+        168,
+        43,
+        552,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238332.jpg",
+    "box": [
+      [
+        86,
+        128,
+        657,
+        896
+      ],
+      [
+        29,
+        43,
+        657,
+        896
+      ],
+      [
+        29,
+        43,
+        657,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238410.jpg",
+    "box": [
+      [
+        160,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238413.jpg",
+    "box": [
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        199,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238444.jpg",
+    "box": [
+      [
+        128,
+        28,
+        811,
+        655
+      ],
+      [
+        128,
+        28,
+        811,
+        598
+      ],
+      [
+        43,
+        28,
+        981,
+        598
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238563.jpg",
+    "box": [
+      [
+        28,
+        43,
+        653,
+        896
+      ],
+      [
+        28,
+        43,
+        596,
+        981
+      ],
+      [
+        28,
+        213,
+        539,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238571.jpg",
+    "box": [
+      [
+        32,
+        213,
+        736,
+        981
+      ],
+      [
+        32,
+        128,
+        736,
+        981
+      ],
+      [
+        32,
+        213,
+        672,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238842.jpg",
+    "box": [
+      [
+        32,
+        213,
+        544,
+        981
+      ],
+      [
+        32,
+        43,
+        544,
+        981
+      ],
+      [
+        32,
+        128,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238892.jpg",
+    "box": [
+      [
+        29,
+        43,
+        671,
+        896
+      ],
+      [
+        29,
+        43,
+        554,
+        896
+      ],
+      [
+        29,
+        43,
+        613,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238911.jpg",
+    "box": [
+      [
+        85,
+        128,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ],
+      [
+        85,
+        128,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/238974.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        541,
+        896
+      ],
+      [
+        85,
+        128,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239027.jpg",
+    "box": [
+      [
+        146,
+        43,
+        670,
+        896
+      ],
+      [
+        87,
+        43,
+        670,
+        896
+      ],
+      [
+        87,
+        43,
+        670,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239028.jpg",
+    "box": [
+      [
+        96,
+        43,
+        737,
+        896
+      ],
+      [
+        160,
+        43,
+        737,
+        981
+      ],
+      [
+        224,
+        43,
+        737,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239083.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        896
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239194.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        811
+      ],
+      [
+        85,
+        43,
+        598,
+        725
+      ],
+      [
+        28,
+        43,
+        541,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239374.jpg",
+    "box": [
+      [
+        40,
+        26,
+        752,
+        501
+      ],
+      [
+        277,
+        26,
+        910,
+        501
+      ],
+      [
+        40,
+        26,
+        673,
+        554
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239421.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        299,
+        598,
+        981
+      ],
+      [
+        28,
+        213,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239468.jpg",
+    "box": [
+      [
+        29,
+        43,
+        670,
+        896
+      ],
+      [
+        29,
+        43,
+        670,
+        981
+      ],
+      [
+        29,
+        43,
+        612,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/239723.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        128,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/240305.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        213,
+        736,
+        811
+      ],
+      [
+        96,
+        43,
+        672,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/240467.jpg",
+    "box": [
+      [
+        25,
+        43,
+        577,
+        981
+      ],
+      [
+        25,
+        128,
+        577,
+        896
+      ],
+      [
+        25,
+        43,
+        577,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/240573.jpg",
+    "box": [
+      [
+        29,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        128,
+        599,
+        981
+      ],
+      [
+        29,
+        213,
+        542,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/240606.jpg",
+    "box": [
+      [
+        119,
+        213,
+        549,
+        981
+      ],
+      [
+        167,
+        213,
+        549,
+        981
+      ],
+      [
+        119,
+        299,
+        549,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/243460.jpg",
+    "box": [
+      [
+        80,
+        43,
+        507,
+        896
+      ],
+      [
+        27,
+        43,
+        561,
+        896
+      ],
+      [
+        27,
+        43,
+        561,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/243796.jpg",
+    "box": [
+      [
+        142,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        142,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/244328.jpg",
+    "box": [
+      [
+        24,
+        43,
+        552,
+        981
+      ],
+      [
+        24,
+        43,
+        504,
+        981
+      ],
+      [
+        72,
+        43,
+        504,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/244689.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/244696.jpg",
+    "box": [
+      [
+        29,
+        213,
+        544,
+        981
+      ],
+      [
+        29,
+        213,
+        658,
+        981
+      ],
+      [
+        29,
+        299,
+        658,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/244757.jpg",
+    "box": [
+      [
+        86,
+        213,
+        542,
+        981
+      ],
+      [
+        29,
+        43,
+        542,
+        981
+      ],
+      [
+        29,
+        128,
+        542,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/244875.jpg",
+    "box": [
+      [
+        85,
+        128,
+        655,
+        981
+      ],
+      [
+        85,
+        299,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/245078.jpg",
+    "box": [
+      [
+        23,
+        128,
+        490,
+        981
+      ],
+      [
+        70,
+        128,
+        490,
+        981
+      ],
+      [
+        23,
+        43,
+        537,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.64
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/245110.jpg",
+    "box": [
+      [
+        198,
+        128,
+        651,
+        896
+      ],
+      [
+        85,
+        128,
+        651,
+        811
+      ],
+      [
+        141,
+        128,
+        651,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/245239.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        811
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/245398.jpg",
+    "box": [
+      [
+        28,
+        128,
+        484,
+        981
+      ],
+      [
+        28,
+        128,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/245678.jpg",
+    "box": [
+      [
+        26,
+        43,
+        502,
+        896
+      ],
+      [
+        79,
+        43,
+        555,
+        896
+      ],
+      [
+        26,
+        43,
+        555,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/246204.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/246437.jpg",
+    "box": [
+      [
+        43,
+        28,
+        725,
+        652
+      ],
+      [
+        43,
+        28,
+        811,
+        652
+      ],
+      [
+        43,
+        28,
+        725,
+        595
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/246959.jpg",
+    "box": [
+      [
+        120,
+        43,
+        553,
+        811
+      ],
+      [
+        72,
+        43,
+        553,
+        811
+      ],
+      [
+        72,
+        43,
+        553,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/247949.jpg",
+    "box": [
+      [
+        28,
+        128,
+        594,
+        981
+      ],
+      [
+        85,
+        43,
+        594,
+        981
+      ],
+      [
+        28,
+        43,
+        538,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/248065.jpg",
+    "box": [
+      [
+        170,
+        128,
+        558,
+        981
+      ],
+      [
+        121,
+        43,
+        558,
+        981
+      ],
+      [
+        121,
+        128,
+        558,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/249323.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        608,
+        896
+      ],
+      [
+        32,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/249893.jpg",
+    "box": [
+      [
+        83,
+        43,
+        526,
+        981
+      ],
+      [
+        28,
+        43,
+        581,
+        981
+      ],
+      [
+        28,
+        43,
+        470,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/250361.jpg",
+    "box": [
+      [
+        33,
+        43,
+        627,
+        896
+      ],
+      [
+        33,
+        43,
+        693,
+        896
+      ],
+      [
+        33,
+        43,
+        693,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/250682.jpg",
+    "box": [
+      [
+        128,
+        29,
+        896,
+        656
+      ],
+      [
+        213,
+        29,
+        896,
+        656
+      ],
+      [
+        128,
+        86,
+        896,
+        599
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/251109.jpg",
+    "box": [
+      [
+        43,
+        43,
+        811,
+        896
+      ],
+      [
+        43,
+        43,
+        725,
+        981
+      ],
+      [
+        43,
+        43,
+        725,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/251928.jpg",
+    "box": [
+      [
+        43,
+        39,
+        981,
+        735
+      ],
+      [
+        43,
+        39,
+        981,
+        813
+      ],
+      [
+        43,
+        39,
+        981,
+        890
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/252583.jpg",
+    "box": [
+      [
+        142,
+        299,
+        655,
+        981
+      ],
+      [
+        28,
+        299,
+        655,
+        981
+      ],
+      [
+        28,
+        213,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/252647.jpg",
+    "box": [
+      [
+        30,
+        43,
+        688,
+        981
+      ],
+      [
+        90,
+        43,
+        628,
+        981
+      ],
+      [
+        30,
+        43,
+        628,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/252686.jpg",
+    "box": [
+      [
+        43,
+        37,
+        981,
+        701
+      ],
+      [
+        43,
+        37,
+        896,
+        775
+      ],
+      [
+        43,
+        37,
+        896,
+        849
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/252721.jpg",
+    "box": [
+      [
+        33,
+        43,
+        689,
+        981
+      ],
+      [
+        98,
+        43,
+        689,
+        981
+      ],
+      [
+        33,
+        43,
+        623,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/252867.jpg",
+    "box": [
+      [
+        32,
+        43,
+        673,
+        981
+      ],
+      [
+        32,
+        43,
+        545,
+        981
+      ],
+      [
+        32,
+        43,
+        609,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/253929.jpg",
+    "box": [
+      [
+        199,
+        128,
+        655,
+        981
+      ],
+      [
+        28,
+        213,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/253933.jpg",
+    "box": [
+      [
+        142,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/254033.jpg",
+    "box": [
+      [
+        43,
+        35,
+        896,
+        795
+      ],
+      [
+        43,
+        104,
+        725,
+        726
+      ],
+      [
+        43,
+        173,
+        811,
+        726
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/254372.jpg",
+    "box": [
+      [
+        32,
+        128,
+        736,
+        896
+      ],
+      [
+        96,
+        213,
+        736,
+        896
+      ],
+      [
+        160,
+        43,
+        736,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/254375.jpg",
+    "box": [
+      [
+        160,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        128,
+        736,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/254497.jpg",
+    "box": [
+      [
+        28,
+        43,
+        651,
+        981
+      ],
+      [
+        28,
+        128,
+        651,
+        981
+      ],
+      [
+        85,
+        43,
+        651,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/254538.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/254553.jpg",
+    "box": [
+      [
+        27,
+        43,
+        624,
+        981
+      ],
+      [
+        27,
+        128,
+        624,
+        896
+      ],
+      [
+        27,
+        128,
+        624,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/255010.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/255381.jpg",
+    "box": [
+      [
+        224,
+        43,
+        736,
+        811
+      ],
+      [
+        224,
+        43,
+        736,
+        896
+      ],
+      [
+        96,
+        43,
+        736,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/255447.jpg",
+    "box": [
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        86,
+        43,
+        656,
+        981
+      ],
+      [
+        143,
+        128,
+        656,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/255509.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        896
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/255619.jpg",
+    "box": [
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        199,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/256204.jpg",
+    "box": [
+      [
+        142,
+        299,
+        655,
+        981
+      ],
+      [
+        199,
+        213,
+        655,
+        981
+      ],
+      [
+        142,
+        213,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/257109.jpg",
+    "box": [
+      [
+        224,
+        43,
+        736,
+        981
+      ],
+      [
+        224,
+        128,
+        736,
+        981
+      ],
+      [
+        160,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/257114.jpg",
+    "box": [
+      [
+        28,
+        43,
+        645,
+        981
+      ],
+      [
+        84,
+        128,
+        645,
+        811
+      ],
+      [
+        28,
+        43,
+        645,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/257124.jpg",
+    "box": [
+      [
+        86,
+        43,
+        658,
+        981
+      ],
+      [
+        143,
+        43,
+        658,
+        981
+      ],
+      [
+        29,
+        43,
+        658,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/257830.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ],
+      [
+        28,
+        128,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 5.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/259303.jpg",
+    "box": [
+      [
+        34,
+        43,
+        645,
+        896
+      ],
+      [
+        34,
+        43,
+        781,
+        811
+      ],
+      [
+        102,
+        43,
+        645,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/259939.jpg",
+    "box": [
+      [
+        28,
+        43,
+        538,
+        896
+      ],
+      [
+        28,
+        128,
+        652,
+        896
+      ],
+      [
+        28,
+        43,
+        595,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/260078.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        96,
+        43,
+        672,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/260410.jpg",
+    "box": [
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/260596.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/261707.jpg",
+    "box": [
+      [
+        26,
+        43,
+        603,
+        981
+      ],
+      [
+        79,
+        43,
+        603,
+        981
+      ],
+      [
+        79,
+        43,
+        550,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/261738.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/261821.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        896
+      ],
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/261870.jpg",
+    "box": [
+      [
+        43,
+        31,
+        811,
+        648
+      ],
+      [
+        43,
+        31,
+        811,
+        709
+      ],
+      [
+        43,
+        31,
+        725,
+        709
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/262148.jpg",
+    "box": [
+      [
+        28,
+        43,
+        597,
+        896
+      ],
+      [
+        28,
+        43,
+        540,
+        896
+      ],
+      [
+        28,
+        43,
+        540,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/262325.jpg",
+    "box": [
+      [
+        28,
+        128,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/262399.jpg",
+    "box": [
+      [
+        28,
+        43,
+        595,
+        981
+      ],
+      [
+        85,
+        43,
+        538,
+        981
+      ],
+      [
+        85,
+        128,
+        595,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/262783.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/262993.jpg",
+    "box": [
+      [
+        199,
+        43,
+        655,
+        896
+      ],
+      [
+        199,
+        43,
+        655,
+        811
+      ],
+      [
+        142,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/263402.jpg",
+    "box": [
+      [
+        28,
+        43,
+        596,
+        981
+      ],
+      [
+        28,
+        43,
+        653,
+        981
+      ],
+      [
+        28,
+        128,
+        539,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/263479.jpg",
+    "box": [
+      [
+        32,
+        43,
+        609,
+        981
+      ],
+      [
+        32,
+        43,
+        737,
+        981
+      ],
+      [
+        32,
+        43,
+        545,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/263622.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/263897.jpg",
+    "box": [
+      [
+        29,
+        43,
+        542,
+        981
+      ],
+      [
+        29,
+        43,
+        485,
+        981
+      ],
+      [
+        29,
+        43,
+        599,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/264035.jpg",
+    "box": [
+      [
+        199,
+        213,
+        653,
+        981
+      ],
+      [
+        28,
+        128,
+        653,
+        981
+      ],
+      [
+        28,
+        213,
+        653,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/264680.jpg",
+    "box": [
+      [
+        28,
+        128,
+        537,
+        981
+      ],
+      [
+        85,
+        43,
+        537,
+        896
+      ],
+      [
+        85,
+        43,
+        650,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/265813.jpg",
+    "box": [
+      [
+        39,
+        43,
+        900,
+        811
+      ],
+      [
+        39,
+        128,
+        900,
+        725
+      ],
+      [
+        39,
+        43,
+        822,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/266473.jpg",
+    "box": [
+      [
+        96,
+        128,
+        608,
+        981
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ],
+      [
+        96,
+        213,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/266718.jpg",
+    "box": [
+      [
+        28,
+        213,
+        484,
+        981
+      ],
+      [
+        28,
+        213,
+        541,
+        981
+      ],
+      [
+        28,
+        299,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/266801.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        160,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/268026.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/268918.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/269932.jpg",
+    "box": [
+      [
+        27,
+        43,
+        560,
+        981
+      ],
+      [
+        27,
+        43,
+        613,
+        981
+      ],
+      [
+        27,
+        128,
+        613,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/269979.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/270460.jpg",
+    "box": [
+      [
+        33,
+        43,
+        754,
+        981
+      ],
+      [
+        33,
+        43,
+        623,
+        981
+      ],
+      [
+        33,
+        43,
+        689,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/270807.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        896
+      ],
+      [
+        28,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/270812.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/271097.jpg",
+    "box": [
+      [
+        23,
+        128,
+        519,
+        725
+      ],
+      [
+        68,
+        43,
+        519,
+        981
+      ],
+      [
+        68,
+        213,
+        519,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/271146.jpg",
+    "box": [
+      [
+        128,
+        28,
+        981,
+        636
+      ],
+      [
+        128,
+        28,
+        896,
+        636
+      ],
+      [
+        213,
+        28,
+        896,
+        636
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/271147.jpg",
+    "box": [
+      [
+        84,
+        43,
+        589,
+        981
+      ],
+      [
+        28,
+        43,
+        645,
+        981
+      ],
+      [
+        28,
+        128,
+        645,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/272183.jpg",
+    "box": [
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        655,
+        896
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/272262.jpg",
+    "box": [
+      [
+        43,
+        32,
+        896,
+        736
+      ],
+      [
+        43,
+        96,
+        811,
+        672
+      ],
+      [
+        43,
+        96,
+        811,
+        736
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/274076.jpg",
+    "box": [
+      [
+        28,
+        43,
+        538,
+        896
+      ],
+      [
+        85,
+        43,
+        538,
+        896
+      ],
+      [
+        198,
+        43,
+        652,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/274451.jpg",
+    "box": [
+      [
+        126,
+        43,
+        581,
+        896
+      ],
+      [
+        25,
+        43,
+        581,
+        811
+      ],
+      [
+        25,
+        43,
+        581,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/277423.jpg",
+    "box": [
+      [
+        142,
+        43,
+        598,
+        896
+      ],
+      [
+        142,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.59
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/277497.jpg",
+    "box": [
+      [
+        199,
+        128,
+        653,
+        981
+      ],
+      [
+        142,
+        128,
+        653,
+        981
+      ],
+      [
+        85,
+        128,
+        653,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/277956.jpg",
+    "box": [
+      [
+        85,
+        299,
+        655,
+        981
+      ],
+      [
+        28,
+        299,
+        655,
+        981
+      ],
+      [
+        142,
+        299,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/277993.jpg",
+    "box": [
+      [
+        199,
+        43,
+        655,
+        896
+      ],
+      [
+        142,
+        43,
+        655,
+        811
+      ],
+      [
+        142,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/278130.jpg",
+    "box": [
+      [
+        213,
+        171,
+        981,
+        785
+      ],
+      [
+        128,
+        171,
+        981,
+        785
+      ],
+      [
+        43,
+        171,
+        981,
+        785
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/278927.jpg",
+    "box": [
+      [
+        23,
+        299,
+        487,
+        981
+      ],
+      [
+        70,
+        213,
+        440,
+        981
+      ],
+      [
+        70,
+        213,
+        487,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/279922.jpg",
+    "box": [
+      [
+        28,
+        43,
+        480,
+        981
+      ],
+      [
+        28,
+        43,
+        537,
+        981
+      ],
+      [
+        28,
+        43,
+        593,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/280069.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/280236.jpg",
+    "box": [
+      [
+        32,
+        213,
+        737,
+        981
+      ],
+      [
+        32,
+        128,
+        737,
+        981
+      ],
+      [
+        32,
+        43,
+        737,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/281726.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        725
+      ],
+      [
+        28,
+        213,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/281995.jpg",
+    "box": [
+      [
+        31,
+        43,
+        655,
+        896
+      ],
+      [
+        31,
+        43,
+        717,
+        896
+      ],
+      [
+        31,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/284487.jpg",
+    "box": [
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        128,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/286151.jpg",
+    "box": [
+      [
+        36,
+        128,
+        821,
+        896
+      ],
+      [
+        36,
+        213,
+        821,
+        896
+      ],
+      [
+        36,
+        43,
+        821,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/287172.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        981
+      ],
+      [
+        28,
+        128,
+        484,
+        981
+      ],
+      [
+        28,
+        128,
+        484,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/288019.jpg",
+    "box": [
+      [
+        169,
+        213,
+        555,
+        981
+      ],
+      [
+        24,
+        213,
+        555,
+        981
+      ],
+      [
+        121,
+        213,
+        555,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/288470.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        811
+      ],
+      [
+        28,
+        43,
+        598,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/289802.jpg",
+    "box": [
+      [
+        85,
+        128,
+        593,
+        981
+      ],
+      [
+        28,
+        213,
+        593,
+        896
+      ],
+      [
+        85,
+        128,
+        593,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/290240.jpg",
+    "box": [
+      [
+        24,
+        43,
+        548,
+        725
+      ],
+      [
+        24,
+        43,
+        548,
+        896
+      ],
+      [
+        24,
+        43,
+        501,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/290583.jpg",
+    "box": [
+      [
+        43,
+        43,
+        896,
+        981
+      ],
+      [
+        43,
+        43,
+        981,
+        981
+      ],
+      [
+        128,
+        43,
+        811,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/290673.jpg",
+    "box": [
+      [
+        142,
+        43,
+        598,
+        981
+      ],
+      [
+        142,
+        128,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/290887.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/290973.jpg",
+    "box": [
+      [
+        28,
+        43,
+        523,
+        981
+      ],
+      [
+        28,
+        43,
+        468,
+        981
+      ],
+      [
+        28,
+        43,
+        523,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/291616.jpg",
+    "box": [
+      [
+        24,
+        43,
+        448,
+        896
+      ],
+      [
+        24,
+        128,
+        448,
+        811
+      ],
+      [
+        24,
+        43,
+        495,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/291728.jpg",
+    "box": [
+      [
+        85,
+        43,
+        541,
+        811
+      ],
+      [
+        85,
+        43,
+        541,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/292390.jpg",
+    "box": [
+      [
+        72,
+        43,
+        552,
+        896
+      ],
+      [
+        72,
+        43,
+        552,
+        981
+      ],
+      [
+        120,
+        43,
+        504,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/292823.jpg",
+    "box": [
+      [
+        28,
+        128,
+        541,
+        981
+      ],
+      [
+        85,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/292933.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        811
+      ],
+      [
+        28,
+        43,
+        484,
+        896
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/292958.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/292991.jpg",
+    "box": [
+      [
+        33,
+        43,
+        702,
+        981
+      ],
+      [
+        33,
+        43,
+        635,
+        981
+      ],
+      [
+        33,
+        128,
+        702,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/293838.jpg",
+    "box": [
+      [
+        24,
+        43,
+        409,
+        811
+      ],
+      [
+        24,
+        43,
+        457,
+        811
+      ],
+      [
+        24,
+        43,
+        553,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/294272.jpg",
+    "box": [
+      [
+        85,
+        43,
+        654,
+        981
+      ],
+      [
+        142,
+        43,
+        654,
+        981
+      ],
+      [
+        142,
+        128,
+        654,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/294285.jpg",
+    "box": [
+      [
+        28,
+        128,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        484,
+        896
+      ],
+      [
+        28,
+        128,
+        484,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/294427.jpg",
+    "box": [
+      [
+        24,
+        43,
+        504,
+        981
+      ],
+      [
+        24,
+        128,
+        504,
+        981
+      ],
+      [
+        24,
+        43,
+        456,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/294782.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/294786.jpg",
+    "box": [
+      [
+        28,
+        43,
+        539,
+        981
+      ],
+      [
+        85,
+        43,
+        539,
+        981
+      ],
+      [
+        28,
+        43,
+        596,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/295930.jpg",
+    "box": [
+      [
+        142,
+        128,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        725
+      ],
+      [
+        142,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/296882.jpg",
+    "box": [
+      [
+        28,
+        128,
+        581,
+        981
+      ],
+      [
+        28,
+        43,
+        581,
+        981
+      ],
+      [
+        28,
+        128,
+        636,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/297012.jpg",
+    "box": [
+      [
+        142,
+        43,
+        655,
+        896
+      ],
+      [
+        199,
+        43,
+        655,
+        896
+      ],
+      [
+        199,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/297406.jpg",
+    "box": [
+      [
+        217,
+        43,
+        713,
+        981
+      ],
+      [
+        93,
+        43,
+        713,
+        981
+      ],
+      [
+        155,
+        43,
+        713,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/297444.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/297575.jpg",
+    "box": [
+      [
+        24,
+        128,
+        456,
+        981
+      ],
+      [
+        24,
+        213,
+        456,
+        981
+      ],
+      [
+        24,
+        43,
+        456,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/297676.jpg",
+    "box": [
+      [
+        299,
+        31,
+        981,
+        713
+      ],
+      [
+        213,
+        31,
+        981,
+        713
+      ],
+      [
+        299,
+        93,
+        981,
+        651
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/298639.jpg",
+    "box": [
+      [
+        26,
+        43,
+        500,
+        981
+      ],
+      [
+        26,
+        43,
+        553,
+        896
+      ],
+      [
+        26,
+        128,
+        553,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/299160.jpg",
+    "box": [
+      [
+        28,
+        43,
+        588,
+        896
+      ],
+      [
+        28,
+        43,
+        532,
+        811
+      ],
+      [
+        28,
+        43,
+        644,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300075.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300077.jpg",
+    "box": [
+      [
+        159,
+        43,
+        668,
+        981
+      ],
+      [
+        95,
+        43,
+        668,
+        981
+      ],
+      [
+        159,
+        43,
+        604,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300090.jpg",
+    "box": [
+      [
+        43,
+        31,
+        811,
+        702
+      ],
+      [
+        43,
+        31,
+        896,
+        702
+      ],
+      [
+        43,
+        31,
+        981,
+        702
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300092.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        896
+      ],
+      [
+        85,
+        43,
+        541,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300123.jpg",
+    "box": [
+      [
+        68,
+        43,
+        478,
+        811
+      ],
+      [
+        68,
+        43,
+        523,
+        811
+      ],
+      [
+        23,
+        43,
+        523,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300155.jpg",
+    "box": [
+      [
+        96,
+        43,
+        736,
+        896
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        160,
+        43,
+        672,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300159.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300380.jpg",
+    "box": [
+      [
+        142,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        85,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300829.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        811
+      ],
+      [
+        85,
+        128,
+        655,
+        811
+      ],
+      [
+        142,
+        128,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/300922.jpg",
+    "box": [
+      [
+        72,
+        43,
+        504,
+        981
+      ],
+      [
+        24,
+        43,
+        504,
+        981
+      ],
+      [
+        24,
+        43,
+        552,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/301383.jpg",
+    "box": [
+      [
+        198,
+        43,
+        650,
+        811
+      ],
+      [
+        141,
+        43,
+        650,
+        811
+      ],
+      [
+        141,
+        128,
+        650,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/301464.jpg",
+    "box": [
+      [
+        85,
+        43,
+        653,
+        981
+      ],
+      [
+        28,
+        43,
+        653,
+        981
+      ],
+      [
+        28,
+        128,
+        653,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/301503.jpg",
+    "box": [
+      [
+        24,
+        213,
+        552,
+        981
+      ],
+      [
+        24,
+        43,
+        552,
+        981
+      ],
+      [
+        24,
+        128,
+        552,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/301832.jpg",
+    "box": [
+      [
+        24,
+        43,
+        552,
+        981
+      ],
+      [
+        72,
+        43,
+        504,
+        981
+      ],
+      [
+        72,
+        43,
+        552,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/301916.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/302166.jpg",
+    "box": [
+      [
+        28,
+        43,
+        597,
+        896
+      ],
+      [
+        28,
+        43,
+        654,
+        811
+      ],
+      [
+        85,
+        43,
+        597,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/302180.jpg",
+    "box": [
+      [
+        28,
+        43,
+        653,
+        896
+      ],
+      [
+        142,
+        43,
+        596,
+        981
+      ],
+      [
+        85,
+        43,
+        596,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/304980.jpg",
+    "box": [
+      [
+        32,
+        43,
+        737,
+        896
+      ],
+      [
+        160,
+        43,
+        737,
+        896
+      ],
+      [
+        32,
+        43,
+        737,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/306149.jpg",
+    "box": [
+      [
+        28,
+        299,
+        537,
+        981
+      ],
+      [
+        28,
+        299,
+        593,
+        981
+      ],
+      [
+        28,
+        213,
+        537,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/306179.jpg",
+    "box": [
+      [
+        23,
+        43,
+        434,
+        811
+      ],
+      [
+        23,
+        43,
+        480,
+        811
+      ],
+      [
+        23,
+        128,
+        525,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/306214.jpg",
+    "box": [
+      [
+        142,
+        299,
+        655,
+        981
+      ],
+      [
+        199,
+        213,
+        655,
+        981
+      ],
+      [
+        85,
+        213,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/306302.jpg",
+    "box": [
+      [
+        28,
+        213,
+        484,
+        981
+      ],
+      [
+        28,
+        128,
+        484,
+        981
+      ],
+      [
+        28,
+        128,
+        484,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/306340.jpg",
+    "box": [
+      [
+        28,
+        43,
+        538,
+        725
+      ],
+      [
+        28,
+        43,
+        594,
+        725
+      ],
+      [
+        28,
+        43,
+        594,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/307893.jpg",
+    "box": [
+      [
+        43,
+        103,
+        811,
+        718
+      ],
+      [
+        43,
+        34,
+        896,
+        718
+      ],
+      [
+        43,
+        34,
+        981,
+        786
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/307903.jpg",
+    "box": [
+      [
+        23,
+        128,
+        390,
+        896
+      ],
+      [
+        23,
+        128,
+        436,
+        896
+      ],
+      [
+        23,
+        43,
+        436,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/308394.jpg",
+    "box": [
+      [
+        85,
+        128,
+        654,
+        811
+      ],
+      [
+        199,
+        128,
+        654,
+        896
+      ],
+      [
+        28,
+        43,
+        654,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/308870.jpg",
+    "box": [
+      [
+        85,
+        43,
+        653,
+        981
+      ],
+      [
+        28,
+        43,
+        653,
+        896
+      ],
+      [
+        28,
+        43,
+        653,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/308988.jpg",
+    "box": [
+      [
+        128,
+        32,
+        896,
+        672
+      ],
+      [
+        128,
+        32,
+        896,
+        736
+      ],
+      [
+        43,
+        32,
+        896,
+        672
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/309571.jpg",
+    "box": [
+      [
+        171,
+        43,
+        786,
+        981
+      ],
+      [
+        171,
+        43,
+        786,
+        896
+      ],
+      [
+        239,
+        43,
+        786,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/309808.jpg",
+    "box": [
+      [
+        97,
+        43,
+        742,
+        725
+      ],
+      [
+        97,
+        43,
+        742,
+        811
+      ],
+      [
+        226,
+        43,
+        742,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/310502.jpg",
+    "box": [
+      [
+        86,
+        128,
+        604,
+        811
+      ],
+      [
+        29,
+        43,
+        604,
+        981
+      ],
+      [
+        29,
+        43,
+        661,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/310514.jpg",
+    "box": [
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/310643.jpg",
+    "box": [
+      [
+        24,
+        213,
+        513,
+        981
+      ],
+      [
+        24,
+        299,
+        464,
+        981
+      ],
+      [
+        24,
+        299,
+        513,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/310696.jpg",
+    "box": [
+      [
+        28,
+        128,
+        653,
+        725
+      ],
+      [
+        85,
+        43,
+        653,
+        811
+      ],
+      [
+        28,
+        43,
+        653,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/311392.jpg",
+    "box": [
+      [
+        29,
+        43,
+        543,
+        811
+      ],
+      [
+        29,
+        128,
+        600,
+        811
+      ],
+      [
+        29,
+        128,
+        657,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/312498.jpg",
+    "box": [
+      [
+        85,
+        43,
+        539,
+        896
+      ],
+      [
+        28,
+        43,
+        539,
+        896
+      ],
+      [
+        28,
+        43,
+        539,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/313667.jpg",
+    "box": [
+      [
+        86,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        43,
+        599,
+        981
+      ],
+      [
+        86,
+        43,
+        599,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/314042.jpg",
+    "box": [
+      [
+        25,
+        43,
+        577,
+        811
+      ],
+      [
+        25,
+        128,
+        527,
+        811
+      ],
+      [
+        25,
+        43,
+        527,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/314402.jpg",
+    "box": [
+      [
+        28,
+        43,
+        639,
+        896
+      ],
+      [
+        28,
+        43,
+        584,
+        896
+      ],
+      [
+        28,
+        43,
+        584,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/315248.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        811
+      ],
+      [
+        28,
+        43,
+        541,
+        896
+      ],
+      [
+        28,
+        43,
+        484,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/315360.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/315689.jpg",
+    "box": [
+      [
+        142,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        142,
+        43,
+        598,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/315966.jpg",
+    "box": [
+      [
+        128,
+        43,
+        588,
+        896
+      ],
+      [
+        128,
+        128,
+        588,
+        811
+      ],
+      [
+        26,
+        43,
+        588,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/317002.jpg",
+    "box": [
+      [
+        43,
+        32,
+        811,
+        608
+      ],
+      [
+        43,
+        32,
+        725,
+        608
+      ],
+      [
+        43,
+        32,
+        896,
+        608
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/318224.jpg",
+    "box": [
+      [
+        85,
+        213,
+        598,
+        896
+      ],
+      [
+        85,
+        213,
+        655,
+        896
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/318317.jpg",
+    "box": [
+      [
+        96,
+        43,
+        608,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        128,
+        672,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/318513.jpg",
+    "box": [
+      [
+        85,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/318811.jpg",
+    "box": [
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        86,
+        43,
+        656,
+        981
+      ],
+      [
+        86,
+        43,
+        599,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/320213.jpg",
+    "box": [
+      [
+        224,
+        43,
+        736,
+        896
+      ],
+      [
+        96,
+        43,
+        736,
+        811
+      ],
+      [
+        32,
+        43,
+        736,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/320949.jpg",
+    "box": [
+      [
+        43,
+        38,
+        981,
+        651
+      ],
+      [
+        43,
+        38,
+        981,
+        804
+      ],
+      [
+        43,
+        38,
+        896,
+        651
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/321062.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        896
+      ],
+      [
+        28,
+        43,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/321720.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        128,
+        672,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/321833.jpg",
+    "box": [
+      [
+        199,
+        43,
+        653,
+        811
+      ],
+      [
+        142,
+        43,
+        653,
+        725
+      ],
+      [
+        142,
+        43,
+        653,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/321966.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/322347.jpg",
+    "box": [
+      [
+        43,
+        32,
+        725,
+        672
+      ],
+      [
+        43,
+        32,
+        811,
+        672
+      ],
+      [
+        43,
+        32,
+        896,
+        672
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/322571.jpg",
+    "box": [
+      [
+        28,
+        43,
+        638,
+        981
+      ],
+      [
+        28,
+        43,
+        638,
+        896
+      ],
+      [
+        83,
+        43,
+        638,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/322674.jpg",
+    "box": [
+      [
+        96,
+        128,
+        608,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        128,
+        736,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/322699.jpg",
+    "box": [
+      [
+        82,
+        128,
+        631,
+        981
+      ],
+      [
+        137,
+        213,
+        631,
+        896
+      ],
+      [
+        82,
+        128,
+        631,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/323138.jpg",
+    "box": [
+      [
+        142,
+        213,
+        655,
+        981
+      ],
+      [
+        142,
+        299,
+        655,
+        981
+      ],
+      [
+        28,
+        299,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/323166.jpg",
+    "box": [
+      [
+        200,
+        43,
+        656,
+        811
+      ],
+      [
+        143,
+        43,
+        656,
+        725
+      ],
+      [
+        143,
+        43,
+        656,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/323493.jpg",
+    "box": [
+      [
+        86,
+        128,
+        656,
+        811
+      ],
+      [
+        143,
+        128,
+        656,
+        811
+      ],
+      [
+        29,
+        43,
+        656,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/323737.jpg",
+    "box": [
+      [
+        96,
+        43,
+        608,
+        896
+      ],
+      [
+        32,
+        128,
+        672,
+        896
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/323903.jpg",
+    "box": [
+      [
+        96,
+        213,
+        736,
+        981
+      ],
+      [
+        32,
+        213,
+        736,
+        981
+      ],
+      [
+        160,
+        213,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/324494.jpg",
+    "box": [
+      [
+        43,
+        40,
+        896,
+        912
+      ],
+      [
+        43,
+        119,
+        981,
+        754
+      ],
+      [
+        43,
+        40,
+        896,
+        833
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/324820.jpg",
+    "box": [
+      [
+        43,
+        32,
+        811,
+        672
+      ],
+      [
+        43,
+        32,
+        896,
+        672
+      ],
+      [
+        43,
+        32,
+        725,
+        672
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/325119.jpg",
+    "box": [
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        224,
+        43,
+        736,
+        896
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/325608.jpg",
+    "box": [
+      [
+        160,
+        128,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        96,
+        128,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/325755.jpg",
+    "box": [
+      [
+        85,
+        43,
+        652,
+        981
+      ],
+      [
+        28,
+        43,
+        652,
+        981
+      ],
+      [
+        85,
+        43,
+        652,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/326329.jpg",
+    "box": [
+      [
+        43,
+        34,
+        811,
+        718
+      ],
+      [
+        43,
+        34,
+        811,
+        786
+      ],
+      [
+        43,
+        103,
+        811,
+        786
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/326531.jpg",
+    "box": [
+      [
+        96,
+        43,
+        736,
+        896
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/327063.jpg",
+    "box": [
+      [
+        213,
+        33,
+        896,
+        687
+      ],
+      [
+        213,
+        33,
+        981,
+        687
+      ],
+      [
+        128,
+        33,
+        981,
+        687
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/329566.jpg",
+    "box": [
+      [
+        43,
+        30,
+        981,
+        574
+      ],
+      [
+        213,
+        30,
+        981,
+        574
+      ],
+      [
+        43,
+        30,
+        981,
+        634
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/329827.jpg",
+    "box": [
+      [
+        167,
+        292,
+        767,
+        958
+      ],
+      [
+        233,
+        208,
+        767,
+        958
+      ],
+      [
+        100,
+        292,
+        767,
+        958
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/330066.jpg",
+    "box": [
+      [
+        32,
+        43,
+        738,
+        981
+      ],
+      [
+        32,
+        43,
+        674,
+        981
+      ],
+      [
+        32,
+        43,
+        610,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/330149.jpg",
+    "box": [
+      [
+        96,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/332362.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/332450.jpg",
+    "box": [
+      [
+        224,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/333393.jpg",
+    "box": [
+      [
+        43,
+        28,
+        725,
+        598
+      ],
+      [
+        43,
+        28,
+        811,
+        655
+      ],
+      [
+        43,
+        28,
+        725,
+        655
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/334239.jpg",
+    "box": [
+      [
+        29,
+        43,
+        542,
+        981
+      ],
+      [
+        29,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        128,
+        542,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/334977.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/335028.jpg",
+    "box": [
+      [
+        28,
+        128,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/335591.jpg",
+    "box": [
+      [
+        24,
+        43,
+        456,
+        981
+      ],
+      [
+        24,
+        213,
+        552,
+        981
+      ],
+      [
+        24,
+        43,
+        504,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/336119.jpg",
+    "box": [
+      [
+        160,
+        43,
+        737,
+        981
+      ],
+      [
+        224,
+        43,
+        737,
+        981
+      ],
+      [
+        224,
+        43,
+        737,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/336667.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/337270.jpg",
+    "box": [
+      [
+        28,
+        43,
+        484,
+        811
+      ],
+      [
+        28,
+        43,
+        484,
+        896
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/337640.jpg",
+    "box": [
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/338509.jpg",
+    "box": [
+      [
+        156,
+        213,
+        717,
+        896
+      ],
+      [
+        156,
+        43,
+        655,
+        896
+      ],
+      [
+        156,
+        128,
+        717,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/340122.jpg",
+    "box": [
+      [
+        28,
+        43,
+        527,
+        981
+      ],
+      [
+        28,
+        43,
+        638,
+        981
+      ],
+      [
+        28,
+        43,
+        583,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/340170.jpg",
+    "box": [
+      [
+        28,
+        43,
+        597,
+        981
+      ],
+      [
+        85,
+        43,
+        540,
+        981
+      ],
+      [
+        85,
+        43,
+        597,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/340413.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        811
+      ],
+      [
+        28,
+        43,
+        541,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/340688.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        896
+      ],
+      [
+        28,
+        213,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/340788.jpg",
+    "box": [
+      [
+        36,
+        43,
+        817,
+        981
+      ],
+      [
+        36,
+        43,
+        746,
+        981
+      ],
+      [
+        107,
+        43,
+        817,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/340815.jpg",
+    "box": [
+      [
+        32,
+        43,
+        608,
+        981
+      ],
+      [
+        32,
+        128,
+        544,
+        896
+      ],
+      [
+        32,
+        43,
+        544,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/341742.jpg",
+    "box": [
+      [
+        28,
+        43,
+        654,
+        981
+      ],
+      [
+        28,
+        43,
+        597,
+        981
+      ],
+      [
+        28,
+        43,
+        540,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/341906.jpg",
+    "box": [
+      [
+        28,
+        43,
+        523,
+        896
+      ],
+      [
+        28,
+        43,
+        468,
+        896
+      ],
+      [
+        28,
+        43,
+        578,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/342407.jpg",
+    "box": [
+      [
+        26,
+        43,
+        601,
+        981
+      ],
+      [
+        26,
+        299,
+        549,
+        981
+      ],
+      [
+        78,
+        43,
+        549,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/342882.jpg",
+    "box": [
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/343216.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        896
+      ],
+      [
+        85,
+        43,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/344258.jpg",
+    "box": [
+      [
+        143,
+        43,
+        656,
+        725
+      ],
+      [
+        200,
+        213,
+        656,
+        981
+      ],
+      [
+        29,
+        128,
+        656,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/344277.jpg",
+    "box": [
+      [
+        199,
+        43,
+        655,
+        811
+      ],
+      [
+        199,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/344682.jpg",
+    "box": [
+      [
+        43,
+        32,
+        981,
+        736
+      ],
+      [
+        43,
+        96,
+        981,
+        736
+      ],
+      [
+        43,
+        32,
+        981,
+        672
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/345876.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ],
+      [
+        160,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/347864.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/348590.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        811
+      ],
+      [
+        32,
+        128,
+        736,
+        811
+      ],
+      [
+        96,
+        128,
+        736,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/349205.jpg",
+    "box": [
+      [
+        27,
+        128,
+        560,
+        981
+      ],
+      [
+        27,
+        213,
+        560,
+        981
+      ],
+      [
+        27,
+        128,
+        613,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/349640.jpg",
+    "box": [
+      [
+        43,
+        28,
+        811,
+        598
+      ],
+      [
+        43,
+        28,
+        896,
+        598
+      ],
+      [
+        43,
+        28,
+        981,
+        541
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/349906.jpg",
+    "box": [
+      [
+        72,
+        43,
+        554,
+        725
+      ],
+      [
+        120,
+        43,
+        506,
+        811
+      ],
+      [
+        24,
+        43,
+        554,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/390373.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/390852.jpg",
+    "box": [
+      [
+        43,
+        43,
+        811,
+        896
+      ],
+      [
+        43,
+        43,
+        811,
+        981
+      ],
+      [
+        43,
+        43,
+        896,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/391132.jpg",
+    "box": [
+      [
+        96,
+        43,
+        608,
+        896
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ],
+      [
+        32,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/391156.jpg",
+    "box": [
+      [
+        32,
+        43,
+        544,
+        981
+      ],
+      [
+        32,
+        43,
+        608,
+        981
+      ],
+      [
+        32,
+        128,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/392985.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        896
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/392990.jpg",
+    "box": [
+      [
+        29,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        29,
+        128,
+        599,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/393281.jpg",
+    "box": [
+      [
+        28,
+        128,
+        478,
+        896
+      ],
+      [
+        28,
+        43,
+        534,
+        896
+      ],
+      [
+        28,
+        43,
+        534,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/393412.jpg",
+    "box": [
+      [
+        32,
+        43,
+        673,
+        981
+      ],
+      [
+        32,
+        43,
+        737,
+        981
+      ],
+      [
+        32,
+        43,
+        609,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/393727.jpg",
+    "box": [
+      [
+        28,
+        43,
+        651,
+        981
+      ],
+      [
+        28,
+        128,
+        651,
+        981
+      ],
+      [
+        85,
+        43,
+        594,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/394199.jpg",
+    "box": [
+      [
+        25,
+        43,
+        469,
+        981
+      ],
+      [
+        25,
+        43,
+        519,
+        981
+      ],
+      [
+        25,
+        128,
+        519,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/394605.jpg",
+    "box": [
+      [
+        95,
+        43,
+        664,
+        981
+      ],
+      [
+        32,
+        43,
+        664,
+        981
+      ],
+      [
+        32,
+        43,
+        727,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/394737.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/396172.jpg",
+    "box": [
+      [
+        25,
+        43,
+        584,
+        981
+      ],
+      [
+        25,
+        128,
+        584,
+        896
+      ],
+      [
+        76,
+        43,
+        584,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/396968.jpg",
+    "box": [
+      [
+        28,
+        43,
+        593,
+        811
+      ],
+      [
+        28,
+        43,
+        650,
+        811
+      ],
+      [
+        85,
+        43,
+        537,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/397698.jpg",
+    "box": [
+      [
+        37,
+        43,
+        772,
+        896
+      ],
+      [
+        37,
+        43,
+        698,
+        896
+      ],
+      [
+        37,
+        43,
+        845,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/397963.jpg",
+    "box": [
+      [
+        85,
+        128,
+        654,
+        981
+      ],
+      [
+        28,
+        128,
+        654,
+        981
+      ],
+      [
+        142,
+        128,
+        654,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/398126.jpg",
+    "box": [
+      [
+        24,
+        128,
+        456,
+        896
+      ],
+      [
+        72,
+        128,
+        456,
+        896
+      ],
+      [
+        72,
+        43,
+        504,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/398149.jpg",
+    "box": [
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        86,
+        43,
+        656,
+        981
+      ],
+      [
+        29,
+        43,
+        656,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/398292.jpg",
+    "box": [
+      [
+        85,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/398688.jpg",
+    "box": [
+      [
+        24,
+        43,
+        504,
+        981
+      ],
+      [
+        24,
+        128,
+        456,
+        981
+      ],
+      [
+        24,
+        43,
+        456,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/400925.jpg",
+    "box": [
+      [
+        85,
+        128,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/400943.jpg",
+    "box": [
+      [
+        29,
+        43,
+        485,
+        981
+      ],
+      [
+        29,
+        43,
+        542,
+        981
+      ],
+      [
+        29,
+        128,
+        485,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/401076.jpg",
+    "box": [
+      [
+        85,
+        43,
+        649,
+        981
+      ],
+      [
+        141,
+        43,
+        649,
+        981
+      ],
+      [
+        28,
+        43,
+        649,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/401710.jpg",
+    "box": [
+      [
+        32,
+        43,
+        737,
+        811
+      ],
+      [
+        96,
+        43,
+        673,
+        981
+      ],
+      [
+        160,
+        43,
+        673,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/402013.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ],
+      [
+        160,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/402608.jpg",
+    "box": [
+      [
+        29,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        43,
+        656,
+        811
+      ],
+      [
+        86,
+        43,
+        656,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/404126.jpg",
+    "box": [
+      [
+        143,
+        43,
+        656,
+        981
+      ],
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        86,
+        43,
+        656,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/404810.jpg",
+    "box": [
+      [
+        29,
+        43,
+        674,
+        981
+      ],
+      [
+        29,
+        43,
+        674,
+        896
+      ],
+      [
+        88,
+        43,
+        615,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/405358.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/407996.jpg",
+    "box": [
+      [
+        128,
+        29,
+        981,
+        599
+      ],
+      [
+        43,
+        29,
+        981,
+        599
+      ],
+      [
+        43,
+        29,
+        981,
+        656
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/408054.jpg",
+    "box": [
+      [
+        85,
+        299,
+        594,
+        981
+      ],
+      [
+        28,
+        299,
+        651,
+        896
+      ],
+      [
+        141,
+        299,
+        651,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/408187.jpg",
+    "box": [
+      [
+        28,
+        43,
+        595,
+        981
+      ],
+      [
+        28,
+        43,
+        595,
+        896
+      ],
+      [
+        85,
+        43,
+        595,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/408398.jpg",
+    "box": [
+      [
+        28,
+        43,
+        580,
+        896
+      ],
+      [
+        28,
+        43,
+        635,
+        896
+      ],
+      [
+        28,
+        43,
+        580,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/408720.jpg",
+    "box": [
+      [
+        85,
+        43,
+        598,
+        981
+      ],
+      [
+        142,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/409275.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/409443.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/410268.jpg",
+    "box": [
+      [
+        24,
+        43,
+        456,
+        981
+      ],
+      [
+        24,
+        128,
+        456,
+        811
+      ],
+      [
+        72,
+        43,
+        456,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/410595.jpg",
+    "box": [
+      [
+        43,
+        28,
+        896,
+        652
+      ],
+      [
+        43,
+        28,
+        981,
+        595
+      ],
+      [
+        43,
+        28,
+        981,
+        652
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/411610.jpg",
+    "box": [
+      [
+        32,
+        43,
+        545,
+        811
+      ],
+      [
+        32,
+        43,
+        545,
+        981
+      ],
+      [
+        32,
+        43,
+        545,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/412711.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        811
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/413666.jpg",
+    "box": [
+      [
+        31,
+        43,
+        583,
+        896
+      ],
+      [
+        92,
+        43,
+        583,
+        896
+      ],
+      [
+        92,
+        43,
+        583,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/413992.jpg",
+    "box": [
+      [
+        32,
+        128,
+        744,
+        981
+      ],
+      [
+        32,
+        43,
+        744,
+        981
+      ],
+      [
+        32,
+        213,
+        744,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/414119.jpg",
+    "box": [
+      [
+        26,
+        213,
+        587,
+        981
+      ],
+      [
+        77,
+        128,
+        536,
+        981
+      ],
+      [
+        26,
+        128,
+        536,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/414429.jpg",
+    "box": [
+      [
+        86,
+        43,
+        545,
+        896
+      ],
+      [
+        86,
+        43,
+        545,
+        981
+      ],
+      [
+        29,
+        43,
+        603,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/414508.jpg",
+    "box": [
+      [
+        43,
+        32,
+        981,
+        733
+      ],
+      [
+        43,
+        96,
+        981,
+        669
+      ],
+      [
+        128,
+        32,
+        811,
+        733
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/415655.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        199,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/415807.jpg",
+    "box": [
+      [
+        28,
+        43,
+        579,
+        981
+      ],
+      [
+        28,
+        43,
+        634,
+        981
+      ],
+      [
+        83,
+        43,
+        579,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/417815.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/418282.jpg",
+    "box": [
+      [
+        43,
+        28,
+        981,
+        652
+      ],
+      [
+        43,
+        85,
+        725,
+        652
+      ],
+      [
+        43,
+        28,
+        981,
+        595
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.64
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/420058.jpg",
+    "box": [
+      [
+        128,
+        32,
+        896,
+        736
+      ],
+      [
+        128,
+        224,
+        896,
+        736
+      ],
+      [
+        43,
+        96,
+        981,
+        736
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/420129.jpg",
+    "box": [
+      [
+        28,
+        43,
+        654,
+        811
+      ],
+      [
+        85,
+        43,
+        654,
+        981
+      ],
+      [
+        28,
+        43,
+        654,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/420500.jpg",
+    "box": [
+      [
+        28,
+        43,
+        593,
+        981
+      ],
+      [
+        28,
+        43,
+        650,
+        981
+      ],
+      [
+        85,
+        43,
+        593,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/420985.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/421292.jpg",
+    "box": [
+      [
+        28,
+        43,
+        651,
+        981
+      ],
+      [
+        85,
+        43,
+        594,
+        981
+      ],
+      [
+        85,
+        43,
+        651,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/421458.jpg",
+    "box": [
+      [
+        299,
+        29,
+        981,
+        656
+      ],
+      [
+        299,
+        29,
+        981,
+        599
+      ],
+      [
+        299,
+        86,
+        981,
+        599
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/421726.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        811
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/422680.jpg",
+    "box": [
+      [
+        29,
+        213,
+        656,
+        981
+      ],
+      [
+        143,
+        213,
+        599,
+        981
+      ],
+      [
+        29,
+        128,
+        599,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/422879.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        484,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/425907.jpg",
+    "box": [
+      [
+        28,
+        43,
+        597,
+        981
+      ],
+      [
+        28,
+        43,
+        654,
+        981
+      ],
+      [
+        85,
+        43,
+        597,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/426151.jpg",
+    "box": [
+      [
+        128,
+        29,
+        981,
+        611
+      ],
+      [
+        213,
+        29,
+        896,
+        553
+      ],
+      [
+        213,
+        29,
+        896,
+        611
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/426478.jpg",
+    "box": [
+      [
+        85,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/426660.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        981
+      ],
+      [
+        28,
+        128,
+        541,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.64
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/428098.jpg",
+    "box": [
+      [
+        26,
+        43,
+        492,
+        981
+      ],
+      [
+        26,
+        128,
+        492,
+        981
+      ],
+      [
+        26,
+        128,
+        492,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/428940.jpg",
+    "box": [
+      [
+        93,
+        43,
+        714,
+        981
+      ],
+      [
+        31,
+        43,
+        652,
+        896
+      ],
+      [
+        155,
+        43,
+        590,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/429241.jpg",
+    "box": [
+      [
+        26,
+        43,
+        589,
+        896
+      ],
+      [
+        26,
+        43,
+        589,
+        981
+      ],
+      [
+        26,
+        43,
+        589,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/430541.jpg",
+    "box": [
+      [
+        213,
+        99,
+        981,
+        757
+      ],
+      [
+        213,
+        33,
+        981,
+        757
+      ],
+      [
+        213,
+        230,
+        981,
+        757
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/430665.jpg",
+    "box": [
+      [
+        28,
+        299,
+        541,
+        981
+      ],
+      [
+        28,
+        43,
+        541,
+        811
+      ],
+      [
+        28,
+        43,
+        541,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/431149.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        811
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        128,
+        655,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/431180.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/431611.jpg",
+    "box": [
+      [
+        128,
+        25,
+        981,
+        526
+      ],
+      [
+        213,
+        75,
+        981,
+        526
+      ],
+      [
+        128,
+        25,
+        981,
+        576
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/431796.jpg",
+    "box": [
+      [
+        137,
+        128,
+        630,
+        981
+      ],
+      [
+        137,
+        43,
+        575,
+        981
+      ],
+      [
+        137,
+        43,
+        630,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/432065.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        85,
+        43,
+        541,
+        896
+      ],
+      [
+        85,
+        43,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/432545.jpg",
+    "box": [
+      [
+        128,
+        29,
+        811,
+        599
+      ],
+      [
+        128,
+        29,
+        896,
+        656
+      ],
+      [
+        128,
+        86,
+        811,
+        599
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/435917.jpg",
+    "box": [
+      [
+        29,
+        43,
+        600,
+        981
+      ],
+      [
+        29,
+        43,
+        657,
+        981
+      ],
+      [
+        29,
+        128,
+        657,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/436065.jpg",
+    "box": [
+      [
+        75,
+        299,
+        578,
+        981
+      ],
+      [
+        25,
+        299,
+        578,
+        981
+      ],
+      [
+        176,
+        213,
+        578,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/437171.jpg",
+    "box": [
+      [
+        72,
+        213,
+        552,
+        896
+      ],
+      [
+        120,
+        213,
+        552,
+        896
+      ],
+      [
+        24,
+        128,
+        552,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/437541.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/439719.jpg",
+    "box": [
+      [
+        142,
+        128,
+        655,
+        811
+      ],
+      [
+        199,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/440092.jpg",
+    "box": [
+      [
+        86,
+        128,
+        599,
+        981
+      ],
+      [
+        29,
+        43,
+        599,
+        981
+      ],
+      [
+        29,
+        128,
+        656,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/440804.jpg",
+    "box": [
+      [
+        29,
+        43,
+        599,
+        896
+      ],
+      [
+        29,
+        43,
+        656,
+        896
+      ],
+      [
+        29,
+        43,
+        599,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/441053.jpg",
+    "box": [
+      [
+        32,
+        43,
+        602,
+        981
+      ],
+      [
+        32,
+        43,
+        665,
+        981
+      ],
+      [
+        32,
+        43,
+        728,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/441605.jpg",
+    "box": [
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        29,
+        128,
+        656,
+        811
+      ],
+      [
+        29,
+        43,
+        656,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/441798.jpg",
+    "box": [
+      [
+        32,
+        43,
+        736,
+        981
+      ],
+      [
+        32,
+        43,
+        672,
+        981
+      ],
+      [
+        96,
+        43,
+        608,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/442213.jpg",
+    "box": [
+      [
+        199,
+        128,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        655,
+        981
+      ],
+      [
+        142,
+        213,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/442230.jpg",
+    "box": [
+      [
+        28,
+        128,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/442424.jpg",
+    "box": [
+      [
+        28,
+        43,
+        654,
+        981
+      ],
+      [
+        85,
+        43,
+        597,
+        981
+      ],
+      [
+        28,
+        43,
+        597,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.64
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/442517.jpg",
+    "box": [
+      [
+        34,
+        299,
+        771,
+        896
+      ],
+      [
+        101,
+        299,
+        771,
+        981
+      ],
+      [
+        34,
+        213,
+        704,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/443602.jpg",
+    "box": [
+      [
+        31,
+        43,
+        595,
+        981
+      ],
+      [
+        31,
+        43,
+        532,
+        981
+      ],
+      [
+        31,
+        43,
+        595,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/444975.jpg",
+    "box": [
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        86,
+        43,
+        656,
+        981
+      ],
+      [
+        29,
+        43,
+        656,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/447325.jpg",
+    "box": [
+      [
+        299,
+        85,
+        981,
+        595
+      ],
+      [
+        299,
+        28,
+        981,
+        595
+      ],
+      [
+        299,
+        28,
+        981,
+        652
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/449178.jpg",
+    "box": [
+      [
+        72,
+        213,
+        551,
+        981
+      ],
+      [
+        120,
+        213,
+        551,
+        981
+      ],
+      [
+        72,
+        128,
+        551,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/451138.jpg",
+    "box": [
+      [
+        29,
+        43,
+        675,
+        981
+      ],
+      [
+        29,
+        128,
+        675,
+        811
+      ],
+      [
+        88,
+        43,
+        616,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/451263.jpg",
+    "box": [
+      [
+        92,
+        213,
+        702,
+        896
+      ],
+      [
+        31,
+        43,
+        702,
+        981
+      ],
+      [
+        31,
+        213,
+        702,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/456080.jpg",
+    "box": [
+      [
+        28,
+        43,
+        597,
+        981
+      ],
+      [
+        28,
+        43,
+        654,
+        981
+      ],
+      [
+        28,
+        43,
+        654,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/456153.jpg",
+    "box": [
+      [
+        29,
+        43,
+        547,
+        811
+      ],
+      [
+        29,
+        43,
+        547,
+        725
+      ],
+      [
+        29,
+        43,
+        662,
+        725
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/456154.jpg",
+    "box": [
+      [
+        213,
+        28,
+        981,
+        598
+      ],
+      [
+        213,
+        85,
+        981,
+        598
+      ],
+      [
+        299,
+        28,
+        981,
+        598
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/457466.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/459353.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/461768.jpg",
+    "box": [
+      [
+        198,
+        43,
+        652,
+        896
+      ],
+      [
+        142,
+        43,
+        652,
+        896
+      ],
+      [
+        28,
+        43,
+        652,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/462746.jpg",
+    "box": [
+      [
+        72,
+        43,
+        552,
+        981
+      ],
+      [
+        72,
+        213,
+        552,
+        896
+      ],
+      [
+        72,
+        128,
+        552,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.36
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/463839.jpg",
+    "box": [
+      [
+        27,
+        128,
+        557,
+        981
+      ],
+      [
+        27,
+        43,
+        610,
+        981
+      ],
+      [
+        27,
+        43,
+        557,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/464225.jpg",
+    "box": [
+      [
+        26,
+        128,
+        587,
+        981
+      ],
+      [
+        26,
+        213,
+        587,
+        896
+      ],
+      [
+        77,
+        213,
+        587,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/470251.jpg",
+    "box": [
+      [
+        32,
+        43,
+        672,
+        896
+      ],
+      [
+        32,
+        43,
+        608,
+        811
+      ],
+      [
+        32,
+        43,
+        608,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/470352.jpg",
+    "box": [
+      [
+        28,
+        43,
+        538,
+        981
+      ],
+      [
+        28,
+        43,
+        481,
+        981
+      ],
+      [
+        28,
+        43,
+        594,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/472295.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        896
+      ],
+      [
+        85,
+        43,
+        598,
+        896
+      ],
+      [
+        28,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/472330.jpg",
+    "box": [
+      [
+        31,
+        43,
+        641,
+        896
+      ],
+      [
+        31,
+        43,
+        702,
+        811
+      ],
+      [
+        31,
+        43,
+        702,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/472501.jpg",
+    "box": [
+      [
+        24,
+        43,
+        454,
+        981
+      ],
+      [
+        24,
+        128,
+        549,
+        981
+      ],
+      [
+        24,
+        128,
+        501,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.79
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/473696.jpg",
+    "box": [
+      [
+        199,
+        43,
+        655,
+        981
+      ],
+      [
+        199,
+        43,
+        655,
+        896
+      ],
+      [
+        142,
+        43,
+        655,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/475330.jpg",
+    "box": [
+      [
+        28,
+        128,
+        598,
+        981
+      ],
+      [
+        85,
+        128,
+        541,
+        981
+      ],
+      [
+        28,
+        213,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/475676.jpg",
+    "box": [
+      [
+        29,
+        43,
+        557,
+        896
+      ],
+      [
+        29,
+        43,
+        616,
+        896
+      ],
+      [
+        29,
+        43,
+        499,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.43
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/475757.jpg",
+    "box": [
+      [
+        43,
+        28,
+        725,
+        541
+      ],
+      [
+        43,
+        28,
+        811,
+        541
+      ],
+      [
+        43,
+        85,
+        811,
+        541
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/479798.jpg",
+    "box": [
+      [
+        96,
+        43,
+        672,
+        896
+      ],
+      [
+        32,
+        43,
+        736,
+        896
+      ],
+      [
+        96,
+        43,
+        736,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/479984.jpg",
+    "box": [
+      [
+        72,
+        43,
+        552,
+        981
+      ],
+      [
+        72,
+        128,
+        552,
+        981
+      ],
+      [
+        120,
+        43,
+        552,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.29
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/482105.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        811
+      ],
+      [
+        85,
+        128,
+        598,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.07
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/482176.jpg",
+    "box": [
+      [
+        28,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        128,
+        655,
+        896
+      ],
+      [
+        85,
+        43,
+        598,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.57
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/482199.jpg",
+    "box": [
+      [
+        31,
+        43,
+        595,
+        981
+      ],
+      [
+        31,
+        43,
+        657,
+        981
+      ],
+      [
+        31,
+        128,
+        720,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/483387.jpg",
+    "box": [
+      [
+        28,
+        43,
+        598,
+        981
+      ],
+      [
+        28,
+        43,
+        484,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/484558.jpg",
+    "box": [
+      [
+        85,
+        43,
+        597,
+        896
+      ],
+      [
+        85,
+        43,
+        597,
+        981
+      ],
+      [
+        28,
+        213,
+        654,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.0
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/485662.jpg",
+    "box": [
+      [
+        29,
+        43,
+        656,
+        981
+      ],
+      [
+        29,
+        43,
+        656,
+        896
+      ],
+      [
+        86,
+        43,
+        656,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/487943.jpg",
+    "box": [
+      [
+        28,
+        213,
+        598,
+        981
+      ],
+      [
+        28,
+        213,
+        541,
+        981
+      ],
+      [
+        85,
+        213,
+        541,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/488569.jpg",
+    "box": [
+      [
+        28,
+        43,
+        541,
+        725
+      ],
+      [
+        28,
+        43,
+        598,
+        725
+      ],
+      [
+        28,
+        43,
+        598,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/489253.jpg",
+    "box": [
+      [
+        128,
+        96,
+        811,
+        736
+      ],
+      [
+        43,
+        96,
+        896,
+        736
+      ],
+      [
+        128,
+        32,
+        896,
+        736
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/490204.jpg",
+    "box": [
+      [
+        85,
+        43,
+        596,
+        981
+      ],
+      [
+        85,
+        43,
+        653,
+        981
+      ],
+      [
+        85,
+        128,
+        596,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.93
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/490217.jpg",
+    "box": [
+      [
+        85,
+        43,
+        655,
+        981
+      ],
+      [
+        142,
+        43,
+        655,
+        981
+      ],
+      [
+        28,
+        43,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/490393.jpg",
+    "box": [
+      [
+        24,
+        43,
+        553,
+        811
+      ],
+      [
+        72,
+        43,
+        553,
+        811
+      ],
+      [
+        72,
+        128,
+        553,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/490562.jpg",
+    "box": [
+      [
+        100,
+        128,
+        701,
+        981
+      ],
+      [
+        33,
+        43,
+        768,
+        981
+      ],
+      [
+        33,
+        128,
+        701,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/490605.jpg",
+    "box": [
+      [
+        142,
+        213,
+        655,
+        981
+      ],
+      [
+        142,
+        128,
+        655,
+        981
+      ],
+      [
+        85,
+        213,
+        655,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.71
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/491483.jpg",
+    "box": [
+      [
+        43,
+        28,
+        981,
+        655
+      ],
+      [
+        128,
+        28,
+        981,
+        655
+      ],
+      [
+        213,
+        28,
+        981,
+        655
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.21
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/492029.jpg",
+    "box": [
+      [
+        43,
+        88,
+        896,
+        677
+      ],
+      [
+        213,
+        88,
+        896,
+        677
+      ],
+      [
+        43,
+        88,
+        981,
+        677
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/494155.jpg",
+    "box": [
+      [
+        24,
+        128,
+        562,
+        981
+      ],
+      [
+        24,
+        128,
+        562,
+        896
+      ],
+      [
+        24,
+        213,
+        562,
+        811
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.5
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/494532.jpg",
+    "box": [
+      [
+        187,
+        128,
+        613,
+        896
+      ],
+      [
+        187,
+        128,
+        613,
+        981
+      ],
+      [
+        27,
+        43,
+        613,
+        896
+      ]
+    ],
+    "source": "gaic",
+    "score": 3.86
+  },
+  {
+    "img": "Adacrop/data/GAIC_dataset/images/test/495917.jpg",
+    "box": [
+      [
+        85,
+        43,
+        594,
+        981
+      ],
+      [
+        28,
+        128,
+        651,
+        981
+      ],
+      [
+        28,
+        43,
+        594,
+        981
+      ]
+    ],
+    "source": "gaic",
+    "score": 4.14
+  }
+]
