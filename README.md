@@ -68,3 +68,16 @@ LiveCompose/
 - PyTorch
 - Torchvision
 - 其他依赖请参考代码中的 import
+
+## 致谢 (Acknowledgements)
+
+We gratefully acknowledge the following open-source repositories and their contributors:
+
+- [GAIC-Pytorch](https://github.com/bo-zhang-cs/GAIC-Pytorch) by **bo-zhang-cs**, based on the works:
+  - Hui Zeng, Lida Li, Zisheng Cao, Lei Zhang. *Reliable and Efficient Image Cropping: A Grid Anchor based Approach*. CVPR 2019.
+  - Hui Zeng, Lida Li, Zisheng Cao, Lei Zhang. *Grid Anchor based Image Cropping: A New Benchmark and An Efficient Model*. IEEE TPAMI, 2020.
+
+- [Grid-Anchor-based-Image-Cropping-Pytorch](https://github.com/HuiZeng/Grid-Anchor-based-Image-Cropping-Pytorch) by **Hui Zeng**, official PyTorch implementation of the above works.
+
+- [Neural Image Assessment](https://github.com/titu1994/neural-image-assessment) by **Somshubra Majumdar (titu1994)**, **Eren Sezener**, **Simon Brugman**, **Panayiotis Panayiotou**, based on:
+  - Hossein Talebi, Peyman Milanfar. *NIMA: Neural Image Assessment*. IEEE Transactions on Image Processing, 2018.
