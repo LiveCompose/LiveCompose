@@ -2,30 +2,36 @@ env:
   img_size: 224
   max_steps: 200
   action_delta: 0.05 #0.08
-  init_with_pred_prob: 0.7 # 使用预训练初始化
+  init_with_pred_prob: 0.4 #0.7 # 使用预训练初始化
   init_box_jitter: 0.05    # 初始化时对边界框进行轻微扰动
   debug_log: false
   debug_log_interval: 50
+  obs_cache_size: 1024
+  observation_mode: false  # 调试 验证瓶颈
 
 train:
   training_gpus: 1 #0
   algorithm: "PPO"    
-  num_workers: 16     
+  num_workers: 16    
+  pin_rollout: true 
+  fast_reset: true
   #total_timesteps: 20000000
 
-  supervised_pretrain: true    # 是否启用监督预训练
-  pretrain_epochs: 20 #40         # 监督预训练轮数
-  pretrain_lr: 1e-4            # 预训练学习率
+  supervised_pretrain: true #true    # 是否启用监督预训练
+  pretrain_epochs: 20 #40  6       # 监督预训练轮数
+  pretrain_lr: 5e-5 #1e-4            # 预训练学习率
   pretrain_batch_size: 512      # 预训练 batch size
+  init_ckpt: ""                 # 填 pth 路径则跳过预训直接 PPO
+  apply_init_action_bias: false # 建议：加载 ckpt 时保持 false
 
   gamma: 0.99
   lam: 0.95
   clip_param: 0.2
-  lr: 3e-4
+  lr: 3e-4  #7e-5 
   n_steps: 256 #512
   batch_size: 2048 # 1536
-  minibatch_size: 256 #128
-  ppo_epochs: 6 #10
+  minibatch_size: 2048 #256 #128
+  ppo_epochs: 4 #6 #10
   value_loss_coef: 0.5
   entropy_coef: 0.07 #0.05
   entropy_coef_final: 0.01
@@ -37,19 +43,17 @@ train:
   save_interval: 20
   val_interval: 20
   val_eval_episodes: 64
-  # no_op_penalty: 0.005          # 防止不动
-  # reverse_penalty: 0.05        # 防止来回重复动
   save_dir: "./Adacrop/logs"
   
 nima:
   device_id: 1 #0
   use_dual_gpu: false               
-  batch_size: 48 # 32          
+  batch_size: 128 # 32          
   max_wait_time: 0.01
+  cache_size: 10000
+  queue_size: 2048
   weights_path: "./NIMA/weights/inception_resnet_weights.h5" #"./NIMA/weights/nima_inception_pytorch.pth"
   real_score_interval: 1 #5     
-  cache_size: 10000
-  queue_size: 10
   scorer_type: gaic
   gaic_repo_dir: /ai/lzy/LiveCompose/Adacrop/GAIC
   gaic_ckpt: /ai/lzy/LiveCompose/Adacrop/GAIC/pretrained_models/GAIC-mobilenetv2-reddim16.pth
@@ -58,7 +62,7 @@ nima:
 
 reward:
   # 基础惩罚
-  no_op_penalty: 0.002
+  no_op_penalty: 0.02
   boundary_penalty: 0.05
 
   # 重复访问/重复动作
@@ -70,8 +74,8 @@ reward:
   backtrack_penalty: 0.20
 
   # stop shaping（鼓励接近 best 时停止）
-  stop_early_step: 8
-  stop_early_penalty: 0.8
+  stop_early_step: 5
+  stop_early_penalty: 0.2
   stop_close_best_eps1: 0.01
   stop_close_best_eps2: 0.03
   stop_close_best_eps3: 0.08
@@ -102,6 +106,16 @@ reward:
   move_new_region_bonus: 0.05
   zoom_bonus: 0.06
   zoom_allow_drop: 0.01
+
+  # size control
+  area_target: 0.35
+  area_weight: 0.15
+  area_tolerance: 0.10
+
+  # zoom_out restriction
+  zoom_out_noop_penalty: 0.05
+  zoom_out_area_max: 0.55
+  zoom_out_area_penalty: 0.8
 
 data:
   train_json: "./Adacrop/data/splits/train_mixed2.json"

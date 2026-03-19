@@ -4,6 +4,14 @@ from PIL import Image
 import torch
 import torchvision.transforms as T
 
+try:
+    from Adacrop.src.batch_scorer import BatchScorer
+except ModuleNotFoundError:
+    try:
+        from src.batch_scorer import BatchScorer
+    except ModuleNotFoundError:
+        from batch_scorer import BatchScorer
+        
 class CropEnv:
 
     _global_score_cache = {}
@@ -11,6 +19,7 @@ class CropEnv:
     _batch_scorer = None
 
     def __init__(self, img: Image.Image, aesthetic_model, cfg, inference=False, init_model=None, init_device=None):
+        self.cfg = cfg
         self.orig = img
         self.model = aesthetic_model
         self.init_model = init_model
@@ -31,10 +40,20 @@ class CropEnv:
         self.inference = inference
   
         # 使用全局缓存
-
         self.score_cache = CropEnv._global_score_cache
+        self.obs_cache_size = int(cfg.env.get("obs_cache_size", 1024))
+        self._gaic_im_tensor = None
+        self._gaic_resized_w = None
+        self._gaic_resized_h = None
         if CropEnv._batch_scorer is None:
-            CropEnv._batch_scorer = aesthetic_model
+            bs = int(cfg.nima.get("batch_size", 48))
+            mw = float(cfg.nima.get("max_wait_time", 0.01))
+            qs = int(cfg.nima.get("queue_size", 1024))
+
+            if hasattr(aesthetic_model, "score_batch"):
+                CropEnv._batch_scorer = BatchScorer(aesthetic_model, batch_size=bs, max_wait_time=mw, queue_size=qs)
+            else:
+                CropEnv._batch_scorer = aesthetic_model
         
         # 性能优化参数
         self.no_op_penalty = cfg.reward.get("no_op_penalty", 0.002) # 无操作惩罚
@@ -84,6 +103,11 @@ class CropEnv:
         # zoom bonus
         self.zoom_bonus = float(cfg.reward.get("zoom_bonus", 0.06))
         self.zoom_allow_drop = float(cfg.reward.get("zoom_allow_drop", 0.01))
+
+        # size control
+        self.area_target = float(cfg.reward.get("area_target", 0.35))
+        self.area_weight = float(cfg.reward.get("area_weight", 0.15))
+        self.area_tolerance = float(cfg.reward.get("area_tolerance", 0.10))
         
         # 每N步进行真实评分，其余使用估计
         self.real_score_interval = cfg.nima.get("real_score_interval", 5) # 真实评分间隔
@@ -105,6 +129,7 @@ class CropEnv:
 
         self.debug_log = bool(cfg.env.get("debug_log", False))
         self.debug_log_interval = int(cfg.env.get("debug_log_interval", 50))
+        self.observation_mode = bool(cfg.env.get("observation_mode", False))
         
         self.reset()
 
@@ -191,14 +216,36 @@ class CropEnv:
 
             safe_box = [int(round(x)), int(round(y)), int(round(w)), int(round(h))]
 
-            if hasattr(self.model, "score_box"):
-                score = self.model.score_box(self.orig, safe_box)
+            # if hasattr(self.model, "score_box"):
+            #     score = self.model.score_box(self.orig, safe_box)
+            # else:
+            #     sx, sy, sw, sh = safe_box
+            #     crop = self.orig.crop((sx, sy, sx + sw, sy + sh)).resize(
+            #         (self.img_size, self.img_size)
+            #     )
+            #     score = self.model(crop)
+
+            if hasattr(CropEnv._batch_scorer, "submit"):
+                self._ensure_gaic_tensor_cached()
+                if self._gaic_im_tensor is not None:
+                    payload = (
+                        self._gaic_im_tensor,
+                        self.orig.width, self.orig.height,
+                        self._gaic_resized_w, self._gaic_resized_h,
+                        safe_box,
+                    )
+                    fut = CropEnv._batch_scorer.submit(payload)
+                    score = fut.result(timeout=5.0)
+                else:
+                    # 没有缓存能力就还走旧 score_box
+                    score = self.model.score_box(self.orig, safe_box)
             else:
-                sx, sy, sw, sh = safe_box
-                crop = self.orig.crop((sx, sy, sx + sw, sy + sh)).resize(
-                    (self.img_size, self.img_size)
-                )
-                score = self.model(crop)
+                if hasattr(self.model, "score_box"):
+                    score = self.model.score_box(self.orig, safe_box)
+                else:
+                    sx, sy, sw, sh = safe_box
+                    crop = self.orig.crop((sx, sy, sx + sw, sy + sh)).resize((self.img_size, self.img_size))
+                    score = self.model(crop)
             
             if isinstance(score, (tuple, list)) and len(score) > 0:
                 score = score[0]
@@ -211,7 +258,7 @@ class CropEnv:
                 print(f"! scorer返回异常值: {score}，使用默认分数5.0")
                 return 5.0
 
-            return score
+            return float(score)
 
         except Exception as e:
             print(f"! scorer评分失败: {e}，使用默认分数5.0")
@@ -219,9 +266,11 @@ class CropEnv:
 
             
     def load_image(self, img: Image.Image):
-        """切换到新图像并重置环境"""
         self.orig = img.convert("RGB")
         self.precomputed_crops.clear()
+        self._gaic_im_tensor = None # 换图时清空 cache
+        self._gaic_resized_w = None
+        self._gaic_resized_h = None
         return self.reset()
 
     def reset(self):
@@ -241,10 +290,16 @@ class CropEnv:
             print(f"! 重置时生成无效box: {self.box}，使用默认box")
             self.box = np.array([0, 0, self.orig.width * 0.6, self.orig.height * 0.6], dtype=float)
 
+        fast_reset = False
+        try:
+            fast_reset = bool(self.cfg.train.get("fast_reset", True))  
+        except Exception:
+            fast_reset = True
+
         if self.inference:
             init_score = 5.0
         else:
-            init_score = self._get_score(self.box)
+            init_score = 5.0 if fast_reset else self._get_score(self.box)
 
         self.prev_score = init_score
         self.best_score = init_score
@@ -305,35 +360,442 @@ class CropEnv:
         else:
             return self._estimate_score_safe(box)
     
-    def step(self, action_idx: int):
+    def _ensure_gaic_tensor_cached(self):
+        """
+        若 scorer 是 GAICAdapter，提前把整图 resize+normalize 后的 tensor 缓存一次。
+        """
+        if self._gaic_im_tensor is not None:
+            return
+        if not hasattr(self.model, "_resize_image_like_demo"):
+            return
+        im_t, rw, rh = self.model._resize_image_like_demo(self.orig)
+        self._gaic_im_tensor = im_t
+        self._gaic_resized_w = rw
+        self._gaic_resized_h = rh
+
+    def submit_score(self, box):
+        safe_box = [int(round(box[0])), int(round(box[1])), int(round(box[2])), int(round(box[3]))]
+
+        # 如果没有 batch scorer，就返回 None，走同步 old path
+        if not hasattr(CropEnv._batch_scorer, "submit"):
+            return None
+
+        # GAIC tensor cache
+        self._ensure_gaic_tensor_cached()
+        if self._gaic_im_tensor is None:
+            return None
+
+        payload = (
+            self._gaic_im_tensor,
+            self.orig.width, self.orig.height,
+            self._gaic_resized_w, self._gaic_resized_h,
+            safe_box,
+        )
+        return CropEnv._batch_scorer.submit(payload)
+
+    def resolve_score(self, future, timeout=5.0) -> float:
+        if future is None:
+            return None
+        return float(future.result(timeout=timeout))
+    
+    # def step(self, action_idx: int):
+          # 同步版本
+    #     dx = self.delta * self.box[2]
+    #     dy = self.delta * self.box[3]
+    #     reward = 0.0
+
+    #     if np.isnan(dx) or np.isnan(dy) or np.isinf(dx) or np.isinf(dy):
+    #         print(f"! 无效的动作增量: dx={dx}, dy={dy}")
+    #         dx = dy = 1.0
+
+    #     act = self.actions[action_idx]
+    #     if not hasattr(self, "last_action"):
+    #         self.last_action = None
+    #         self.same_action_run = 0
+    #     if act == self.last_action:
+    #         self.same_action_run += 1
+    #     else:
+    #         self.same_action_run = 0
+
+    #     self.last_action = act
+    #     old_box = self.box.copy()
+    #     old_score = self.prev_score
+
+    #     if act == "stop":
+    #         final_score = self._get_score(self.box)
+    #         #improv = final_score - self.best_score
+    #         gap_to_best = self.best_score - final_score  # >0 表示比历史最好差
+            
+    #         # stop奖励：与最佳分数比较
+    #         #reward = final_score - self.best_score
+    #         reward = 0.0
+    #         if gap_to_best <= self.stop_close_best_eps1:
+    #             reward += self.stop_reward_eps1
+    #         elif gap_to_best <= self.stop_close_best_eps2:
+    #             reward += self.stop_reward_eps2
+    #         elif gap_to_best <= self.stop_close_best_eps3:
+    #             reward -= self.stop_penalty_eps3
+    #         else:
+    #             reward -= self.stop_penalty_far
+
+    #         if self.step_count < self.stop_early_step:
+    #             reward -= self.stop_early_penalty
+
+    #         reward += float(np.clip(final_score - self.prev_score, -self.stop_prev_clip, self.stop_prev_clip))
+
+    #         done = True
+    #         return self._state(), float(np.clip(reward, -2.0, 3.0)), done, {}
+
+    #     # 执行动作
+    #     x, y, w, h = old_box
+    #     cx = x + 0.5 * w
+    #     cy = y + 0.5 * h
+    #     if act == "left":
+    #         x = max(0, x - dx)
+    #     elif act == "right":
+    #         x = min(self.orig.width - w, x + dx)
+    #     elif act == "up":
+    #         y = max(0, y - dy)
+    #     elif act == "down":
+    #         y = min(self.orig.height - h, y + dy)
+    #     elif act == "zoom_in":
+    #         w *= (1 - self.delta)
+    #         h *= (1 - self.delta)
+    #         x = cx - 0.5 * w
+    #         y = cy - 0.5 * h
+    #     elif act == "zoom_out":
+    #         w *= (1 + self.delta)
+    #         h *= (1 + self.delta)
+    #         x = cx - 0.5 * w
+    #         y = cy - 0.5 * h
+    #     # elif act == "wider":
+    #     #     w *= (1 + self.delta)
+    #     # elif act == "narrower":
+    #     #     w *= (1 - self.delta)
+    #     # elif act == "taller":
+    #     #     h *= (1 + self.delta)
+    #     # elif act == "shorter":
+    #     #     h *= (1 - self.delta)
+
+    #     hit_boundary = False
+    #     bx0, by0 = x, y
+    #     min_size = max(10, min(self.orig.width, self.orig.height) * 0.05)
+
+    #     w = max(min_size, min(w, float(self.orig.width)))
+    #     h = max(min_size, min(h, float(self.orig.height)))
+
+    #     x = min(max(0.0, x), self.orig.width - w)
+    #     y = min(max(0.0, y), self.orig.height - h)
+
+    #     hit_boundary = (
+    #         x <= 0.0 or y <= 0.0 or
+    #         x + w >= self.orig.width or
+    #         y + h >= self.orig.height
+    #     )
+    #     # 应用边界约束
+    #     min_size = max(10, min(self.orig.width, self.orig.height) * 0.05)
+    #     w = max(min_size, min(self.orig.width - x, max(w, self.delta * self.orig.width)))
+    #     h = max(min_size,min(self.orig.height - y, max(h, self.delta * self.orig.height)))
+
+    #     new_box = np.array([x, y, w, h], dtype=float)
+
+    #     if not self._is_valid_box(new_box):
+    #         print(f"! 动作{act}产生无效box: {new_box}，保持原box")
+    #         new_box = old_box.copy()
+
+    #     self.box = new_box
+    #     changed = not np.allclose(old_box, new_box)
+
+    #     if self.inference:
+    #         # 不计算评分与奖励, 只维护状态
+    #         self.step_count += 1
+    #         done = (self.step_count >= self.max_steps) or (self.actions[action_idx] == "stop")
+    #         return self._state(), 0.0, done, {}
+        
+    #     # backtrack 惩罚
+    #     backtrack_pen = 0.0
+    #     if self._prev_box is not None:
+    #         if np.allclose(new_box, self._prev_box, atol=1e-3):
+    #             backtrack_pen = self.backtrack_penalty
+    #     self._prev_box = old_box.copy()
+
+    #     if not changed:
+    #         self.repeat_count += 1
+    #         base_reward = -self.no_op_penalty
+    #         new_score = self.prev_score
+    #     else:
+    #         self.repeat_count = 0  # 重置重复计数
+    #         new_score = self._get_score(new_box)
+    #         score_diff = new_score - self.prev_score
+
+    #         #base_reward = np.tanh(score_diff * 2.0)
+    #         base_reward = score_diff
+
+    #         move_bonus = 0.0
+    #         if act in {"left", "right", "up", "down"}:
+    #             dist = (abs(new_box[0] - old_box[0]) + abs(new_box[1] - old_box[1])) / (self.orig.width + self.orig.height)
+    #             if dist > 0:
+    #                 move_bonus += self.move_base + self.move_dist_scale * dist
+    #             key = self._get_crop_hash(new_box)
+    #             if key not in self.history:
+    #                 move_bonus += self.move_new_region_bonus
+
+    #         if act in {"zoom_in", "zoom_out"}:
+    #             if score_diff >= -self.zoom_allow_drop:
+    #                 move_bonus += self.zoom_bonus
+            
+    #         base_reward += move_bonus
+
+    #         # 震荡检测惩罚
+    #         if not hasattr(self, "recent_actions"):
+    #             self.recent_actions = []
+    #         self.recent_actions.append(act)
+    #         if len(self.recent_actions) > self.osc_window:
+    #             self.recent_actions.pop(0)
+    #         # oscillation_pairs = {
+    #         #     ("wider","narrower"),("narrower","wider"),
+    #         #     ("taller","shorter"),("shorter","taller"),
+    #         #     ("zoom_in","zoom_out"),("zoom_out","zoom_in")
+    #         # }
+    #         oscillation_pairs = {
+    #             ("left", "right"), ("right", "left"),
+    #             ("up", "down"), ("down", "up"),
+    #             ("zoom_in", "zoom_out"), ("zoom_out", "zoom_in"),
+    #         }
+    #         # osc = sum(1 for a,b in zip(self.recent_actions, self.recent_actions[1:]) if (a,b) in oscillation_pairs)
+    #         # if osc >= 5:
+    #         #     base_reward -= 0.08
+
+    #         osc = sum(
+    #             1
+    #             for a, b in zip(self.recent_actions, self.recent_actions[1:])
+    #             if (a, b) in oscillation_pairs
+    #         )
+    #         if osc >= 2:
+    #             base_reward -= 0.06
+    #         if osc >= 4:
+    #             base_reward -= 0.18
+    #         if osc >= 6:
+    #             base_reward -= 0.35
+        
+    #     if self.debug_log and self.step_count % self.debug_log_interval == 0:
+    #         print(
+    #             f"[EnvDebug] step={self.step_count} act={act} "
+    #             f"score={new_score:.3f} diff={new_score-old_score:.3f} "
+    #             f"repeat={self.repeat_count}"
+    #         )
+        
+    #     # 惩罚机制
+    #     penalty = 0.0
+    #     if hit_boundary:
+    #         penalty += self.boundary_penalty
+    #     # 面积正则惩罚（抑制大框/小框极端）
+    #     if self.area_weight > 0:
+    #         img_area = float(self.orig.width * self.orig.height)
+    #         box_area = float(new_box[2] * new_box[3])
+    #         area_ratio = box_area / max(1.0, img_area)
+    #         diff = abs(area_ratio - self.area_target)
+    #         if diff > self.area_tolerance:
+    #             penalty += self.area_weight * (diff - self.area_tolerance)
+
+    #     if self.same_action_run >= self.same_action_t1:
+    #         penalty += self.same_action_p1
+    #     if self.same_action_run >= self.same_action_t2:
+    #         penalty += self.same_action_p2
+
+    #     # 重复访问惩罚
+    #     box_key = self._get_crop_hash(new_box)
+    #     if box_key in self.history:
+    #         penalty += self.visit_penalty
+    #     else:
+    #         self.history.add(box_key)
+        
+    #     # 连续重复动作惩罚（大幅降低）
+    #     if self.repeat_count >= self.max_repeat:
+    #         penalty += self.repeat_penalty 
+    #         self.repeat_count = 0
+        
+    #     reward = base_reward - penalty - backtrack_pen
+    #     reward = np.clip(reward, -2.0, 3.0)  # 限制奖励范围
+        
+    #     self.prev_score = new_score
+    #     self.step_count += 1
+    #     if new_score > self.best_score:
+    #         self.best_score = new_score
+    #     done = (self.step_count >= self.max_steps)
+        
+    #     return self._state(), reward, done, {}
+
+    def state_only(self) -> torch.Tensor:
+        """只返回低维状态，不做任何 PIL crop/resize。"""
+        x, y, w, h = self.box
+        iw, ih = self.orig.size
+
+        state = np.array([
+            (x + 0.5 * w) / iw,
+            (y + 0.5 * h) / ih,
+            w / iw,
+            h / ih,
+        ], dtype=np.float32)
+
+        if np.isnan(state).any() or np.isinf(state).any():
+            state = np.array([0.5, 0.5, 0.6, 0.6], dtype=np.float32)
+
+        return torch.from_numpy(state).float()
+
+    def render_obs_image(self) -> torch.Tensor:
+        """
+        生成图像 observation（CPU tensor）。
+        此函数会做 PIL crop/resize
+        """
+        x, y, w, h = self.box
+        cropped = self.orig.crop((x, y, x + w, y + h)).resize((self.img_size, self.img_size))
+        return T.ToTensor()(cropped)
+
+    def finalize_reward_with_score(self, new_score: float, info: dict) -> float:
+        """
+        在 defer_score=True 时，用真实 new_score 补全 reward，并更新 prev_score/best_score。
+        info 来自 step(..., defer_score=True) 的返回。
+        """
+        act = info["act"]
+        old_box = info["old_box"]
+        new_box = info["new_box"]
+        old_score = info["old_score"]
+        hit_boundary = info["hit_boundary"]
+        changed = info["changed"]
+        backtrack_pen = float(info["backtrack_pen"])
+        penalty = float(info["penalty_pre"])
+
+        new_score = float(new_score)
+        score_diff = new_score - old_score
+
+        # === base_reward：与你原 step 保持一致 ===
+        if not changed:
+            base_reward = -self.no_op_penalty
+            new_score = old_score
+            score_diff = 0.0
+            if act == "zoom_out":
+                zoom_out_noop_pen = float(self.cfg.reward.get("zoom_out_noop_penalty", 0.05))
+                base_reward -= zoom_out_noop_pen
+        else:
+            base_reward = score_diff
+
+            # move/zoom bonus（依赖 score_diff）
+            move_bonus = 0.0
+            if act in {"left", "right", "up", "down"}:
+                dist = (abs(new_box[0] - old_box[0]) + abs(new_box[1] - old_box[1])) / (self.orig.width + self.orig.height)
+                if dist > 0:
+                    move_bonus += self.move_base + self.move_dist_scale * dist
+                key = self._get_crop_hash(new_box)
+                if key not in self.history:
+                    move_bonus += self.move_new_region_bonus
+
+            #if act in {"zoom_in", "zoom_out"}:
+            if act == "zoom_in":
+                if score_diff >= -self.zoom_allow_drop:
+                    move_bonus += self.zoom_bonus
+
+            base_reward += move_bonus
+
+            # oscillation penalty（依赖 act 序列）
+            self.recent_actions.append(act)
+            if len(self.recent_actions) > self.osc_window:
+                self.recent_actions.pop(0)
+
+            oscillation_pairs = {
+                ("left", "right"), ("right", "left"),
+                ("up", "down"), ("down", "up"),
+                ("zoom_in", "zoom_out"), ("zoom_out", "zoom_in"),
+            }
+            osc = sum(
+                1
+                for a, b in zip(self.recent_actions, self.recent_actions[1:])
+                if (a, b) in oscillation_pairs
+            )
+            if osc >= 2:
+                base_reward -= self.osc_p1
+            if osc >= 4:
+                base_reward -= self.osc_p2
+            if osc >= 6:
+                base_reward -= self.osc_p3
+
+        # === penalty：边界 + 面积 + same_action + visit/repeat ===
+        # boundary
+        if hit_boundary:
+            penalty += self.boundary_penalty
+
+        # area regularization
+        if self.area_weight > 0:
+            img_area = float(self.orig.width * self.orig.height)
+            box_area = float(new_box[2] * new_box[3])
+            area_ratio = box_area / max(1.0, img_area)
+            diff = abs(area_ratio - self.area_target)
+            if diff > self.area_tolerance:
+                penalty += self.area_weight * (diff - self.area_tolerance)
+        
+        if act == "zoom_out":
+            img_area = float(self.orig.width * self.orig.height)
+            box_area = float(new_box[2] * new_box[3])
+            area_ratio = box_area / max(1.0, img_area)
+
+            zoom_out_area_max = float(self.cfg.reward.get("zoom_out_area_max", 0.55))
+            zoom_out_area_pen = float(self.cfg.reward.get("zoom_out_area_penalty", 0.8))
+            if area_ratio > zoom_out_area_max:
+                penalty += zoom_out_area_pen * float(area_ratio - zoom_out_area_max)
+
+        # same-action run penalty
+        if self.same_action_run >= self.same_action_t1:
+            penalty += self.same_action_p1
+        if self.same_action_run >= self.same_action_t2:
+            penalty += self.same_action_p2
+
+        # visit penalty (history)
+        box_key = self._get_crop_hash(new_box)
+        if box_key in self.history:
+            penalty += self.visit_penalty
+        else:
+            self.history.add(box_key)
+
+        # repeat penalty
+        if self.repeat_count >= self.max_repeat:
+            penalty += self.repeat_penalty
+            self.repeat_count = 0
+
+        reward = float(np.clip(base_reward - penalty - backtrack_pen, -2.0, 3.0))
+
+        # 更新内部分数状态
+        self.prev_score = float(new_score)
+        if self.prev_score > self.best_score:
+            self.best_score = float(self.prev_score)
+
+        return reward
+
+    def step(self, action_idx: int, defer_score: bool = False):
         dx = self.delta * self.box[2]
         dy = self.delta * self.box[3]
-        reward = 0.0
 
         if np.isnan(dx) or np.isnan(dy) or np.isinf(dx) or np.isinf(dy):
-            print(f"! 无效的动作增量: dx={dx}, dy={dy}")
             dx = dy = 1.0
 
         act = self.actions[action_idx]
-        if not hasattr(self, "last_action"):
-            self.last_action = None
+
+        # same-action run
+        if self.last_action is None:
             self.same_action_run = 0
         if act == self.last_action:
             self.same_action_run += 1
         else:
             self.same_action_run = 0
-
         self.last_action = act
-        old_box = self.box.copy()
-        old_score = self.prev_score
 
+        old_box = self.box.copy()
+        old_score = float(self.prev_score)
+
+        # stop：保持同步（不 defer）
         if act == "stop":
             final_score = self._get_score(self.box)
-            #improv = final_score - self.best_score
-            gap_to_best = self.best_score - final_score  # >0 表示比历史最好差
-            
-            # stop奖励：与最佳分数比较
-            #reward = final_score - self.best_score
+            gap_to_best = self.best_score - final_score
+
             reward = 0.0
             if gap_to_best <= self.stop_close_best_eps1:
                 reward += self.stop_reward_eps1
@@ -348,14 +810,40 @@ class CropEnv:
                 reward -= self.stop_early_penalty
 
             reward += float(np.clip(final_score - self.prev_score, -self.stop_prev_clip, self.stop_prev_clip))
+            reward = float(np.clip(reward, -2.0, 3.0))
 
-            done = True
-            return self._state(), float(np.clip(reward, -2.0, 3.0)), done, {}
+            old_box = self.box.copy()
+            new_box = self.box.copy()
+            old_score = float(self.prev_score)
 
-        # 执行动作
+            # 更新内部分数状态
+            self.prev_score = float(final_score)
+            if self.prev_score > self.best_score:
+                self.best_score = float(self.prev_score)
+
+            self.step_count += 1
+
+            info = {
+                "score_future": None,
+                "act": act,
+                "old_box": old_box,
+                "new_box": new_box,
+                "old_score": old_score,
+                "hit_boundary": False,
+                "changed": False,
+                "backtrack_pen": 0.0,
+                "penalty_pre": 0.0,
+                "is_stop": True,
+            }
+
+            # defer_score 模式下也返回一致的 info，防止 trainer 崩
+            return self._state(), reward, True, info
+
+        # === 执行动作，生成 new_box ===
         x, y, w, h = old_box
         cx = x + 0.5 * w
         cy = y + 0.5 * h
+
         if act == "left":
             x = max(0, x - dx)
         elif act == "right":
@@ -374,22 +862,10 @@ class CropEnv:
             h *= (1 + self.delta)
             x = cx - 0.5 * w
             y = cy - 0.5 * h
-        # elif act == "wider":
-        #     w *= (1 + self.delta)
-        # elif act == "narrower":
-        #     w *= (1 - self.delta)
-        # elif act == "taller":
-        #     h *= (1 + self.delta)
-        # elif act == "shorter":
-        #     h *= (1 - self.delta)
 
-        hit_boundary = False
-        bx0, by0 = x, y
         min_size = max(10, min(self.orig.width, self.orig.height) * 0.05)
-
         w = max(min_size, min(w, float(self.orig.width)))
         h = max(min_size, min(h, float(self.orig.height)))
-
         x = min(max(0.0, x), self.orig.width - w)
         y = min(max(0.0, y), self.orig.height - h)
 
@@ -398,131 +874,82 @@ class CropEnv:
             x + w >= self.orig.width or
             y + h >= self.orig.height
         )
-        # 应用边界约束
-        min_size = max(10, min(self.orig.width, self.orig.height) * 0.05)
+
+        # 再次约束
         w = max(min_size, min(self.orig.width - x, max(w, self.delta * self.orig.width)))
-        h = max(min_size,min(self.orig.height - y, max(h, self.delta * self.orig.height)))
+        h = max(min_size, min(self.orig.height - y, max(h, self.delta * self.orig.height)))
 
         new_box = np.array([x, y, w, h], dtype=float)
-
         if not self._is_valid_box(new_box):
-            print(f"! 动作{act}产生无效box: {new_box}，保持原box")
             new_box = old_box.copy()
 
         self.box = new_box
         changed = not np.allclose(old_box, new_box)
 
-        if self.inference:
-            # 不计算评分与奖励, 只维护状态
+        if (not self.inference) and act == "zoom_out" and (not changed):
             self.step_count += 1
-            done = (self.step_count >= self.max_steps) or (self.actions[action_idx] == "stop")
-            return self._state(), 0.0, done, {}
-        
-        # backtrack 惩罚
+            done = True
+            info = {
+                "score_future": None,
+                "act": act,
+                "old_box": old_box,
+                "new_box": new_box,
+                "old_score": old_score,
+                "hit_boundary": bool(hit_boundary),
+                "changed": False,
+                "backtrack_pen": 0.0,
+                "penalty_pre": 0.0,
+            }
+            # 训练时让 finalize 走 not-changed 分支即可（会扣 no_op + zoom_out_noop）
+            if defer_score:
+                img_tensor = torch.zeros(3, self.img_size, self.img_size)
+                st_tensor = self.state_only()
+                return (img_tensor, st_tensor), 0.0, done, info
+            return self._state(), 0.0, done, info
+
+        # backtrack penalty（与 score 无关）
         backtrack_pen = 0.0
-        if self._prev_box is not None:
-            if np.allclose(new_box, self._prev_box, atol=1e-3):
-                backtrack_pen = self.backtrack_penalty
+        if self._prev_box is not None and np.allclose(new_box, self._prev_box, atol=1e-3):
+            backtrack_pen = self.backtrack_penalty
         self._prev_box = old_box.copy()
 
+        # repeat_count（与 score 无关）
         if not changed:
             self.repeat_count += 1
-            base_reward = -self.no_op_penalty
-            new_score = self.prev_score
         else:
-            self.repeat_count = 0  # 重置重复计数
-            new_score = self._get_score(new_box)
-            score_diff = new_score - self.prev_score
-
-            #base_reward = np.tanh(score_diff * 2.0)
-            base_reward = score_diff
-
-            move_bonus = 0.0
-            if act in {"left", "right", "up", "down"}:
-                dist = (abs(new_box[0] - old_box[0]) + abs(new_box[1] - old_box[1])) / (self.orig.width + self.orig.height)
-                if dist > 0:
-                    move_bonus += self.move_base + self.move_dist_scale * dist
-                key = self._get_crop_hash(new_box)
-                if key not in self.history:
-                    move_bonus += self.move_new_region_bonus
-
-            if act in {"zoom_in", "zoom_out"}:
-                if score_diff >= -self.zoom_allow_drop:
-                    move_bonus += self.zoom_bonus
-            
-            base_reward += move_bonus
-
-            # 震荡检测惩罚
-            if not hasattr(self, "recent_actions"):
-                self.recent_actions = []
-            self.recent_actions.append(act)
-            if len(self.recent_actions) > self.osc_window:
-                self.recent_actions.pop(0)
-            # oscillation_pairs = {
-            #     ("wider","narrower"),("narrower","wider"),
-            #     ("taller","shorter"),("shorter","taller"),
-            #     ("zoom_in","zoom_out"),("zoom_out","zoom_in")
-            # }
-            oscillation_pairs = {
-                ("left", "right"), ("right", "left"),
-                ("up", "down"), ("down", "up"),
-                ("zoom_in", "zoom_out"), ("zoom_out", "zoom_in"),
-            }
-            # osc = sum(1 for a,b in zip(self.recent_actions, self.recent_actions[1:]) if (a,b) in oscillation_pairs)
-            # if osc >= 5:
-            #     base_reward -= 0.08
-
-            osc = sum(
-                1
-                for a, b in zip(self.recent_actions, self.recent_actions[1:])
-                if (a, b) in oscillation_pairs
-            )
-            if osc >= 2:
-                base_reward -= 0.06
-            if osc >= 4:
-                base_reward -= 0.18
-            if osc >= 6:
-                base_reward -= 0.35
-        
-        if self.debug_log and self.step_count % self.debug_log_interval == 0:
-            print(
-                f"[EnvDebug] step={self.step_count} act={act} "
-                f"score={new_score:.3f} diff={new_score-old_score:.3f} "
-                f"repeat={self.repeat_count}"
-            )
-        
-        # 惩罚机制
-        penalty = 0.0
-        if hit_boundary:
-            penalty += self.boundary_penalty
-
-        if self.same_action_run >= self.same_action_t1:
-            penalty += self.same_action_p1
-        if self.same_action_run >= self.same_action_t2:
-            penalty += self.same_action_p2
-
-        # 重复访问惩罚
-        box_key = self._get_crop_hash(new_box)
-        if box_key in self.history:
-            penalty += self.visit_penalty
-        else:
-            self.history.add(box_key)
-        
-        # 连续重复动作惩罚（大幅降低）
-        if self.repeat_count >= self.max_repeat:
-            penalty += self.repeat_penalty 
             self.repeat_count = 0
-        
-        reward = base_reward - penalty - backtrack_pen
-        reward = np.clip(reward, -2.0, 3.0)  # 限制奖励范围
-        
-        self.prev_score = new_score
+
         self.step_count += 1
-        if new_score > self.best_score:
-            self.best_score = new_score
         done = (self.step_count >= self.max_steps)
-        
-        return self._state(), reward, done, {}
+
+        if self.inference:
+            return self._state(), 0.0, done, {}
+
+        # defer_score：不在这里等待 score
+        fut = None
+        if changed and (self.step_count % self.real_score_interval == 0):
+            fut = self.submit_score(new_box)
+
+        info = {
+            "score_future": fut,
+            "act": act,
+            "old_box": old_box,
+            "new_box": new_box,
+            "old_score": old_score,
+            "hit_boundary": bool(hit_boundary),
+            "changed": bool(changed),
+            "backtrack_pen": float(backtrack_pen),
+            "penalty_pre": 0.0,  # 预留：如果你有其他与score无关惩罚可先算
+        }
+
+        if defer_score:
+            # 训练 fast-path
+            img_tensor = torch.zeros(3, self.img_size, self.img_size)
+            st_tensor = self.state_only()
+            return (img_tensor, st_tensor), 0.0, done, info
+
+        # use.py / 同步调试
+        return self._state(), 0.0, done, info
     
     def _estimate_score_safe(self, box):
         try:
@@ -578,7 +1005,7 @@ class CropEnv:
             self.score_cache.clear()
             self.score_cache.update(new_cache)
             
-        if len(self.precomputed_crops) > 50:
+        if len(self.precomputed_crops) > self.obs_cache_size:
             self.precomputed_crops.clear()
 
     def _state(self):
@@ -598,6 +1025,11 @@ class CropEnv:
 
         state_tensor = torch.from_numpy(state).float()
 
+        if self.observation_mode:
+            # 返回一个占位图像
+            img_tensor = torch.zeros(3, self.img_size, self.img_size)
+            return img_tensor, state_tensor
+
         crop_key = self._get_crop_hash(self.box)
         if crop_key in self.precomputed_crops:
             img_tensor = self.precomputed_crops[crop_key]
@@ -607,7 +1039,7 @@ class CropEnv:
                     (self.img_size, self.img_size)
                 )
                 img_tensor = T.ToTensor()(cropped)
-                if len(self.precomputed_crops) < 100:
+                if len(self.precomputed_crops) < self.obs_cache_size:
                     self.precomputed_crops[crop_key] = img_tensor
             except Exception as e:
                 print(f"！ 图像tensor创建失败: {e}")

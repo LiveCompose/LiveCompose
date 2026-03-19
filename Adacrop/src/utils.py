@@ -11,7 +11,7 @@ from collections import deque, namedtuple
 from PIL import Image  
 import threading
 import queue
-from concurrent.futures import ThreadPoolExecutor, Future
+from concurrent.futures import ThreadPoolExecutor, Future, as_completed
 from typing import List, Dict, Any
 import torch
 import torch.nn as nn
@@ -473,6 +473,12 @@ class PPOTrainer(A2CTrainer):
         self._img_idx = 0
         self._img_lock = threading.Lock()   
 
+        self._render_workers = int(self.cfg.train.get("num_workers", 16))
+        self._render_workers = max(1, min(self._render_workers, self.n_envs))
+        self._render_pool = ThreadPoolExecutor(max_workers=self._render_workers)
+
+        self._val_scorer = None
+
         self.val_json = self.cfg.data.get("val_json", None)
         self.val_eval_episodes = int(self.cfg.train.get("val_eval_episodes", 64))
         self.val_interval = int(self.cfg.train.get("val_interval", 20))
@@ -556,7 +562,9 @@ class PPOTrainer(A2CTrainer):
             return None
 
         recs = recs[: max_episodes or self.val_eval_episodes]
-        scorer = load_aesthetic_model()
+        if self._val_scorer is None:
+            self._val_scorer = load_aesthetic_model()
+        scorer = self._val_scorer
 
         final_scores = []
         score_gains = []
@@ -578,8 +586,10 @@ class PPOTrainer(A2CTrainer):
                         st_t = state[1].unsqueeze(0).to(self.device)
 
                         probs, _ = self.model(img_t, st_t)
-                        action = torch.argmax(probs, dim=1).item()
-                        state, _, done, _ = env.step(action)
+                        dist = torch.distributions.Categorical(probs=probs)
+                        action = dist.sample().item()
+
+                        state, _, done, _ = env.step(int(action))
 
                     final_scores.append(float(env.prev_score))
                     score_gains.append(float(env.prev_score - init_score))
@@ -624,20 +634,26 @@ class PPOTrainer(A2CTrainer):
             
             try:
                 # 收集rollout数据
+                t0 = time.perf_counter()
                 rollout_data = self._collect_rollout_a800(states, device, global_step)
+                rollout_sec = time.perf_counter() - t0
+
                 states = rollout_data['next_states']
                 global_step += rollout_data['steps']
                 
-                
                 # 计算GAE
+                t1 = time.perf_counter()
                 advs, returns = self._compute_gae_a800(rollout_data)
+                gae_sec = time.perf_counter() - t1
                 mean_reward = float(np.mean(returns))
 
                 # 熵退火（线性）
                 frac = min(1.0, global_step / max(1, self.max_steps_total))
                 self.ent_coef = (1 - frac) * self.ent_coef_init + frac * self.ent_coef_final
 
+                t2 = time.perf_counter()
                 self._ppo_update_a800(rollout_data, advs, returns, device)
+                update_sec = time.perf_counter() - t2
       
                 del rollout_data, advs, returns
                 torch.cuda.empty_cache()
@@ -650,6 +666,8 @@ class PPOTrainer(A2CTrainer):
                 gc.collect()
                 continue
             
+            print(f"[Perf] rollout={rollout_sec:.1f}s gae={gae_sec:.1f}s update={update_sec:.1f}s")
+            
             #  日志和保存
             if rollout_count % self.log_interval == 0:
                 self.log_metrics(
@@ -657,7 +675,10 @@ class PPOTrainer(A2CTrainer):
                     rollout=rollout_count,
                     mean_reward=mean_reward,
                     best_reward=self.best_reward,
-                    num_envs=self.n_envs
+                    num_envs=self.n_envs,
+                    rollout_sec=round(rollout_sec, 3),
+                    gae_sec=round(gae_sec, 3),
+                    update_sec=round(update_sec, 3),
                 )
                 print(f"[A800-PPO] rollout {rollout_count} | step {global_step} | reward {mean_reward:.3f} | mem {allocated:.1f}GB")
 
@@ -719,20 +740,23 @@ class PPOTrainer(A2CTrainer):
 
     def _collect_rollout_a800(self, states, device, global_step: int):
         n_steps = self.cfg.train.get("n_steps", 512)
-        
-        batch_imgs = torch.zeros(n_steps, self.n_envs, 3, 224, 224, device=device, dtype=torch.float32)
-        batch_states = torch.zeros(n_steps, self.n_envs, 4, device=device, dtype=torch.float32)
-        batch_actions = torch.zeros(n_steps, self.n_envs, device=device, dtype=torch.long)
-        batch_logps = torch.zeros(n_steps, self.n_envs, device=device, dtype=torch.float32)
-        batch_values = torch.zeros(n_steps, self.n_envs, device=device, dtype=torch.float32)
-        batch_rewards = torch.zeros(n_steps, self.n_envs, device=device, dtype=torch.float32)
-        batch_dones = torch.zeros(n_steps, self.n_envs, device=device, dtype=torch.float32)
+        rollout_t0 = time.perf_counter() #
+
+        pin = bool(self.cfg.train.get("pin_rollout", True))
+        cpu_dev = torch.device("cpu")
+
+        batch_imgs = torch.empty(n_steps, self.n_envs, 3, 224, 224, device=cpu_dev, dtype=torch.float32, pin_memory=pin)
+        batch_states = torch.empty(n_steps, self.n_envs, 4, device=cpu_dev, dtype=torch.float32, pin_memory=pin)
+        batch_actions = torch.empty(n_steps, self.n_envs, device=cpu_dev, dtype=torch.long, pin_memory=pin)
+        batch_logps = torch.empty(n_steps, self.n_envs, device=cpu_dev, dtype=torch.float32, pin_memory=pin)
+        batch_values = torch.empty(n_steps, self.n_envs, device=cpu_dev, dtype=torch.float32, pin_memory=pin)
+        batch_rewards = torch.empty(n_steps, self.n_envs, device=cpu_dev, dtype=torch.float32, pin_memory=pin)
+        batch_dones = torch.empty(n_steps, self.n_envs, device=cpu_dev, dtype=torch.float32, pin_memory=pin)
 
         for step in range(n_steps):
             try:
-                imgs = torch.stack([s[0] for s in states])
-                st = torch.stack([s[1] for s in states])
-
+                imgs = torch.stack([s[0] for s in states]).to(device, non_blocking=True)
+                st = torch.stack([s[1] for s in states]).to(device, non_blocking=True)
                 with torch.no_grad():
                     probs, values = self.model(imgs, st)
                     # 早期对部分env屏蔽 stop
@@ -749,16 +773,28 @@ class PPOTrainer(A2CTrainer):
                     actions = dist.sample()
                     logps = dist.log_prob(actions)
 
-                # 批量环境步进
-                next_states, rewards, dones = self._batch_env_step_a800(actions.cpu().numpy())
+                if step in (0, 1, 2, 5, 10) or (step % 50 == 0):
+                    a = actions.detach().cpu()
+                    counts = torch.bincount(a, minlength=len(self.envs[0].actions)).float()
+                    frac = (counts / counts.sum()).tolist()
+                    act_names = self.envs[0].actions
+                    top = sorted([(act_names[i], frac[i]) for i in range(len(act_names))], key=lambda x: -x[1])[:3]
+                    print("[ActionFracTop3]", ", ".join([f"{n}={v:.3f}" for n, v in top]))
 
-                batch_imgs[step] = imgs
-                batch_states[step] = st
-                batch_actions[step] = actions
-                batch_logps[step] = logps
-                batch_values[step] = values.squeeze()
-                batch_rewards[step] = torch.tensor(rewards, device=device, dtype=torch.float32)
-                batch_dones[step] = torch.tensor(dones, device=device, dtype=torch.float32)
+                # 批量环境步进
+                t_env0 = time.perf_counter() #
+                next_states, rewards, dones = self._batch_env_step_a800(actions.cpu().numpy())
+                t_env = time.perf_counter() - t_env0 #
+                if step in (0, 1, 2, 5, 10) or (step % 50 == 0): #
+                    print(f"[RolloutDebug] env_step_dt={t_env:.3f}s") #
+
+                batch_imgs[step].copy_(imgs.detach().to("cpu", non_blocking=True))
+                batch_states[step].copy_(st.detach().to("cpu", non_blocking=True))
+                batch_actions[step].copy_(actions.detach().to("cpu", non_blocking=True))
+                batch_logps[step].copy_(logps.detach().to("cpu", non_blocking=True))
+                batch_values[step].copy_(values.squeeze().detach().to("cpu", non_blocking=True))
+                batch_rewards[step].copy_(torch.as_tensor(rewards, dtype=torch.float32))
+                batch_dones[step].copy_(torch.as_tensor(dones, dtype=torch.float32))
 
                 states = next_states
                 
@@ -836,56 +872,129 @@ class PPOTrainer(A2CTrainer):
 
     #     return next_states, rewards, dones
 
-    def _batch_env_step_a800(self, actions):
-        next_states = [None] * len(self.envs)
-        rewards = [0.0] * len(self.envs)
-        dones = [False] * len(self.envs)
+    # def _batch_env_step_a800(self, actions):
+    #     # 等待
+    #     next_states = [None] * len(self.envs)
+    #     rewards = [0.0] * len(self.envs)
+    #     dones = [False] * len(self.envs)
 
-        for i, act in enumerate(actions):
+    #     for i, act in enumerate(actions):
+    #         try:
+    #             (img_cpu, st_cpu), r, done, _ = self.envs[i].step(act)
+    #             if done:
+    #                 next_img = self._next_image()
+    #                 img_cpu, st_cpu = self.envs[i].load_image(next_img)
+
+    #             img_tensor = img_cpu if isinstance(img_cpu, torch.Tensor) else T.ToTensor()(img_cpu)
+    #             st_tensor = st_cpu if isinstance(st_cpu, torch.Tensor) else torch.as_tensor(st_cpu, dtype=torch.float32)
+
+    #             next_states[i] = (
+    #                 img_tensor.to(self.device, non_blocking=True),
+    #                 st_tensor.to(self.device, non_blocking=True),
+    #             )
+    #             rewards[i] = float(r)
+    #             dones[i] = bool(done)
+
+    #         except Exception as e:
+    #             print(f"环境 {i} step 失败: {e}")
+    #             next_states[i] = (
+    #                 torch.zeros(3, 224, 224, device=self.device),
+    #                 torch.zeros(4, device=self.device),
+    #             )
+    #             rewards[i] = 0.0
+    #             dones[i] = False
+
+    #     return next_states, rewards, dones
+
+    def _batch_env_step_a800(self, actions_np): # 两阶段版
+        # 第一阶段：执行 step，但不阻塞评分
+        step_outs = [None] * self.n_envs
+
+        for i, act in enumerate(actions_np):
+            step_outs[i] = self.envs[i].step(int(act), defer_score=True)
+
+        # 第二阶段：统一等待评分结果并补全 reward
+        rewards = np.zeros(self.n_envs, dtype=np.float32)
+        dones = np.zeros(self.n_envs, dtype=np.bool_)
+
+        for i, (ns, r_stub, done, info) in enumerate(step_outs):
+            dones[i] = bool(done)
+
+            # ✅ stop：env 已经返回真实 reward，直接用，不走 finalize
+            if isinstance(info, dict) and info.get("is_stop", False):
+                rewards[i] = float(r_stub)
+            else:
+                fut = info.get("score_future", None) if isinstance(info, dict) else None
+                if fut is not None:
+                    try:
+                        score = self.envs[i].resolve_score(fut, timeout=1.5)
+                    except Exception:
+                        score = 5.0
+                    rewards[i] = float(self.envs[i].finalize_reward_with_score(score, info))
+                else:
+                    old_score = 5.0
+                    if isinstance(info, dict):
+                        old_score = float(info.get("old_score", 5.0))
+                    rewards[i] = float(self.envs[i].finalize_reward_with_score(old_score, info))
+
+            if dones[i]:
+                next_img = self._next_image()
+                self.envs[i].load_image(next_img)
+
+        need_image = (not bool(self.cfg.env.get("observation_mode", False)))  # False=>需要真实图像
+        next_states = [None] * self.n_envs
+
+        if not need_image:
+            # state-only：直接用 env.step 返回的占位图像+state
+            for i, (ns, _, _, _) in enumerate(step_outs):
+                img_cpu, st_cpu = ns
+                next_states[i] = (
+                    img_cpu.to(self.device, non_blocking=True),
+                    st_cpu.to(self.device, non_blocking=True),
+                )
+            return next_states, rewards, dones
+
+        # image+state：并行 crop/resize/toTensor（CPU），再搬到 GPU
+        def render_worker(i: int):
             try:
-                (img_cpu, st_cpu), r, done, _ = self.envs[i].step(act)
-                if done:
-                    next_img = self._next_image()
-                    img_cpu, st_cpu = self.envs[i].load_image(next_img)
+                img_tensor = self.envs[i].render_obs_image()
+            except Exception:
+                img_tensor = torch.zeros(3, 224, 224)
+            try:
+                st_tensor = self.envs[i].state_only()
+            except Exception:
+                st_tensor = torch.zeros(4)
+            return i, img_tensor, st_tensor
 
-                img_tensor = img_cpu if isinstance(img_cpu, torch.Tensor) else T.ToTensor()(img_cpu)
-                st_tensor = st_cpu if isinstance(st_cpu, torch.Tensor) else torch.as_tensor(st_cpu, dtype=torch.float32)
+        max_workers = int(self.cfg.train.get("num_workers", 16))
+        max_workers = max(1, min(max_workers, self.n_envs))
 
-                next_states[i] = (
-                    img_tensor.to(self.device, non_blocking=True),
-                    st_tensor.to(self.device, non_blocking=True),
-                )
-                rewards[i] = float(r)
-                dones[i] = bool(done)
-
-            except Exception as e:
-                print(f"环境 {i} step 失败: {e}")
-                next_states[i] = (
-                    torch.zeros(3, 224, 224, device=self.device),
-                    torch.zeros(4, device=self.device),
-                )
-                rewards[i] = 0.0
-                dones[i] = False
+        futures = [self._render_pool.submit(render_worker, i) for i in range(self.n_envs)]
+        for fut in as_completed(futures):
+            i, img_cpu, st_cpu = fut.result()
+            next_states[i] = (
+                img_cpu.to(self.device, non_blocking=True),
+                st_cpu.to(self.device, non_blocking=True),
+            )
 
         return next_states, rewards, dones
+
 
     def _ppo_update_a800(self, rollout_data, advs, returns, device):
         """A800优化的PPO更新"""
         n_steps, n_envs = rollout_data['rewards'].shape
         dataset_size = n_steps * n_envs
         
-        print(f"  🔄 PPO更新: dataset_size={dataset_size}, epochs={self.ppo_epochs}")
+        print(f"   PPO更新: dataset_size={dataset_size}, epochs={self.ppo_epochs}")
         
-        # ✅ 展平数据，保持在GPU上
         imgs_flat = rollout_data['imgs'].view(-1, 3, 224, 224)
         states_flat = rollout_data['states'].view(-1, 4)
         actions_flat = rollout_data['actions'].view(-1)
         logps_flat = rollout_data['logps'].view(-1)
 
-        advs_flat = torch.tensor(advs.flatten(), device=device, dtype=torch.float32)
-        advs_flat = (advs_flat - advs_flat.mean()) / (advs_flat.std(unbiased=False) + 1e-8)
-
-        returns_flat = torch.tensor(returns.flatten(), device=device, dtype=torch.float32)
+        advs_cpu = torch.as_tensor(advs.flatten(), dtype=torch.float32)      # CPU
+        advs_cpu = (advs_cpu - advs_cpu.mean()) / (advs_cpu.std(unbiased=False) + 1e-8)
+        returns_cpu = torch.as_tensor(returns.flatten(), dtype=torch.float32) # CPU
 
         for epoch in range(self.ppo_epochs):
             #  GPU上生成随机索引
@@ -895,15 +1004,15 @@ class PPOTrainer(A2CTrainer):
             
             for batch_idx, start in enumerate(range(0, dataset_size, self.minibatch_size)):
                 end = min(start + self.minibatch_size, dataset_size)
-                mb_indices = indices[start:end]
+                mb_indices = indices[start:end].detach().cpu()
 
                 try:
-                    mb_imgs = imgs_flat[mb_indices]
-                    mb_states = states_flat[mb_indices]
-                    mb_actions = actions_flat[mb_indices]
-                    mb_old_logps = logps_flat[mb_indices]
-                    mb_advs = advs_flat[mb_indices]
-                    mb_returns = returns_flat[mb_indices]
+                    mb_imgs = imgs_flat[mb_indices].to(device, non_blocking=True)
+                    mb_states = states_flat[mb_indices].to(device, non_blocking=True)
+                    mb_actions = actions_flat[mb_indices].to(device, non_blocking=True)
+                    mb_old_logps = logps_flat[mb_indices].to(device, non_blocking=True)
+                    mb_advs = advs_cpu[mb_indices].to(device, non_blocking=True)
+                    mb_returns = returns_cpu[mb_indices].to(device, non_blocking=True)
 
                     # 前向传播
                     probs, vals = self.model(mb_imgs, mb_states)
@@ -920,14 +1029,13 @@ class PPOTrainer(A2CTrainer):
                     loss = policy_loss + self.vf_coef * value_loss - self.ent_coef * entropy
 
                     #  梯度更新
-                    self.optimizer.zero_grad()
+                    self.optimizer.zero_grad(set_to_none=True)
                     loss.backward()
                     nn.utils.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
                     self.optimizer.step()
 
-                    #  定期清理
-                    if batch_idx % 10 == 0:
-                        torch.cuda.empty_cache()
+                    # if batch_idx % 10 == 0:
+                    #     torch.cuda.empty_cache()
 
                 except Exception as e:
                     print(f"❌ Epoch {epoch}, batch {batch_idx} 失败: {e}")
@@ -935,30 +1043,29 @@ class PPOTrainer(A2CTrainer):
                     continue
 
     def _compute_gae_a800(self, rollout_data):
-        """A800优化的GAE计算"""
-        #  在GPU上计算，然后移动到CPU
-        rewards_gpu = rollout_data['rewards']
-        dones_gpu = rollout_data['dones']
-        values_gpu = rollout_data['values']
-        
-        #  添加最后一个value
+        """GAE：rollout buffer 在 CPU pinned，GAE 在 CPU 计算"""
+        rewards_cpu = rollout_data["rewards"]  # CPU tensor [T,N]
+        dones_cpu = rollout_data["dones"]      # CPU tensor [T,N]
+        values_cpu = rollout_data["values"]    # CPU tensor [T,N]
+
+        # 最后一步 value：GPU forward 后搬回 CPU
         with torch.no_grad():
-            last_states = rollout_data['next_states']
-            last_imgs = torch.stack([s[0] for s in last_states]).to(self.device)
-            last_st = torch.stack([s[1] for s in last_states]).to(self.device)
+            last_states = rollout_data["next_states"]
+            last_imgs = torch.stack([s[0] for s in last_states]).to(self.device, non_blocking=True)
+            last_st = torch.stack([s[1] for s in last_states]).to(self.device, non_blocking=True)
             _, last_values = self.model(last_imgs, last_st)
-            last_values = last_values.squeeze()
-        
-        all_values = torch.cat([values_gpu, last_values.unsqueeze(0)], dim=0)
-        
-        #  移动到CPU进行GAE计算
-        rewards_np = rewards_gpu.cpu().numpy()
-        dones_np = dones_gpu.cpu().numpy()
-        values_np = all_values.cpu().numpy()
-        
-        del last_imgs, last_st, last_values, all_values
-        torch.cuda.empty_cache()
-        
+            last_values_cpu = last_values.squeeze().detach().to("cpu", non_blocking=True)  # [N]
+
+        # 拼成 [T+1, N]（CPU）
+        all_values_cpu = torch.cat([values_cpu, last_values_cpu.unsqueeze(0)], dim=0)
+
+        rewards_np = rewards_cpu.numpy()
+        dones_np = dones_cpu.numpy()
+        values_np = all_values_cpu.numpy()
+
+        # 清理
+        del last_imgs, last_st, last_values, last_values_cpu, all_values_cpu
+
         advs, returns = compute_gae(rewards_np, values_np, dones_np, self.gamma, 0.95)
         return advs, returns
 

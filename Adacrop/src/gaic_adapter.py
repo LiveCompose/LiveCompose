@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 from typing import List, Tuple
+import traceback
 
 import numpy as np
 from PIL import Image
@@ -124,11 +125,55 @@ class GAICAdapter:
             resized_h=resized_h,
         )
 
-        rois_np = np.asarray([[0.0, roi_xyxy[0], roi_xyxy[1], roi_xyxy[2], roi_xyxy[3]]], dtype=np.float32)
-        rois = torch.from_numpy(rois_np).to(self.device, non_blocking=True)
+        rois_np = np.asarray([roi_xyxy], dtype=np.float32)            # (1, 4)
+        rois = torch.from_numpy(rois_np).unsqueeze(0).to(self.device) # (1, 1, 4)
 
         with torch.no_grad():
-            out = self.model(im_tensor, rois)
+            try:
+                out = self.model(im_tensor, rois)
+            except Exception as e:
+                print("! GAIC forward failed:", repr(e))
+                traceback.print_exc()
+                raise
 
         out = out.reshape(-1)
         return float(out[0].item())
+
+    # 批量化
+    def score_batch(self, payloads: List[object]) -> List[float]:
+        """
+        payload: (im_tensor, orig_w, orig_h, resized_w, resized_h, box_xywh)
+        """
+        if not payloads:
+            return []
+
+        im_tensors: List[torch.Tensor] = []
+        rois_list: List[torch.Tensor] = []
+
+        for p in payloads:
+            im_t, ow, oh, rw, rh, box = p
+            orig_w, orig_h = int(ow), int(oh)
+            resized_w, resized_h = int(rw), int(rh)
+
+            roi_xyxy = self._map_box_to_resized(
+                box_xywh=box,
+                orig_w=orig_w,
+                orig_h=orig_h,
+                resized_w=resized_w,
+                resized_h=resized_h,
+            )
+
+            rois_np = np.asarray([roi_xyxy], dtype=np.float32)               # (1,4)
+            rois = torch.from_numpy(rois_np).unsqueeze(0).to(self.device)    # (1,1,4)
+
+            im_tensors.append(im_t)  # each (1,3,H,W)
+            rois_list.append(rois)   # each (1,1,4)
+
+        im_batch = torch.cat(im_tensors, dim=0)   # (B,3,H,W)
+        rois_batch = torch.cat(rois_list, dim=0)  # (B,1,4)
+
+        with torch.no_grad():
+            out = self.model(im_batch, rois_batch)
+
+        out = out.reshape(-1)
+        return [float(v) for v in out.detach().cpu().numpy().tolist()]

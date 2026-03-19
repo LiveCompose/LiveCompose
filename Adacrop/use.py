@@ -6,9 +6,10 @@ from src.config import Config
 from src.env import CropEnv
 from src.model import ActorCritic
 
-IMAGE_PATH = r"./Adacrop/data/bad2.jpg" 
-# IMAGE_PATH = r"./Adacrop/data/GAIC_dataset/images/test/238563.jpg"          
-CKPT_PATH  = r"./Adacrop/logs/run_20260312_191504_gaic_norm_gpu0_env128/ppo_best_train_reward.pth" 
+# IMAGE_PATH = r"./Adacrop/data/bad2.jpg" 
+# IMAGE_PATH = r"./Adacrop/data/GAIC_dataset/images/test/238563.jpg"  
+IMAGE_PATH = r"./Adacrop/data/cuhk_images/51291.jpg"       
+CKPT_PATH  = r"./Adacrop/logs/run_20260317_222720_gaic_norm_gpu0_env128/ppo_best_train_reward.pth" 
 
 OUT_DIR    = r"./Adacrop/output_img"
 MAX_STEPS  = 70
@@ -47,16 +48,18 @@ def main():
         st_t  = state[1].unsqueeze(0).to(device)
         with torch.no_grad():
             probs, _ = model(img_t, st_t)  # [1, n_actions]
-        act_idx = int(torch.argmax(probs, dim=1).item())
+        p = probs[0].clone()
 
-        topk = torch.topk(probs[0], k=min(3, probs.shape[1]))
+        if t < MIN_STEPS_NO_STOP:
+            p[stop_idx] = 0.0
+            p = p / (p.sum() + 1e-8)
+
+        dist = torch.distributions.Categorical(probs=p)
+        act_idx = int(dist.sample().item())
+
+        topk = torch.topk(p, k=min(3, p.numel()))
         top_str = ", ".join([f"{env.actions[i]}={topk.values[j].item():.3f}"
                              for j, i in enumerate(topk.indices.tolist())])
-
-        probs_np = probs[0].cpu().numpy()
-        if t < MIN_STEPS_NO_STOP:
-            probs_np[stop_idx] = -1e9  # mask 掉 stop
-        act_idx = int(probs_np.argmax())
 
         if env.actions[act_idx] == "stop":
             print(f"Step {t:02d}: action=stop | box={tuple(round(x,1) for x in prev_box)}")

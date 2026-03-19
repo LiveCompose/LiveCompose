@@ -220,7 +220,32 @@ def _prepare_run_dir(cfg):
     run_dir = os.path.join(save_root, run_name)
     os.makedirs(run_dir, exist_ok=True)
     return run_dir
-        
+
+def _load_model_ckpt_if_any(model: torch.nn.Module, ckpt_path: str, device: torch.device):
+    """
+    兼容两种保存格式：
+    1) torch.save({"model_state_dict": model.state_dict(), ...})
+    2) torch.save(model.state_dict())
+    """
+    ckpt_path = str(ckpt_path)
+    if not ckpt_path or not os.path.isfile(ckpt_path):
+        raise FileNotFoundError(f"init_ckpt not found: {ckpt_path}")
+
+    obj = torch.load(ckpt_path, map_location="cpu")
+    state_dict = obj.get("model_state_dict", obj) if isinstance(obj, dict) else obj
+
+    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    model.to(device)
+    model.eval()
+
+    print(f"* Loaded init_ckpt: {ckpt_path}")
+    if missing:
+        print(f"  - missing keys (show up to 10): {missing[:10]}")
+    if unexpected:
+        print(f"  - unexpected keys (show up to 10): {unexpected[:10]}")
+
+    return model
+
 def main():
     # 加载配置
     cfg = Config()
@@ -237,11 +262,22 @@ def main():
     n_actions = infer_n_actions(tmp_env)
 
     # 监督预训练 or 直接初始化
-    if cfg.train.get('supervised_pretrain', False):
-        model = supervised_pretrain(cfg, n_actions, device, run_dir)
-    else:
+    init_ckpt = cfg.train.get("init_ckpt", None)
+    if init_ckpt:
+        # 直接加载，跳过预训练
         model = ActorCritic(n_actions=n_actions).to(device)
-    model.init_action_bias(tmp_env.actions)
+        _load_model_ckpt_if_any(model, init_ckpt, device)
+        print("* Skip supervised pretrain because train.init_ckpt is set.")
+    else:
+        # 走 supervised pretrain
+        if cfg.train.get('supervised_pretrain', False):
+            model = supervised_pretrain(cfg, n_actions, device, run_dir)
+        else:
+            # 从头开始
+            model = ActorCritic(n_actions=n_actions).to(device)
+
+    if cfg.train.get("apply_init_action_bias", True) and (not init_ckpt) and (not cfg.train.get('supervised_pretrain', False)):
+        model.init_action_bias(tmp_env.actions)
 
     # 用预训练模型作为 init_model 创建正式 envs
     init_model = model if cfg.train.get('supervised_pretrain', False) else None
