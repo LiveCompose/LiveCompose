@@ -1,5 +1,6 @@
 # LiveCompose
 
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-yellow)](https://huggingface.co/LiveCompose)
 ![Code Size](https://img.shields.io/badge/Code_Size-10k%2B_Lines-green)
 ![Data Size](https://img.shields.io/badge/Data_Size-65GB-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
@@ -50,12 +51,12 @@
 LiveCompose/
 ├── Adacrop/                # 核心裁剪模型与训练代码
 │   ├── data/               # 训练数据与日志
-│   ├── logs/               # 训练过程中的模型权重与日志
-│   ├── z_inference.py      # 推理脚本
+│   ├── src/                # 训练脚本
+│   ├── GAIC/               # 美学评分模型 (GAIC) 相关代码
+│   ├── distillation/       # 模型蒸馏脚本 
+│   ├── coreml_export/      # CoreML模型转换脚本
 │   └── ...
 ├── NIMA/                   # 美学评分模型 (NIMA) 相关代码
-├── src/                    # 辅助工具代码 (Dataset, Env, Utils等)
-├── livecompose_outpainted_datasets/ # 扩图生成的数据集
 ├── PreProcess/             # 数据预处理脚本
 ├── Technic Profile.md      # 技术文档与答辩方案
 └── README.md               # 项目说明文件
