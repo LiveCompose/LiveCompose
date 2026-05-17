@@ -1,6 +1,7 @@
 # LiveCompose
 
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-yellow)](https://huggingface.co/LiveCompose)
+[![构妙 LiveCapture](https://img.shields.io/badge/AppStore-LiveCapture-blue)](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088)
 ![Code Size](https://img.shields.io/badge/Code_Size-10k%2B_Lines-green)
 ![Data Size](https://img.shields.io/badge/Data_Size-65GB-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
