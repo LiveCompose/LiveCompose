@@ -2,12 +2,12 @@ env:
   img_size: 224
   max_steps: 200
   action_delta: 0.05 #0.08
-  init_with_pred_prob: 0.4 #0.7 # 使用预训练初始化
-  init_box_jitter: 0.05    # 初始化时对边界框进行轻微扰动
+  init_with_pred_prob: 0.4 #0.7 # Using predicted box for initialization with a certain probability
+  init_box_jitter: 0.05    # slight random jitter added to the initial box to encourage exploration
   debug_log: false
   debug_log_interval: 50
   obs_cache_size: 1024
-  observation_mode: false  # 调试 验证瓶颈
+  observation_mode: false  # fine-tuning mode
 
 train:
   training_gpus: 1 #0
@@ -17,12 +17,12 @@ train:
   fast_reset: true
   #total_timesteps: 20000000
 
-  supervised_pretrain: true #true    # 是否启用监督预训练
-  pretrain_epochs: 20 #40  6       # 监督预训练轮数
-  pretrain_lr: 5e-5 #1e-4            # 预训练学习率
-  pretrain_batch_size: 512      # 预训练 batch size
-  init_ckpt: ""                 # 填 pth 路径则跳过预训直接 PPO
-  apply_init_action_bias: false # 建议：加载 ckpt 时保持 false
+  supervised_pretrain: true #true    # whether to do supervised pretraining before PPO
+  pretrain_epochs: 20 #40  6       
+  pretrain_lr: 5e-5 #1e-4            
+  pretrain_batch_size: 512      
+  init_ckpt: ""                 # filepath to initial checkpoint for PPO training; if empty, PPO starts from scratch
+  apply_init_action_bias: false # suggested to set to true when using a pretrained checkpoint, to encourage the agent to follow the initial policy distribution
 
   gamma: 0.99
   lam: 0.95
@@ -61,19 +61,18 @@ nima:
   normalize_to_nima_scale: true
 
 reward:
-  # 基础惩罚
+  # base
   no_op_penalty: 0.02
   boundary_penalty: 0.05
 
-  # 重复访问/重复动作
+  # repitition penalties
   visit_penalty: 0.02
   repeat_penalty: 0.08
   max_repeat: 12
 
-  # 回到上一步（解决 left/right 来回）
   backtrack_penalty: 0.20
 
-  # stop shaping（鼓励接近 best 时停止）
+  # stop shaping
   stop_early_step: 5
   stop_early_penalty: 0.2
   stop_close_best_eps1: 0.01
@@ -118,8 +117,8 @@ reward:
   zoom_out_area_penalty: 0.8
 
 data:
-  train_json: "./Adacrop/data/splits/train_mixed2.json"
-  val_json:   "./Adacrop/data/splits/val_mixed.json"
+  train_json: "./Adacrop/data/splits/train_mixed2.json" # Change according to your dataset split
+  val_json:   "./Adacrop/data/splits/val_mixed.json"    # Change according to your dataset split
   num_envs: 128 #96
 
 export:

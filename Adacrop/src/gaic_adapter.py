@@ -52,6 +52,12 @@ class GAICAdapter:
         if self.repo_dir not in sys.path:
             sys.path.insert(0, self.repo_dir)
 
+        # GAIC CUDA extension (.so) filepath 
+        for _ext_dir in ['untils/roi_align', 'untils/rod_align']:
+            _full = os.path.join(self.repo_dir, _ext_dir)
+            if _full not in sys.path:
+                sys.path.insert(0, _full)
+
         from networks.GAIC_model import build_crop_model
 
         self.image_transformer = transforms.Compose([

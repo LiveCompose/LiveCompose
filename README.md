@@ -59,14 +59,16 @@
 3. **知识蒸馏**：两阶段蒸馏至 MobileNetV3-Small —— Stage 1 蒸馏 BBox Head，Stage 2 蒸馏 Actor 策略
 4. **端侧部署**：将蒸馏后的学生模型通过 `coremltools` 转换为 CoreML 格式，部署至 iOS
 
-### 数据集构建
+### 数据集
 
-采用双模型工作流构建高质量训练数据：
+我们开源了训练用的扩图数据集 **LiveCompose-outpainted-17k**：
 
-1. **语义理解**：BLIP Image Captioning 生成原图描述
-2. **内容生成**：Stable Diffusion v2 Inpaint 在四方向独立随机扩展（10%~47.5%），生成多样化样本
-3. **质量控制**：Canny 边缘检测自动丢弃边框伪影 → 反向裁切校验原图一致性 → 人工抽检
-4. 最终得到 `(扩展图, 原图坐标框)` 二元组数据集
+**[LiveCompose/LiveCompose-outpainted-17k](https://huggingface.co/datasets/LiveCompose/LiveCompose-outpainted-17k)** — 约 17,000 张通过 Stable Diffusion Outpainting 生成的扩图，附带专业标注裁剪框。
+
+数据集构建采用了创新的**双模型工作流**：
+1.  **语义理解**: 使用 BLIP 模型生成图像描述。
+2.  **内容生成**: 使用 Stable Diffusion v2 Inpaint 进行 Outpainting（扩图），增加数据多样性。
+3.  **质量控制**: 结合 Canny 边缘检测与人工筛选，确保数据质量。
 
 ## 项目结构
 
@@ -91,6 +93,8 @@ LiveCompose/
 ```
 
 ## 快速开始
+
+**详细的开始指南请参考 [QUICKSTART.md](QUICKSTART.md)**，涵盖环境搭建、依赖安装、CUDA 扩展编译、数据准备、训练配置、模型训练、推理测试和模型导出的完整流程。
 
 ### 环境依赖
 
@@ -124,11 +128,17 @@ python export_student_coreml.py --student-ckpt ../distillation/runs/student_best
 | Hugging Face | [huggingface.co/LiveCompose](https://huggingface.co/LiveCompose) | 模型权重与数据集 |
 | App Store | [构妙 LiveCapture](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088) | iOS 应用 |
 
-## 致谢
+## 致谢 (Acknowledgements)
 
-本项目基于以下开源工作：
+We gratefully acknowledge the following open-source repositories and their contributors:
 
-- [GAIC-Pytorch](https://github.com/bo-zhang-cs/GAIC-Pytorch) — Grid Anchor based Image Cropping (CVPR 2019 / IEEE TPAMI 2020)
-- [Grid-Anchor-based-Image-Cropping-Pytorch](https://github.com/HuiZeng/Grid-Anchor-based-Image-Cropping-Pytorch) — GAIC 官方 PyTorch 实现
-- [Neural Image Assessment](https://github.com/titu1994/neural-image-assessment) — NIMA: Neural Image Assessment (IEEE TIP 2018)
-- [Learning Subject-Aware Cropping by Outpainting Professional Photos](https://arxiv.org/abs/2303.12345) — AAAI 2024，数据集构建方法参考
+- [GAIC-Pytorch](https://github.com/bo-zhang-cs/GAIC-Pytorch) by **bo-zhang-cs**, based on the works:
+  - Hui Zeng, Lida Li, Zisheng Cao, Lei Zhang. *Reliable and Efficient Image Cropping: A Grid Anchor based Approach*. CVPR 2019.
+  - Hui Zeng, Lida Li, Zisheng Cao, Lei Zhang. *Grid Anchor based Image Cropping: A New Benchmark and An Efficient Model*. IEEE TPAMI, 2020.
+
+- [Grid-Anchor-based-Image-Cropping-Pytorch](https://github.com/HuiZeng/Grid-Anchor-based-Image-Cropping-Pytorch) by **Hui Zeng**, official PyTorch implementation of the above works.
+
+- [Neural Image Assessment](https://github.com/titu1994/neural-image-assessment) by **Somshubra Majumdar (titu1994)**, **Eren Sezener**, **Simon Brugman**, **Panayiotis Panayiotou**, based on:
+  - Hossein Talebi, Peyman Milanfar. *NIMA: Neural Image Assessment*. IEEE Transactions on Image Processing, 2018.
+
+- - [Learning Subject-Aware Cropping by Outpainting Professional Photos](https://arxiv.org/abs/2303.12345) — AAAI 2024，

@@ -18,3 +18,11 @@ cuhk_images/
 *.run
 *.so
 *.o
+# Allow pre-compiled CUDA extensions in GAIC
+# Requires: Python 3.8, x86_64 Linux, compatible CUDA/PyTorch version
+# If python version is different, DO RECOMPILE the extensions using make_all.sh
+!Adacrop/GAIC/untils/rod_align/rod_align_api.cpython-38-x86_64-linux-gnu.so
+!Adacrop/GAIC/untils/rod_align/rod_align_api.py
+!Adacrop/GAIC/untils/roi_align/roi_align_api.cpython-38-x86_64-linux-gnu.so
+!Adacrop/GAIC/untils/roi_align/roi_align_api.py
+!Adacrop/GAIC/untils/roi_align/functions/roi_align_api.cpython-38-x86_64-linux-gnu.so
