@@ -1,6 +1,7 @@
 import argparse
 import csv
 import json
+import random
 from pathlib import Path
 
 import torch
@@ -34,6 +35,13 @@ def parse_args():
     parser.add_argument("--img-size", type=int, default=224)
     parser.add_argument("--max-steps", type=int, default=200)
     parser.add_argument("--action-delta", type=float, default=0.05)
+    parser.add_argument(
+        "--teacher-action-selection",
+        choices=["sample_logits", "argmax"],
+        default="sample_logits",
+        help="How the teacher chooses the next rollout action. sample_logits uses Categorical(logits=logits).",
+    )
+    parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--disable-cudnn", action="store_true", help="Work around occasional Windows/cuDNN stream errors.")
     parser.add_argument("--skip-errors", action="store_true", help="Skip images that fail during evaluation instead of aborting.")
     parser.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
@@ -69,7 +77,11 @@ def predict_teacher_action(teacher, img: Image.Image, box_xywh, args, device):
     width, height = img.size
     obs = render_crop(img, box_xywh, args.img_size).unsqueeze(0).to(device)
     state = box_state(box_xywh, width, height).unsqueeze(0).to(device)
-    probs, _ = teacher(obs, state)
+    feats = teacher.backbone(obs)
+    logits = teacher.actor(torch.cat([feats, state], dim=1))
+    if args.teacher_action_selection == "sample_logits":
+        return int(torch.distributions.Categorical(logits=logits.squeeze(0)).sample().item())
+    probs = torch.softmax(logits, dim=1)
     return int(probs.argmax(dim=1).item())
 
 
@@ -92,8 +104,17 @@ def mean(values):
     return sum(values) / max(1, len(values)) if values else None
 
 
+def rate_at(rows, key, threshold):
+    vals = [r.get(key) for r in rows if r.get(key) is not None]
+    return sum(1.0 for v in vals if v >= threshold) / max(1, len(vals)) if vals else None
+
+
 def main():
     args = parse_args()
+    random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(args.seed)
     if args.disable_cudnn:
         torch.backends.cudnn.enabled = False
         print("[runtime] cuDNN disabled; CUDA is still used, but convolution may be slower.")
@@ -155,9 +176,16 @@ def main():
             )
 
     metrics = {
+        "teacher_action_selection": args.teacher_action_selection,
         "num_eval": len(rows),
         "avg_bbox_iou": mean([r["bbox_iou"] for r in rows]),
+        "bbox_iou_at_0_3": rate_at(rows, "bbox_iou", 0.3),
+        "bbox_iou_at_0_5": rate_at(rows, "bbox_iou", 0.5),
+        "bbox_iou_at_0_7": rate_at(rows, "bbox_iou", 0.7),
         "avg_rl_iou": mean([r["rl_iou"] for r in rows]),
+        "rl_iou_at_0_3": rate_at(rows, "rl_iou", 0.3),
+        "rl_iou_at_0_5": rate_at(rows, "rl_iou", 0.5),
+        "rl_iou_at_0_7": rate_at(rows, "rl_iou", 0.7),
         "avg_iou_gain": mean([r["iou_gain"] for r in rows]),
         "avg_steps": mean([r["steps"] for r in rows]),
         "stop_rate": mean([1.0 if r["stopped"] else 0.0 for r in rows]),

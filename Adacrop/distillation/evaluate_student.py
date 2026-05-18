@@ -20,11 +20,11 @@ from common import (
     load_records,
     load_student,
     load_teacher,
-    random_box,
     render_crop,
+    render_full_image,
     step_box,
     xywh_to_xyxy,
-    xyxy_to_xywh,
+    clamp_xywh,
 )
 
 
@@ -35,12 +35,18 @@ def parse_args():
     parser.add_argument("--student-ckpt", type=Path, required=True)
     parser.add_argument("--eval-json", type=Path, default=root / "data" / "splits" / "val_mixed.json")
     parser.add_argument("--output-json", type=Path, default=None)
-    parser.add_argument("--max-images", type=int, default=256)
+    parser.add_argument("--max-images", type=int, default=0)
     parser.add_argument("--single-step-samples", type=int, default=512)
-    parser.add_argument("--rollout-images", type=int, default=64)
+    parser.add_argument("--rollout-images", type=int, default=0, help="Number of images for rollout metrics; <=0 uses all eval images.")
     parser.add_argument("--img-size", type=int, default=224)
     parser.add_argument("--max-steps", type=int, default=60)
     parser.add_argument("--action-delta", type=float, default=0.05)
+    parser.add_argument(
+        "--student-action-selection",
+        choices=["sample_logits", "argmax"],
+        default="sample_logits",
+        help="How the student chooses the next rollout action. sample_logits uses Categorical(logits=logits).",
+    )
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--num-workers", type=int, default=4)
     parser.add_argument("--seed", type=int, default=42)
@@ -128,6 +134,8 @@ def bbox_metrics(teacher, student, records, args, device):
     student_teacher_iou = 0.0
     student_gt_l1 = 0.0
     student_teacher_l1 = 0.0
+    student_gt_ious = []
+    teacher_gt_ious = []
 
     for imgs, targets in loader:
         imgs = imgs.to(device, non_blocking=True)
@@ -137,21 +145,39 @@ def bbox_metrics(teacher, student, records, args, device):
 
         bs = imgs.size(0)
         total += bs
-        student_gt_l1 += torch.nn.functional.l1_loss(student_boxes, targets).item() * bs
+        if targets.ndim == 3:
+            # targets: [B, K, 4]. Use the closest acceptable GT box for L1.
+            per_gt_l1 = torch.abs(student_boxes.unsqueeze(1) - targets).mean(dim=2)
+            student_gt_l1 += per_gt_l1.min(dim=1).values.sum().item()
+        else:
+            student_gt_l1 += torch.nn.functional.l1_loss(student_boxes, targets, reduction="sum").item() / 4.0
         student_teacher_l1 += torch.nn.functional.l1_loss(student_boxes, teacher_boxes).item() * bs
 
         for s_box, t_box, gt_boxes in zip(student_boxes.cpu(), teacher_boxes.cpu(), targets.cpu()):
             s_xyxy = bbox_cxcywh_to_xyxy(s_box.tolist(), 1, 1)
             t_xyxy = bbox_cxcywh_to_xyxy(t_box.tolist(), 1, 1)
+            if gt_boxes.ndim == 1:
+                gt_boxes = gt_boxes.unsqueeze(0)
             gt_xyxys = [bbox_cxcywh_to_xyxy(gt.tolist(), 1, 1) for gt in gt_boxes]
-            student_gt_iou += max(box_iou_xyxy(s_xyxy, gt_xyxy) for gt_xyxy in gt_xyxys)
-            teacher_gt_iou += max(box_iou_xyxy(t_xyxy, gt_xyxy) for gt_xyxy in gt_xyxys)
+            s_iou = max(box_iou_xyxy(s_xyxy, gt_xyxy) for gt_xyxy in gt_xyxys)
+            t_iou = max(box_iou_xyxy(t_xyxy, gt_xyxy) for gt_xyxy in gt_xyxys)
+            student_gt_iou += s_iou
+            teacher_gt_iou += t_iou
+            student_gt_ious.append(s_iou)
+            teacher_gt_ious.append(t_iou)
             student_teacher_iou += box_iou_xyxy(s_xyxy, t_xyxy)
 
     return {
         "bbox_samples": total,
+        "avg_bbox_iou": student_gt_iou / max(1, total),
+        "bbox_iou_at_0_3": threshold_rate(student_gt_ious, 0.3),
+        "bbox_iou_at_0_5": threshold_rate(student_gt_ious, 0.5),
+        "bbox_iou_at_0_7": threshold_rate(student_gt_ious, 0.7),
         "bbox_student_gt_iou": student_gt_iou / max(1, total),
         "bbox_teacher_gt_iou": teacher_gt_iou / max(1, total),
+        "teacher_bbox_iou_at_0_3": threshold_rate(teacher_gt_ious, 0.3),
+        "teacher_bbox_iou_at_0_5": threshold_rate(teacher_gt_ious, 0.5),
+        "teacher_bbox_iou_at_0_7": threshold_rate(teacher_gt_ious, 0.7),
         "bbox_student_teacher_iou": student_teacher_iou / max(1, total),
         "bbox_student_gt_l1": student_gt_l1 / max(1, total),
         "bbox_student_teacher_l1": student_teacher_l1 / max(1, total),
@@ -159,27 +185,46 @@ def bbox_metrics(teacher, student, records, args, device):
 
 
 @torch.no_grad()
-def predict_action(model, img: Image.Image, box_xywh, args, device) -> int:
+def predict_action(model, img: Image.Image, box_xywh, args, device, selection: str = "argmax") -> int:
     width, height = img.size
     obs = render_crop(img, box_xywh, args.img_size).unsqueeze(0).to(device)
     state = box_state(box_xywh, width, height).unsqueeze(0).to(device)
-    out = model(obs, state)
-    probs = out[0]
+    probs, second = model(obs, state)
+    if selection == "sample_logits":
+        if second.shape != probs.shape:
+            raise RuntimeError("sample_logits requires the model forward() to return action logits as its second output.")
+        return int(torch.distributions.Categorical(logits=second.squeeze(0)).sample().item())
     return int(probs.argmax(dim=1).item())
 
 
 @torch.no_grad()
-def rollout(model, img: Image.Image, init_box, args, device):
+def rollout(model, img: Image.Image, init_box, args, device, selection: str = "argmax"):
     width, height = img.size
     box = list(init_box)
     actions = []
     for _ in range(args.max_steps):
-        action = predict_action(model, img, box, args, device)
+        action = predict_action(model, img, box, args, device, selection=selection)
         actions.append(action)
         if ACTIONS[action] == "stop":
             break
         box = step_box(box, action, width, height, delta=args.action_delta)
     return box, actions
+
+
+@torch.no_grad()
+def predict_bbox(model, img: Image.Image, args, device):
+    width, height = img.size
+    img_t = render_full_image(img, args.img_size).unsqueeze(0).to(device)
+    pred = model.backbone_forward(img_t).squeeze(0).detach().cpu().clamp(0.0, 1.0).tolist()
+    raw_xyxy = bbox_cxcywh_to_xyxy(pred, width, height)
+    x1, y1, x2, y2 = raw_xyxy
+    init_box = clamp_xywh(
+        [x1, y1, max(1.0, x2 - x1), max(1.0, y2 - y1)],
+        width,
+        height,
+        delta=args.action_delta,
+    )
+    return raw_xyxy, init_box
 
 
 def best_gt_iou(box_xywh, gt_boxes, width, height, img_path):
@@ -189,56 +234,99 @@ def best_gt_iou(box_xywh, gt_boxes, width, height, img_path):
     return max(box_iou_xyxy(pred, canonical_box_xyxy(gt, width, height, img_path=img_path)) for gt in gt_boxes)
 
 
+def best_gt_iou_xyxy(box_xyxy, gt_boxes, width, height, img_path):
+    if not gt_boxes:
+        return None
+    return max(box_iou_xyxy(box_xyxy, canonical_box_xyxy(gt, width, height, img_path=img_path)) for gt in gt_boxes)
+
+
+def mean_key(rows, key):
+    vals = [r[key] for r in rows if r.get(key) is not None]
+    return sum(vals) / max(1, len(vals)) if vals else None
+
+
+def threshold_rate(values, threshold):
+    vals = [v for v in values if v is not None]
+    return sum(1.0 for v in vals if v >= threshold) / max(1, len(vals)) if vals else None
+
+
+def rate_at(rows, key, threshold):
+    return threshold_rate([r.get(key) for r in rows], threshold)
+
+
 @torch.no_grad()
 def rollout_metrics(teacher, student, records, args, device):
     rows = []
-    for rec in records[: args.rollout_images]:
+    rollout_records = records if args.rollout_images <= 0 else records[: args.rollout_images]
+    for rec in rollout_records:
         try:
             img = Image.open(rec["img"]).convert("RGB")
         except Exception:
             continue
         width, height = img.size
         gt_boxes = rec.get("boxes") or []
-        if gt_boxes and random.random() < 0.5:
-            init_box = xyxy_to_xywh(random.choice(gt_boxes))
-        else:
-            init_box = random_box(width, height)
 
-        teacher_box, teacher_actions = rollout(teacher, img, init_box, args, device)
-        student_box, student_actions = rollout(student, img, init_box, args, device)
+        teacher_bbox_xyxy, teacher_init_box = predict_bbox(teacher, img, args, device)
+        student_bbox_xyxy, student_init_box = predict_bbox(student, img, args, device)
+        teacher_box, teacher_actions = rollout(teacher, img, teacher_init_box, args, device, selection="argmax")
+        student_box, student_actions = rollout(
+            student,
+            img,
+            student_init_box,
+            args,
+            device,
+            selection=args.student_action_selection,
+        )
         prefix = min(len(teacher_actions), len(student_actions))
         action_prefix_agree = (
             sum(1 for i in range(prefix) if teacher_actions[i] == student_actions[i]) / max(1, prefix)
         )
+        student_bbox_iou = best_gt_iou_xyxy(student_bbox_xyxy, gt_boxes, width, height, rec["img"])
+        teacher_bbox_iou = best_gt_iou_xyxy(teacher_bbox_xyxy, gt_boxes, width, height, rec["img"])
+        student_rl_iou = best_gt_iou(student_box, gt_boxes, width, height, rec["img"])
+        teacher_rl_iou = best_gt_iou(teacher_box, gt_boxes, width, height, rec["img"])
 
         rows.append(
             {
                 "img": rec["img"],
+                "bbox_iou": student_bbox_iou,
+                "rl_iou": student_rl_iou,
+                "iou_gain": None if student_bbox_iou is None or student_rl_iou is None else student_rl_iou - student_bbox_iou,
+                "teacher_bbox_iou": teacher_bbox_iou,
+                "teacher_rl_iou": teacher_rl_iou,
                 "teacher_steps": len(teacher_actions),
                 "student_steps": len(student_actions),
+                "teacher_stopped": bool(teacher_actions and ACTIONS[teacher_actions[-1]] == "stop"),
+                "student_stopped": bool(student_actions and ACTIONS[student_actions[-1]] == "stop"),
                 "step_diff": abs(len(teacher_actions) - len(student_actions)),
                 "trajectory_action_agreement": action_prefix_agree,
                 "final_box_iou_teacher_student": box_iou_xyxy(xywh_to_xyxy(teacher_box), xywh_to_xyxy(student_box)),
-                "teacher_gt_iou": best_gt_iou(teacher_box, gt_boxes, width, height, rec["img"]),
-                "student_gt_iou": best_gt_iou(student_box, gt_boxes, width, height, rec["img"]),
+                "teacher_gt_iou": teacher_rl_iou,
+                "student_gt_iou": student_rl_iou,
             }
         )
     if not rows:
         return {}, []
 
-    def mean_key(key):
-        vals = [r[key] for r in rows if r.get(key) is not None]
-        return sum(vals) / max(1, len(vals)) if vals else None
-
     return {
+        "teacher_action_selection": "argmax",
+        "student_action_selection": args.student_action_selection,
         "rollout_images": len(rows),
-        "rollout_final_box_iou_teacher_student": mean_key("final_box_iou_teacher_student"),
-        "rollout_action_prefix_agreement": mean_key("trajectory_action_agreement"),
-        "rollout_avg_step_diff": mean_key("step_diff"),
-        "rollout_teacher_gt_iou": mean_key("teacher_gt_iou"),
-        "rollout_student_gt_iou": mean_key("student_gt_iou"),
-        "rollout_teacher_avg_steps": mean_key("teacher_steps"),
-        "rollout_student_avg_steps": mean_key("student_steps"),
+        "avg_rl_iou": mean_key(rows, "rl_iou"),
+        "rl_iou_at_0_3": rate_at(rows, "rl_iou", 0.3),
+        "rl_iou_at_0_5": rate_at(rows, "rl_iou", 0.5),
+        "rl_iou_at_0_7": rate_at(rows, "rl_iou", 0.7),
+        "avg_iou_gain": mean_key(rows, "iou_gain"),
+        "avg_steps": mean_key(rows, "student_steps"),
+        "stop_rate": sum(1.0 for r in rows if r.get("student_stopped")) / max(1, len(rows)),
+        "rl_better_rate": sum(1.0 for r in rows if r.get("iou_gain") is not None and r["iou_gain"] > 0) / max(1, len(rows)),
+        "rollout_final_box_iou_teacher_student": mean_key(rows, "final_box_iou_teacher_student"),
+        "rollout_action_prefix_agreement": mean_key(rows, "trajectory_action_agreement"),
+        "rollout_avg_step_diff": mean_key(rows, "step_diff"),
+        "rollout_teacher_gt_iou": mean_key(rows, "teacher_gt_iou"),
+        "rollout_student_gt_iou": mean_key(rows, "student_gt_iou"),
+        "rollout_teacher_avg_steps": mean_key(rows, "teacher_steps"),
+        "rollout_student_avg_steps": mean_key(rows, "student_steps"),
     }, rows
 
 
@@ -246,6 +334,8 @@ def main():
     args = parse_args()
     random.seed(args.seed)
     torch.manual_seed(args.seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(args.seed)
     device = torch.device(args.device)
     root = find_adacrop_root()
 
