@@ -1,134 +1,131 @@
 # LiveCompose
 
+[简体中文](README_zh.md) | English
+
 [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-LiveCompose-yellow)](https://huggingface.co/LiveCompose)
 [![GitHub](https://img.shields.io/badge/GitHub-LiveCompose-black?logo=github)](https://github.com/LiveCompose)
-[![App Store](https://img.shields.io/badge/App_Store-构妙_LiveCapture-blue)](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088)
+[![App Store](https://img.shields.io/badge/App_Store-LiveCapture-blue)](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088)
 ![Code Size](https://img.shields.io/badge/Code_Size-10k%2B_Lines-green)
 ![Model](https://img.shields.io/badge/Framework-PyTorch_%7C_CoreML-red)
 ![Platform](https://img.shields.io/badge/Platform-iOS_%7C_Python-blueviolet)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-构妙 LiveCompose 是一款基于强化学习的 AI 端侧智能构图辅助系统。通过实时分析取景画面，结合陀螺仪追踪与美学评分驱动，主动引导用户移动手机以获得最佳构图，让每一次快门都定格最美的瞬间。
+**LiveCompose** is a reinforcement learning-based AI-powered on-device composition assistance system. By analyzing the camera viewfinder in real time, combined with gyroscope tracking and aesthetic score-driven guidance, it actively directs users to move their phone for the optimal composition — ensuring every shot captures the best possible moment.
 
-> 已上线 App Store：[构妙 LiveCapture](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088)
+> Now available on the App Store: [LiveCapture (构妙)](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088)
 
-## 项目概述
+## Overview
 
-现代智能手机拍照功能日益强大，但构图依然是普通用户的最大痛点。传统相机仅提供静态九宫格辅助线，无法主动告知用户"如何移动手机"。LiveCompose 通过 AI 模型实时分析画面内容，计算最优构图区域，并结合设备陀螺仪实现物理级流畅追踪，引导用户对齐目标点后自动拍摄，实现"检测-追踪-引导-拍摄"全流程闭环。
+Modern smartphones boast powerful cameras, yet composition remains the biggest pain point for everyday users. Traditional camera apps only provide static grid overlays — they can't tell you *how to move* your phone. LiveCompose bridges this gap by using AI models to analyze the scene in real time, compute optimal cropping regions, and fuse with device gyroscope data for physically smooth tracking. It guides users to align with target composition points and automatically captures the photo, completing a full "detect → track → guide → capture" pipeline.
 
-核心创新点：
-- **实时动态引导**：AI 模型分析画面，提供可视化移动指引，而非静态参考线
-- **传感器融合追踪**：结合陀螺仪数据，实现物理级流畅的构图点追踪与磁性吸附
-- **美学评分驱动**：基于 NIMA/GAIC 美学评分模型的强化学习，确保构图专业性
-- **端侧高效推理**：通过知识蒸馏将 ResNet50 教师模型压缩为 MobileNet，经 CoreML 部署至 iOS
+Key innovations:
+- **Real-time Dynamic Guidance**: AI models analyze the viewfinder and provide visual movement cues — not static reference lines.
+- **Sensor-fused Tracking**: Gyroscope data enables physically smooth composition point tracking with magnetic snap behavior.
+- **Aesthetic Score-Driven**: Reinforcement learning powered by NIMA/GAIC aesthetic scoring models ensures professional-quality compositions.
+- **Efficient On-device Inference**: Knowledge distillation compresses a ResNet50 teacher model into MobileNet, deployed via CoreML on iOS.
 
-## 系统架构
+## System Architecture
 
 ```
-数据采集层 (AVFoundation + CoreMotion)
+Data Acquisition Layer (AVFoundation + CoreMotion)
     ↓
-智能决策与追踪层 (AdacropModel + BoxCenterManager)
+Intelligent Decision & Tracking Layer (AdacropModel + BoxCenterManager)
     ↓
-核心协调层 (CaptureViewModel / 状态机)
+Core Coordination Layer (CaptureViewModel / State Machine)
     ↓
-视图与交互层 (SwiftUI)
+View & Interaction Layer (SwiftUI)
 ```
 
-| 层级 | 模块 | 职责 |
-|------|------|------|
-| 数据采集 | CameraManager, MotionStabilityMonitor | 获取 60FPS 视频帧与陀螺仪数据 |
-| 智能决策 | AdacropModel (CoreML), BoxCenterManager | AI 构图分析与物理追踪 |
-| 核心协调 | CaptureViewModel | 状态机管理（等待→检测→追踪→拍照） |
-| 视图交互 | ContentView, UserGuidanceView | SwiftUI 界面与触觉反馈 |
+| Layer | Module | Responsibility |
+|-------|--------|----------------|
+| Data Acquisition | CameraManager, MotionStabilityMonitor | Capture 60 FPS video frames and gyroscope data |
+| Intelligent Decision | AdacropModel (CoreML), BoxCenterManager | AI composition analysis and physical tracking |
+| Core Coordination | CaptureViewModel | State machine management (waiting → detecting → tracking → capturing) |
+| View & Interaction | ContentView, UserGuidanceView | SwiftUI interface and haptic feedback |
 
-## 模型与训练
+## Model & Training
 
-### 模型架构
+### Model Architecture
 
-- **Backbone**: ResNet50 (ImageNet 预训练)，提取 2048 维语义特征
-- **Actor 分支**: MLP (2048+4 → 1024 → 512 → N)，输出动作概率分布
-- **Critic 分支**: MLP (2048+4 → 1024 → 512 → 1)，估计状态价值
-- **BBox Head**: MLP (2048 → 512 → 4)，监督预训练专用回归头
+- **Backbone**: ResNet50 (ImageNet pretrained), extracting 2048-dim semantic features
+- **Actor Branch**: MLP (2048+4 → 1024 → 512 → N), outputs action probability distribution
+- **Critic Branch**: MLP (2048+4 → 1024 → 512 → 1), estimates state value
+- **BBox Head**: MLP (2048 → 512 → 4), supervised pretraining regression head
 
-动作空间共 7 个离散动作：`left, right, up, down, zoom_in, zoom_out, stop`
+Action space consists of 7 discrete actions: `left, right, up, down, zoom_in, zoom_out, stop`
 
-### 训练流程
+### Training Pipeline
 
-1. **监督预训练**：使用 BBox Head 回归人工标注/教师模型生成的裁剪框，让 Backbone 学习构图相关特征
-2. **强化学习 (PPO)**：在 CropEnv 中与环境交互，Actor-Critic 联合优化，奖励由 NIMA/GAIC 美学分数变化驱动
-3. **知识蒸馏**：两阶段蒸馏至 MobileNetV3-Small —— Stage 1 蒸馏 BBox Head，Stage 2 蒸馏 Actor 策略
-4. **端侧部署**：将蒸馏后的学生模型通过 `coremltools` 转换为 CoreML 格式，部署至 iOS
+1. **Supervised Pretraining**: The BBox Head regresses human-annotated / teacher-model-generated crop boxes, enabling the Backbone to learn composition-relevant features.
+2. **Reinforcement Learning (PPO)**: The Actor-Critic interacts with CropEnv, jointly optimized with rewards driven by NIMA/GAIC aesthetic score changes.
+3. **Knowledge Distillation**: Two-stage distillation to MobileNetV3-Small — Stage 1 distills the BBox Head; Stage 2 distills the Actor policy.
+4. **On-device Deployment**: The distilled student model is converted to CoreML format via `coremltools` and deployed on iOS.
 
-### 数据集
+### Dataset
 
-我们开源了训练用的扩图数据集 **LiveCompose-outpainted-17k**：
+We open-sourced the training outpainting dataset **LiveCompose-outpainted-17k**:
 
-**[LiveCompose/LiveCompose-outpainted-17k](https://huggingface.co/datasets/LiveCompose/LiveCompose-outpainted-17k)** — 约 17,000 张通过 Stable Diffusion Outpainting 生成的扩图，附带专业标注裁剪框。
+**[LiveCompose/LiveCompose-outpainted-17k](https://huggingface.co/datasets/LiveCompose/LiveCompose-outpainted-17k)** — ~17,000 outpainted images generated via Stable Diffusion Outpainting, with professionally annotated crop boxes.
 
-数据集构建采用了创新的**双模型工作流**：
-1.  **语义理解**: 使用 BLIP 模型生成图像描述。
-2.  **内容生成**: 使用 Stable Diffusion v2 Inpaint 进行 Outpainting（扩图），增加数据多样性。
-3.  **质量控制**: 结合 Canny 边缘检测与人工筛选，确保数据质量。
+The dataset was constructed using an innovative **dual-model workflow**:
+1. **Semantic Understanding**: BLIP model generates image captions.
+2. **Content Generation**: Stable Diffusion v2 Inpainting performs outpainting to increase data diversity.
+3. **Quality Control**: Canny edge detection combined with manual screening ensures data quality.
 
-## 项目结构
+## Project Structure
 
 ```
 LiveCompose/
-├── Adacrop/                    # 核心裁剪模型与训练
-│   ├── src/                    # 训练脚本 (PPO, 环境, 模型定义)
-│   ├── config.yaml             # 训练超参数配置
-│   ├── distillation/           # 知识蒸馏 (Teacher→MobileNet)
-│   ├── coreml_export/          # CoreML 转换脚本
-│   └── GAIC/                   # GAIC 美学评分模型
-├── NIMA/                       # NIMA 美学评分模型
-│   ├── train_*.py              # 多种 Backbone 训练脚本
-│   ├── evaluate_*.py           # 模型评估脚本
-│   └── weights/                # 预训练权重
-├── PreProcess/                 # 数据预处理
-│   ├── NIMA_Inception_Res/     # Inception-ResNet NIMA 实现
-│   ├── dataset/                # 数据集索引
-│   └── Article/                # 参考文献与论文笔记
-├── Technic Profile.md          # 详细技术文档
+├── Adacrop/                    # Core cropping model & training
+│   ├── src/                    # Training scripts (PPO, environment, model definitions)
+│   ├── config.yaml             # Training hyperparameters
+│   ├── distillation/           # Knowledge distillation (Teacher→MobileNet)
+│   ├── coreml_export/          # CoreML conversion scripts
+│   └── GAIC/                   # GAIC aesthetic scoring model
+├── NIMA/                       # NIMA aesthetic scoring model
+│   ├── train_*.py              # Multi-backbone training scripts
+│   ├── evaluate_*.py           # Model evaluation scripts
+│   └── weights/                # Pretrained weights
+├── PreProcess/                 # Data preprocessing
+│   ├── NIMA_Inception_Res/     # Inception-ResNet NIMA implementation
+│   ├── dataset/                # Dataset indices
+│   └── Article/                # References & paper notes
+├── Technic Profile.md          # Detailed technical documentation
 └── README.md
 ```
 
-## 快速开始
+## Quick Start
 
-**详细的开始指南请参考 [QUICKSTART.md](QUICKSTART.md)**，涵盖环境搭建、依赖安装、CUDA 扩展编译、数据准备、训练配置、模型训练、推理测试和模型导出的完整流程。
+👉 **See [QUICKSTART.md](QUICKSTART.md) for the complete guide**, covering environment setup, data preparation, training, knowledge distillation, inference testing, and ONNX / CoreML model export.
 
-### 环境依赖
-
-- Python 3.8+
-- PyTorch 1.12+
-- torchvision
-- coremltools (iOS 部署)
-- PIL, numpy, PyYAML
-
-### 模型训练
+<details>
+<summary><b>Brief Steps</b></summary>
 
 ```bash
-# 监督预训练 + PPO 强化学习
+# 1. Supervised pretraining + PPO reinforcement learning
 cd Adacrop
 python src/trainer.py
 
-# 知识蒸馏
+# 2. Knowledge distillation (ResNet50 → MobileNetV3-Small)
 cd distillation
 python train_mobilenet_distill.py --teacher-ckpt ../ppo_best_val_final_score.pth
 
-# 导出 CoreML
+# 3. Export CoreML (for iOS deployment)
 cd coreml_export
 python export_student_coreml.py --student-ckpt ../distillation/runs/student_best.pth
 ```
 
-## 关联项目
+</details>
 
-| 平台 | 地址 | 说明 |
-|------|------|------|
-| GitHub 组织 | [github.com/LiveCompose](https://github.com/LiveCompose) | 全部开源代码 |
-| Hugging Face | [huggingface.co/LiveCompose](https://huggingface.co/LiveCompose) | 模型权重与数据集 |
-| App Store | [构妙 LiveCapture](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088) | iOS 应用 |
+## Related Projects
 
-## 致谢 (Acknowledgements)
+| Platform | URL | Description |
+|----------|-----|-------------|
+| GitHub Organization | [github.com/LiveCompose](https://github.com/LiveCompose) | All open-source code |
+| Hugging Face | [huggingface.co/LiveCompose](https://huggingface.co/LiveCompose) | Model weights & datasets |
+| App Store | [LiveCapture (构妙)](https://apps.apple.com/cn/app/%E6%9E%84%E5%A6%99/id6754213088) | iOS app |
+
+## Acknowledgements
 
 We gratefully acknowledge the following open-source repositories and their contributors:
 
@@ -141,4 +138,5 @@ We gratefully acknowledge the following open-source repositories and their contr
 - [Neural Image Assessment](https://github.com/titu1994/neural-image-assessment) by **Somshubra Majumdar (titu1994)**, **Eren Sezener**, **Simon Brugman**, **Panayiotis Panayiotou**, based on:
   - Hossein Talebi, Peyman Milanfar. *NIMA: Neural Image Assessment*. IEEE Transactions on Image Processing, 2018.
 
-- - [Learning Subject-Aware Cropping by Outpainting Professional Photos](https://arxiv.org/abs/2303.12345) — AAAI 2024，
+- [ProCrop: Learning Aesthetic Image Cropping from Professional Compositions](https://arxiv.org/abs/2505.22490) — 2025.
+  Our dataset construction approach (generating cropping training pairs via diffusion-model outpainting) was inspired by this work.

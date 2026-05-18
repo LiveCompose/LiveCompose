@@ -1,96 +1,99 @@
-# 🚀 快速开始 (Quick Start)
+# Quick Start
 
-本文档将引导你从零开始完成环境搭建、数据准备、模型训练和推理测试的全流程。
+This guide walks you through the full pipeline: environment setup → data preparation → training → distillation → export (ONNX / CoreML) → inference.
 
 ---
 
-## 1. 环境要求
+## 1. Requirements
 
-| 项目 | 最低要求 | 推荐配置 |
-|------|---------|---------|
-| **操作系统** | Linux (x86_64) | Ubuntu 18.04+ |
-| **Python** | 3.8 | 3.8（GAIC CUDA 扩展编译依赖此版本） |
+| Item | Minimum | Recommended |
+|------|---------|-------------|
+| **OS** | Linux (x86_64) | Ubuntu 18.04+ |
+| **Python** | 3.8 | 3.8 (required for GAIC CUDA extensions) |
 | **CUDA** | 11.x | 11.1+ |
-| **GPU 显存** | 16GB | NVIDIA A800 / V100（80GB 更佳） |
-| **内存** | 32GB RAM | 64GB+ RAM |
-| **磁盘** | 20GB 空闲 | 100GB+（含数据集） |
+| **GPU VRAM** | 16 GB | NVIDIA A800 / V100 (80 GB preferred) |
+| **RAM** | 32 GB | 64 GB+ |
+| **Disk** | 20 GB free | 100 GB+ (including dataset) |
 
 ---
 
-## 2. 安装依赖
+## 2. Install Dependencies
 
 ```bash
-# 克隆项目
+# Clone the repo
 git clone <repo-url> LiveCompose
 cd LiveCompose
 
-# 创建 conda 环境（推荐）
+# Create conda environment (recommended)
 conda create -n livecompose python=3.8 -y
 conda activate livecompose
 
-# 安装 PyTorch（请根据你的 CUDA 版本调整）
+# Install PyTorch (adjust for your CUDA version)
 pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 \
     -f https://download.pytorch.org/whl/torch_stable.html
 
-# 安装核心依赖
+# Core dependencies
 pip install pyyaml pillow numpy scipy matplotlib onnx
 
-# （可选）若使用 ONNX 导入的 NIMA 模型
+# For NIMA ONNX scorer (optional)
 pip install onnx2torch
+
+# For CoreML export (macOS recommended, Linux also supported)
+pip install coremltools
 ```
 
 ---
 
-## 3. 编译 GAIC CUDA 扩展
+## 3. Compile GAIC CUDA Extensions
 
-训练使用的 GAIC 评分器依赖自定义的 `RoIAlign` 和 `RoDAlign` CUDA 算子，需要编译：
+The GAIC scorer uses custom `RoIAlign` and `RoDAlign` CUDA operators that must be compiled:
 
 ```bash
 cd Adacrop/GAIC/untils
 
-# 修改 roi_align/make.sh 和 rod_align/make.sh 中的参数：
+# Edit roi_align/make.sh and rod_align/make.sh:
 #   CUDA_HOME=/usr/local/cuda
-#   -arch=sm_80  (A100/A800)
-#   -arch=sm_70  (V100)
-#   -arch=sm_86  (RTX 3090/4090)
+#   -arch=sm_80  # A100 / A800
+#   -arch=sm_70  # V100
+#   -arch=sm_86  # RTX 3090 / 4090
 
-# 编译
+# Build
 bash make_all.sh
 
-# 验证编译产物
+# Verify
 ls roi_align/roi_align_api*.so rod_align/rod_align_api*.so
 ```
 
-> ⚠️ **注意**: 仓库中预编译的 `.so` 文件基于 **Python 3.8 + x86_64 Linux**。如果你的 Python 版本不同，**必须重新编译**。
+> ⚠️ The pre-compiled `.so` files target **Python 3.8 + x86_64 Linux**. If your Python version differs, you **must recompile**.
 
 ---
 
-## 4. 准备评分模型权重
+## 4. Prepare Scoring Model Weights
 
-训练时强化学习的奖励信号来自美学评分模型。项目默认使用 **GAIC** 评分器。
+The RL reward signal comes from an aesthetic scoring model. The project uses **GAIC** by default.
 
-### GAIC 评分器（默认，已包含）
+### GAIC Scorer (default, bundled)
 
-预训练权重已包含在 `Adacrop/GAIC/pretrained_models/` 目录下：
+Pre-trained weights are included in `Adacrop/GAIC/pretrained_models/`:
 
 ```
 Adacrop/GAIC/pretrained_models/
-├── GAIC-mobilenetv2-reddim16.pth   ← 当前配置使用
+├── GAIC-mobilenetv2-reddim16.pth   ← used by default config
 ├── GAIC-shufflenetv2-reddim32.pth
 └── GAIC-vgg16-reddim32.pth
 ```
 
-### NIMA 评分器（可选）
+### NIMA Scorer (optional)
 
-如需切换为 NIMA 评分器，请下载权重文件到 `NIMA/weights/` 目录，并修改 `config.yaml` 中的 `nima.scorer_type` 和 `nima.weights_path`。
+To switch to NIMA, download weights to `NIMA/weights/` and update `config.yaml` → `nima.scorer_type` and `nima.weights_path`.
 
 ---
 
-## 5. 准备训练数据
+## 5. Prepare Training Data
 
-### 数据格式
+### Data Format
 
-训练数据为 JSON 格式，每条记录包含图片路径和标注框：
+Training data is a JSON file where each record contains an image path and bounding box annotations:
 
 ```json
 [
@@ -105,254 +108,446 @@ Adacrop/GAIC/pretrained_models/
 ]
 ```
 
-其中 `box` 为 `[x1, y1, x2, y2]` 格式的像素坐标列表，每张图片可以有多个标注框。
+`box` is a list of `[x1, y1, x2, y2]` pixel-coordinate annotations. Each image may have multiple valid crop boxes.
 
-### 数据集
+### Dataset
 
-我们开源了训练用的扩图数据集 **LiveCompose-outpainted-17k**，可从 HuggingFace 下载：
+We open-sourced our outpainting training dataset **LiveCompose-outpainted-17k** on HuggingFace:
 
-📥 **[LiveCompose/LiveCompose-outpainted-17k](https://huggingface.co/datasets/LiveCompose/LiveCompose-outpainted-17k)**
+**[LiveCompose/LiveCompose-outpainted-17k](https://huggingface.co/datasets/LiveCompose/LiveCompose-outpainted-17k)**
 
 ```bash
-# 使用 huggingface-cli 下载（推荐）
+# Download via huggingface-cli (recommended)
 pip install huggingface_hub
-huggingface-cli download LiveCompose/LiveCompose-outpainted-17k --repo-type dataset --local-dir ./Adacrop/data/outpainted
+huggingface-cli download LiveCompose/LiveCompose-outpainted-17k \
+    --repo-type dataset --local-dir ./Adacrop/data/outpainted
 
-# 或使用 git clone（需要 git-lfs）
+# Or via git clone (requires git-lfs)
 git lfs install
-git clone https://huggingface.co/datasets/LiveCompose/LiveCompose-outpainted-17k ./Adacrop/data/outpainted
+git clone https://huggingface.co/datasets/LiveCompose/LiveCompose-outpainted-17k \
+    ./Adacrop/data/outpainted
 ```
 
-该数据集包含约 17,000 张通过 Stable Diffusion Outpainting 生成的扩图，每张图片附带专业标注的裁剪框。
+This dataset contains ~17,000 outpainted images generated via Stable Diffusion, each with professionally annotated crop bounding boxes.
 
-此外，你也可以使用以下方式构建自定义数据集：
+You can also use alternative data sources:
 
-- **公开数据集**：支持 [GAICD](https://github.com/HuiZeng/Grid-Anchor-based-Image-Cropping) 数据集
-- **CUHK 数据集**：使用 `Adacrop/src/transform_dataset.py` 将 txt 格式标注转为 JSON
-- **自行生成**：使用 `PreProcess/dataset/outpainter_toolkit/` 中的工具，通过 Stable Diffusion Outpainting 生成扩图数据
+- **GAICD dataset**: [Grid-Anchor-based-Image-Cropping](https://github.com/HuiZeng/Grid-Anchor-based-Image-Cropping)
+- **CUHK dataset**: Convert txt annotations with `Adacrop/src/transform_dataset.py`
+- **Custom outpainting**: Use `PreProcess/dataset/outpainter_toolkit/` to generate data via Stable Diffusion Outpainting
 
-### 配置数据路径
+### Configure Data Paths
 
-将你的训练集和验证集分别放置，并更新 `Adacrop/config.yaml` 中的路径：
+Update `Adacrop/config.yaml` to point to your data:
 
 ```yaml
 data:
   train_json: "./Adacrop/data/splits/train_mixed2.json"
   val_json:   "./Adacrop/data/splits/val_mixed.json"
-  num_envs: 16
+  num_envs: 128
 ```
 
 ---
 
-## 6. 配置说明
+## 6. Configuration Reference
 
-核心配置文件为 `Adacrop/config.yaml`，以下为关键参数说明：
+All training hyperparameters live in `Adacrop/config.yaml`. Key sections:
 
-### 环境参数 (`env`)
+### Environment (`env`)
 
-| 参数 | 默认值 | 说明 |
-|------|-------|------|
-| `img_size` | 224 | 输入图像尺寸 |
-| `max_steps` | 200 | 每个 episode 最大步数 |
-| `action_delta` | 0.05 | 动作增量（平移/缩放幅度） |
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `img_size` | 224 | Input image size for the model |
+| `max_steps` | 200 | Max steps per RL episode |
+| `action_delta` | 0.05 | Action increment (pan/zoom magnitude) |
+| `init_with_pred_prob` | 0.4 | Probability of initializing crop box from BBox Head prediction |
+| `init_box_jitter` | 0.05 | Random jitter on initial box for exploration |
 
-### 训练参数 (`train`)
+### Training (`train`)
 
-| 参数 | 默认值 | 说明 |
-|------|-------|------|
-| `training_gpus` | 0 | 训练 GPU 编号 |
-| `algorithm` | PPO | 训练算法 |
-| `lr` | 3e-4 | 学习率 |
-| `gamma` | 0.99 | 折扣因子 |
-| `clip_param` | 0.2 | PPO 裁剪参数 |
-| `n_steps` | 128 | 每次 rollout 步数 |
-| `batch_size` | 512 | 批大小 |
-| `minibatch_size` | 256 | Mini-batch 大小 |
-| `ppo_epochs` | 6 | 每次更新的 epoch 数 |
-| `max_steps` | 1000000 | 总训练步数 |
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `training_gpus` | 1 | GPU index for training |
+| `algorithm` | PPO | Training algorithm |
+| `lr` | 3e-4 | Learning rate |
+| `gamma` | 0.99 | Discount factor |
+| `lam` | 0.95 | GAE lambda |
+| `clip_param` | 0.2 | PPO clip range |
+| `n_steps` | 256 | Steps per rollout |
+| `batch_size` | 2048 | Batch size |
+| `minibatch_size` | 2048 | Mini-batch size for PPO update |
+| `ppo_epochs` | 4 | PPO update epochs per rollout |
+| `entropy_coef` | 0.07 | Entropy bonus coefficient |
+| `max_steps` | 1000000 | Total training steps |
+| `val_interval` | 20 | Validate every N rollouts |
+| `save_interval` | 20 | Save checkpoint every N rollouts |
 
-### 监督预训练参数
+### Supervised Pretraining
 
-| 参数 | 默认值 | 说明 |
-|------|-------|------|
-| `supervised_pretrain` | false | 是否执行监督预训练 |
-| `pretrain_epochs` | 20 | 预训练轮数 |
-| `pretrain_lr` | 1e-4 | 预训练学习率 |
-| `init_ckpt` | — | 预训练权重路径（设置后跳过预训练） |
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `supervised_pretrain` | true | Run supervised pretraining before PPO |
+| `pretrain_epochs` | 20 | Pretraining epochs |
+| `pretrain_lr` | 5e-5 | Pretraining learning rate |
+| `pretrain_batch_size` | 512 | Pretraining batch size |
+| `init_ckpt` | "" | Path to checkpoint; if set, skip pretraining and load directly |
 
-### 评分器参数 (`nima`)
+### Scorer (`nima`)
 
-| 参数 | 默认值 | 说明 |
-|------|-------|------|
-| `scorer_type` | gaic | 评分器类型：`gaic` / `rank` / NIMA ONNX |
-| `gaic_repo_dir` | — | GAIC 仓库路径 |
-| `gaic_ckpt` | — | GAIC 权重路径 |
-| `gaic_backbone` | mobilenetv2 | GAIC backbone |
-| `real_score_interval` | 1 | 每 N 步执行一次真实评分 |
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `scorer_type` | gaic | Scorer type: `gaic` / `rank` / NIMA ONNX path |
+| `gaic_repo_dir` | — | Path to GAIC repository |
+| `gaic_ckpt` | — | Path to GAIC weights |
+| `gaic_backbone` | mobilenetv2 | GAIC backbone architecture |
+| `batch_size` | 128 | Scorer batch size |
+| `real_score_interval` | 1 | Score every N env steps (geometric estimate otherwise) |
+
+### Export (`export`)
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `onnx_opset` | 13 | ONNX opset version |
+| `coreml_precision` | float16 | CoreML compute precision |
 
 ---
 
-## 7. 开始训练
+## 7. Training
 
-训练分为两个阶段：**监督预训练**（可选）和 **PPO 强化学习训练**，通过 `config.yaml` 控制。
+Training has two stages controlled by `config.yaml`: **supervised pretraining** (optional) and **PPO reinforcement learning**.
 
-### 方式一：加载已有预训练权重 → PPO 训练（推荐）
+### Option A: Load Pretrained Weights → PPO (Recommended)
 
-如果你已有监督预训练的权重文件：
+If you already have a supervised pretrained checkpoint:
 
 ```yaml
 # config.yaml
 train:
   supervised_pretrain: false
-  init_ckpt: "./Adacrop/logs/xxx/pretrain_best_iou.pth"  # 指向你的预训练权重
+  init_ckpt: "./Adacrop/logs/<run>/pretrain_best_iou.pth"
 ```
 
 ```bash
-cd /ai/lzy/LiveCompose
+cd /path/to/LiveCompose
 bash Adacrop/start_training.sh
 ```
 
-### 方式二：从零开始（监督预训练 → PPO）
+Or directly:
+
+```bash
+python -u Adacrop/src/trainer.py
+```
+
+### Option B: From Scratch (Pretrain → PPO)
 
 ```yaml
 # config.yaml
 train:
   supervised_pretrain: true
-  init_ckpt: null   # 清空此字段
+  init_ckpt: ""
 ```
 
-然后运行训练脚本。预训练完成后会自动进入 PPO 训练。
+The trainer will first run supervised pretraining (BBox Head regression), then automatically transition to PPO.
 
-### 方式三：完全从头（不预训练）
+### Option C: Pure RL (No Pretraining)
 
 ```yaml
 # config.yaml
 train:
   supervised_pretrain: false
-  init_ckpt: null
-  apply_init_action_bias: true  # 初始化 Actor 偏置，鼓励平移动作
+  init_ckpt: ""
+  apply_init_action_bias: true  # Encourage pan actions early on
 ```
 
-> ⚠️ 不预训练直接 RL 收敛较慢，不推荐。
+> ⚠️ Convergence is significantly slower without pretraining. Not recommended.
 
-### 训练输出
+### Training Outputs
 
-训练产物保存在 `Adacrop/logs/run_<timestamp>_<scorer>_<gpu>_<envs>/` 目录下：
+Artifacts are saved to `Adacrop/logs/run_<timestamp>_<scorer>_<gpu>_<envs>/`:
 
 ```
 logs/
 └── run_20260513_234706_gaic_norm_gpu0_env128/
-    ├── config.yaml                        # 本次运行的配置快照
-    ├── meta.json                          # 运行元信息
-    ├── train_log.jsonl                    # 训练指标日志
-    ├── pretrain_best_iou.pth              # 最佳预训练模型（IoU）
-    ├── pretrain_last.pth                  # 最新预训练模型
-    ├── ppo_latest.pth                     # 最新 PPO 模型
-    ├── ppo_best_train_reward.pth          # 最佳训练奖励模型
-    ├── ppo_best_val_final_score.pth       # 最佳验证分数模型
-    └── final_model.pth                    # 训练结束后的最终模型
+    ├── config.yaml                        # Config snapshot for this run
+    ├── meta.json                          # Run metadata
+    ├── train_log.jsonl                    # Training metrics log
+    ├── pretrain_best_iou.pth              # Best pretrain model (IoU)
+    ├── pretrain_last.pth                  # Latest pretrain model
+    ├── ppo_latest.pth                     # Latest PPO model
+    ├── ppo_best_train_reward.pth          # Best training reward model
+    ├── ppo_best_val_final_score.pth       # Best validation score model
+    └── final_model.pth                    # Final model after training
 ```
 
 ---
 
-## 8. 推理测试
+## 8. Inference
 
-使用训练好的模型对单张图片进行裁剪推理：
+Use a trained model to crop a single image:
 
 ```bash
-# 1. 修改 Adacrop/use.py 中的路径
-#    IMAGE_PATH = r"./Adacrop/data/your_image.jpg"
-#    CKPT_PATH  = r"./Adacrop/logs/run_xxx/ppo_best_val_final_score.pth"
+# Edit paths in Adacrop/use.py:
+#   IMAGE_PATH = r"./Adacrop/data/your_image.jpg"
+#   CKPT_PATH  = r"./Adacrop/logs/run_xxx/ppo_best_val_final_score.pth"
 
-# 2. 运行推理
-cd /ai/lzy/LiveCompose
+cd /path/to/LiveCompose
 python Adacrop/use.py
 ```
 
-**输出：**
-- `Adacrop/output_img/<name>_crop.jpg` — 裁剪结果
-- `Adacrop/output_img/<name>_traj.jpg` — 裁剪轨迹可视化（蓝色=起始，黄色=中间，红色=最终）
+**Outputs:**
+- `Adacrop/output_img/<name>_crop.jpg` — Cropped result
+- `Adacrop/output_img/<name>_traj.jpg` — Trajectory visualization (blue=start, yellow=intermediate, red=final)
 
 ---
 
-## 9. 模型导出（ONNX → CoreML）
+## 9. Knowledge Distillation
 
-将 PyTorch 模型导出为 ONNX 格式，用于后续 CoreML 转换和 iOS 端部署：
+To deploy on iOS, the ResNet50 teacher model is distilled into a lightweight MobileNetV3-Small student via two-stage distillation.
+
+### Stage 1: BBox Head Distillation
+
+The student's BBox regression head learns from both ground-truth annotations and the teacher's predictions.
+
+### Stage 2: Actor Policy Distillation
+
+The student's Actor learns to mimic the teacher's action probability distribution using KL divergence + cross-entropy loss, with bbox regularization.
+
+### Run Distillation
 
 ```bash
-cd /ai/lzy/LiveCompose/Adacrop
+cd Adacrop/distillation
 
-# 修改 src/export.py 中的路径后运行
+# Full two-stage distillation
+python train_mobilenet_distill.py \
+    --teacher-ckpt ../logs/run_xxx/ppo_best_val_final_score.pth \
+    --train-jsonl ../data/outpainted_dataset/training_pairs.jsonl \
+    --val-json ../data/splits/val_mixed.json \
+    --arch mobilenet_v3_small \
+    --bbox-epochs 5 \
+    --epochs 10 \
+    --batch-size 64 \
+    --lr 1e-4 \
+    --temperature 2.0
+
+# Skip Stage 1 (if student already has a trained BBox head)
+python train_mobilenet_distill.py \
+    --teacher-ckpt ../logs/run_xxx/ppo_best_val_final_score.pth \
+    --skip-bbox-stage \
+    --resume-student runs/xxx/student_bbox_stage1_best.pth
+
+# Resume from a checkpoint
+python train_mobilenet_distill.py \
+    --teacher-ckpt ../logs/run_xxx/ppo_best_val_final_score.pth \
+    --resume-student runs/xxx/student_last.pth
+```
+
+**Key arguments:**
+
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `--teacher-ckpt` | `../ppo_best_val_final_score.pth` | Teacher model checkpoint |
+| `--arch` | `mobilenet_v3_small` | Student architecture (`mobilenet_v3_small` / `mobilenet_v3_large`) |
+| `--bbox-epochs` | 5 | Stage 1 epochs |
+| `--epochs` | 10 | Stage 2 epochs |
+| `--batch-size` | 64 | Batch size |
+| `--lr` | 1e-4 | Stage 2 learning rate |
+| `--temperature` | 2.0 | Softmax temperature for KL divergence |
+| `--ce-weight` | 0.25 | Cross-entropy loss weight |
+| `--patience` | 8 | Early-stop patience (epochs) |
+
+### Distillation Outputs
+
+```
+distillation/runs/mobilenet_v3_small_twostage_<timestamp>/
+├── metrics.csv                      # Full training metrics
+├── student_bbox_stage1_best.pth     # Best Stage 1 model
+├── student_bbox_stage1_last.pth     # Latest Stage 1 model
+├── student_best.pth                 # Best Stage 2 model (policy agreement)
+└── student_last.pth                 # Latest Stage 2 model
+```
+
+### Evaluate Student
+
+```bash
+# Compare student vs teacher performance
+python evaluate_student.py --student-ckpt runs/xxx/student_best.pth
+python evaluate_teacher.py --teacher-ckpt ../logs/run_xxx/ppo_best_val_final_score.pth
+```
+
+---
+
+## 10. Model Export
+
+### 10a. ONNX Export
+
+Export the teacher model directly to ONNX format:
+
+```bash
+cd Adacrop
+
+# Edit src/export.py paths, then run:
 python src/export.py
 ```
 
-**ONNX 模型规格：**
+Or programmatically:
 
-| 名称 | 形状 | 说明 |
-|------|------|------|
-| **输入** `img` | `[B, 3, 224, 224]` | 图像张量 |
-| **输入** `state` | `[B, 4]` | 归一化状态 `(cx, cy, w, h)` |
-| **输出** `action_probs` | `[B, 7]` | 动作概率分布 |
-| **输出** `value` | `[B, 1]` | 状态价值估计 |
+```python
+from src.export import export_onnx
+export_onnx("path/to/ppo_best.pth", "adacrop.onnx")
+```
 
-7 个动作分别为：`left, right, up, down, zoom_in, zoom_out, stop`
+**ONNX model spec:**
+
+| Name | Shape | Description |
+|------|-------|-------------|
+| **Input** `img` | `[B, 3, 224, 224]` | Image tensor |
+| **Input** `state` | `[B, 4]` | Normalized state `(cx, cy, w, h)` |
+| **Output** `action_probs` | `[B, 7]` | Action probability distribution |
+| **Output** `value` | `[B, 1]` | State value estimate |
+
+7 actions: `left, right, up, down, zoom_in, zoom_out, stop`
+
+### 10b. CoreML Export (Teacher)
+
+Export the ResNet50 teacher model to CoreML format. This produces two `.mlpackage` bundles:
+
+- **BBox model**: Takes a full image → predicts initial crop box coordinates
+- **Actor model**: Takes a cropped image + state → predicts action probabilities
+
+```bash
+cd Adacrop/coreml_export
+
+# Export teacher (ResNet50)
+python export_teacher_coreml.py \
+    --teacher-ckpt ../logs/run_xxx/ppo_best_val_final_score.pth \
+    --out-dir ./teacher \
+    --img-size 224 \
+    --ios-target iOS16 \
+    --precision float16
+```
+
+**Outputs:**
+
+```
+coreml_export/teacher/
+├── AdacropTeacherBBox.mlpackage     # BBox prediction model
+└── AdacropTeacherActor.mlpackage    # Actor policy model
+```
+
+**Teacher BBox model:**
+
+| Name | Shape | Description |
+|------|-------|-------------|
+| **Input** `full_img` | `[1, 3, 224, 224]` | Full resized image |
+| **Output** `bbox` | `[1, 4]` | Predicted crop box `(cx, cy, w, h)` normalized |
+
+**Teacher Actor model:**
+
+| Name | Shape | Description |
+|------|-------|-------------|
+| **Input** `crop_img` | `[1, 3, 224, 224]` | Cropped image region |
+| **Input** `state` | `[1, 4]` | Current box state `(cx, cy, w, h)` |
+| **Output** `action_probs` | `[1, 7]` | Action probabilities |
+
+### 10c. CoreML Export (Student / MobileNet)
+
+Export the distilled MobileNetV3 student model — **this is the recommended path for iOS deployment**:
+
+```bash
+cd Adacrop/coreml_export
+
+# Export student (MobileNetV3-Small)
+python export_student_coreml.py \
+    --student-ckpt ../distillation/runs/xxx/student_best.pth \
+    --out-dir ./student \
+    --img-size 224 \
+    --ios-target iOS16 \
+    --precision float16
+```
+
+**Outputs:**
+
+```
+coreml_export/student/
+├── AdacropStudentBBox.mlpackage     # Lightweight BBox model
+└── AdacropStudentActor.mlpackage    # Lightweight Actor model
+```
+
+**Key arguments:**
+
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `--teacher-ckpt` / `--student-ckpt` | — | Path to model checkpoint |
+| `--out-dir` | `./teacher` or `./student` | Output directory |
+| `--img-size` | 224 | Input image size |
+| `--ios-target` | `iOS16` | Minimum iOS deployment target (`iOS15`/`iOS16`/`iOS17`/`iOS18`) |
+| `--precision` | `float16` | Compute precision (`float16` / `float32`) |
+
+### iOS Integration
+
+The exported `.mlpackage` files can be directly added to your Xcode project. The inference pipeline on iOS is:
+
+1. **BBox model**: Feed the camera frame → get initial crop box prediction
+2. **Actor model**: Feed the cropped region + current state → get action probabilities
+3. **Action loop**: Apply the highest-probability action, update the crop box, repeat until `stop`
+4. **BoxCenterManager**: Tracks the target point using gyroscope data for smooth physical-level guidance
 
 ---
 
-## 常见问题 (FAQ)
+## FAQ
 
 <details>
-<summary><b>Q: CUDA 扩展编译失败怎么办？</b></summary>
+<summary><b>Q: CUDA extension compilation fails?</b></summary>
 
-1. 确保 `CUDA_HOME` 环境变量正确指向 CUDA 安装目录
-2. 确保 `make.sh` 中的 `-arch` 参数与你的 GPU 架构匹配
-3. 确保 `make.sh` 文件格式为 Unix（可在 Vim 中执行 `:set ff=unix`）
-4. Python 版本必须为 3.8，否则需要重新编译
+1. Ensure `CUDA_HOME` points to your CUDA installation directory
+2. Ensure `-arch` in `make.sh` matches your GPU architecture
+3. Ensure `make.sh` has Unix line endings (`:set ff=unix` in Vim)
+4. Python must be 3.8; other versions require recompilation
 
 </details>
 
 <details>
-<summary><b>Q: 训练时显存不足 (OOM) 怎么办？</b></summary>
+<summary><b>Q: Out of GPU memory (OOM) during training?</b></summary>
 
-在 `config.yaml` 中调小以下参数：
+Reduce these parameters in `config.yaml`:
 
 ```yaml
 train:
-  n_steps: 64          # 减小 rollout 步数（原 128）
-  batch_size: 256      # 减小批大小（原 512）
-  minibatch_size: 128  # 减小 mini-batch（原 256）
+  n_steps: 64          # Reduce rollout steps (was 256)
+  batch_size: 512      # Reduce batch size (was 2048)
+  minibatch_size: 256  # Reduce mini-batch (was 2048)
 data:
-  num_envs: 8          # 减少并行环境数（原 16）
+  num_envs: 16         # Reduce parallel environments (was 128)
 nima:
-  batch_size: 16       # 减小评分批大小（原 32）
+  batch_size: 32       # Reduce scorer batch size (was 128)
 ```
 
 </details>
 
 <details>
-<summary><b>Q: 如何使用自己的数据集训练？</b></summary>
+<summary><b>Q: How to train with my own dataset?</b></summary>
 
-1. 准备图片和 `[x1, y1, x2, y2]` 格式的标注框
-2. 按 JSON 格式组织数据（参考 [第 5 步](#5-准备训练数据)）
-3. 更新 `config.yaml` 中的 `data.train_json` 和 `data.val_json` 路径
-4. 可使用 `Adacrop/src/transform_dataset.py` 辅助处理 CUHK 格式的 txt 标注
+1. Prepare images with `[x1, y1, x2, y2]` bounding box annotations
+2. Organize as JSON format (see [Section 5](#5-prepare-training-data))
+3. Update `data.train_json` and `data.val_json` in `config.yaml`
+4. Use `Adacrop/src/transform_dataset.py` to convert CUHK-format txt annotations
 
 </details>
 
 <details>
-<summary><b>Q: 如何切换评分器？</b></summary>
+<summary><b>Q: How to switch the scoring model?</b></summary>
 
-修改 `config.yaml` 中的 `nima` 配置段：
+Modify the `nima` section in `config.yaml`:
 
 ```yaml
-# 使用 GAIC（默认）
+# GAIC scorer (default)
 nima:
   scorer_type: gaic
   gaic_repo_dir: /path/to/Adacrop/GAIC
   gaic_ckpt: /path/to/Adacrop/GAIC/pretrained_models/GAIC-mobilenetv2-reddim16.pth
   gaic_backbone: mobilenetv2
 
-# 或使用 PairwiseRank 评分器
+# Or PairwiseRank scorer
 nima:
   scorer_type: rank
   rank_ckpt: /path/to/rank_model.pth
@@ -362,24 +557,23 @@ nima:
 </details>
 
 <details>
-<summary><b>Q: 训练日志在哪里？如何监控训练进度？</b></summary>
+<summary><b>Q: How to monitor training progress?</b></summary>
 
-训练日志以 JSONL 格式保存在运行目录下的 `train_log.jsonl` 中，每行一条记录，包含：
+Training logs are saved as JSONL in `<run_dir>/train_log.jsonl`. Key fields:
 
-- `step`: 全局步数
-- `rollout`: rollout 编号
-- `mean_reward`: 平均奖励
-- `best_reward`: 历史最佳奖励
-- `val_avg_final_score`: 验证集平均最终分数
-- `gpu_memory_gb`: GPU 显存占用
+- `rollout`: Rollout number
+- `mean_reward`: Average reward
+- `best_reward`: Best reward so far
+- `val_avg_final_score`: Validation average final score
+- `gpu_memory_gb`: GPU memory usage
 
-可以使用以下命令快速查看：
+Quick commands:
 
 ```bash
-# 查看最近 10 条日志
+# View last 10 log entries
 tail -10 Adacrop/logs/run_*/train_log.jsonl | python -m json.tool
 
-# 提取奖励曲线数据
+# Extract reward curve
 cat Adacrop/logs/run_*/train_log.jsonl | python -c "
 import sys, json
 for line in sys.stdin:
@@ -388,5 +582,15 @@ for line in sys.stdin:
         print(d['rollout'], d['mean_reward'])
 "
 ```
+
+</details>
+
+<details>
+<summary><b>Q: CoreML export fails?</b></summary>
+
+1. Ensure `coremltools` is installed: `pip install coremltools`
+2. CoreML export is best run on **macOS** (some conversions work on Linux too)
+3. If tracing fails, check that the checkpoint matches the expected model architecture
+4. For student export, ensure the checkpoint was saved by `train_mobilenet_distill.py` (contains `arch` metadata)
 
 </details>
